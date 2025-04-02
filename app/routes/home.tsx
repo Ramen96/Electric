@@ -3,7 +3,7 @@ import { LandingPage } from "~/components/LandingPage";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
+    { title: "C&C Electric" },
     { name: "description", content: "Welcome to React Router!" },
   ];
 }
