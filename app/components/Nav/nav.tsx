@@ -35,7 +35,7 @@ export default function Nav() {
   }, [sections]);
 
   return (
-    <header className="fixed top-0 w-full bg-gray-100/70 backdrop-blur-md shadow-md z-10">
+    <header className="fixed top-0 w-full bg-gray-100/70 backdrop-blur-md shadow-md z-50">
       <nav className="container mx-auto flex justify-between items-center p-4">
         <div className="logo">
           <img
