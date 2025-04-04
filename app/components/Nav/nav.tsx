@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "../logo.png";
 
-export function Nav() {
+export default function Nav() {
   const [activeSection, setActiveSection] = useState("hero");
 
   const sections = [
