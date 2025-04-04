@@ -1,82 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Nav } from "./Nav/nav";
 import heroImg from "./wire2.jpg";
-import logo from "./logo.png";
+import logoLight from "./logo.png";
+import logoDark from "./logo.png";
 
 export function LandingPage() {
   return (
     <div className="flex flex-col">
       {/* Navigation Header */}
-      <header className="fixed top-0 w-full bg-white/50 backdrop-blur-md dark:bg-gray-800/50 shadow z-10">
-        <nav className="container mx-auto flex justify-between items-center p-4">
-          <div className="logo">
-            <img src={logo} alt="Company Logo" className="h-16 w-auto" />
-          </div>
-          <ul className="flex gap-4">
-            <li>
-              <div
-                className="hover:underline cursor-pointer"
-                onClick={() => {
-                  document
-                    .getElementById("hero")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                Home
-              </div>
-            </li>
-            <li>
-              <div
-                className="hover:underline cursor-pointer"
-                onClick={() => {
-                  document
-                    .getElementById("about")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                About
-              </div>
-            </li>
-            <li>
-              <div
-                className="hover:underline cursor-pointer"
-                onClick={() => {
-                  document
-                    .getElementById("services")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                Services
-              </div>
-            </li>
-            <li>
-              <div
-                className="hover:underline cursor-pointer"
-                onClick={() => {
-                  document
-                    .getElementById("projects")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                Projects
-              </div>
-            </li>
-            <li>
-              <div
-                className="hover:underline cursor-pointer"
-                onClick={() => {
-                  document
-                    .getElementById("contact")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                Contact
-              </div>
-            </li>
-          </ul>
-        </nav>
-      </header>
-
+      <Nav />
       {/* Hero Section */}
       <section id="hero" className="relative h-screen">
         <img src={heroImg} alt="Hero" className="w-full h-full object-cover" />
@@ -241,3 +174,53 @@ export function LandingPage() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import logoDark from "../assets/logo-dark.svg"; // Dark logo for light background
+
+// export function NavigationHeader() {
+//   const [activeSection, setActiveSection] = useState("hero");
+
+//   const sections = [
+//     { id: "hero", label: "Home" },
+//     { id: "about", label: "About" },
+//     { id: "services", label: "Services" },
+//     { id: "projects", label: "Projects" },
+//     { id: "contact", label: "Contact" },
+//   ];
+
+//   // Track active section with Intersection Observer
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(
+//       (entries) => {
+//         entries.forEach((entry) => {
+//           if (entry.isIntersecting) {
+//             setActiveSection(entry.target.id);
+//           }
+//         });
+//       },
+//       { threshold: 0.5 } // Trigger when 50% of section is visible
+//     );
+
+//     const sectionElements = sections.map((section) =>
+//       document.getElementById(section.id)
+//     );
+//     sectionElements.forEach((el) => el && observer.observe(el));
+
+//     return () => {
+//       sectionElements.forEach((el) => el && observer.unobserve(el));
+//     };
+//   }, [sections]);
+
+//   return (
+    
+//   );
+// }
