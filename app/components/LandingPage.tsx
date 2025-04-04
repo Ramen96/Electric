@@ -4,6 +4,7 @@ import Nav  from "./Nav/nav";
 import Hero from "./Hero/hero";
 import About from "./About/about";
 import heroImg from "./wire2.jpg";
+import Services from "./Services/services";
 
 export function LandingPage() {
   return (
@@ -11,24 +12,9 @@ export function LandingPage() {
       <Nav />
       <Hero />
       <About /> 
+      <Services />
       {/* Services Section */}
-      <section id="services" className="container mx-auto p-8 h-screen">
-        <h2 className="text-2xl font-bold mb-4 mt-20">Services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="p-4 border rounded shadow hover:shadow-lg transition">
-            <h3 className="font-semibold">High-Voltage Systems</h3>
-            <p>Installation, maintenance, and upgrades.</p>
-          </div>
-          <div className="p-4 border rounded shadow hover:shadow-lg transition">
-            <h3 className="font-semibold">Backup Power Solutions</h3>
-            <p>Design and installation of backup generators.</p>
-          </div>
-          <div className="p-4 border rounded shadow hover:shadow-lg transition">
-            <h3 className="font-semibold">LED Retrofitting</h3>
-            <p>Energy-efficient lighting solutions for your business.</p>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Past Projects Section */}
       <section id="projects" className="container mx-auto p-8 h-screen">
