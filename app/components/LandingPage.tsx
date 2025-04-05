@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import Nav  from "./Nav/nav";
+import Nav from "./Nav/nav";
 import Hero from "./Hero/hero";
 import About from "./About/about";
 import Services from "./Services/services";
@@ -12,9 +12,9 @@ export function LandingPage() {
     <div className="flex flex-col">
       <Nav />
       <Hero />
-      <About /> 
+      <About />
       <Services />
-      <Projects /> 
+      <Projects />
       <Contact />
       <footer className="bg-gray-900 p-4 text-center">
         © {new Date().getFullYear()} Power Solutions Inc. All rights reserved.
