@@ -32,6 +32,34 @@ export default function Nav() {
     };
   }, []);
 
+  // Handle body scroll locking
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      // Save the current scroll position
+      const scrollY = window.scrollY;
+      // Apply fixed positioning to body
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+    } else {
+      // Restore the scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      }
+    }
+    
+    return () => {
+      // Cleanup in case component unmounts while menu is open
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+    };
+  }, [mobileMenuOpen]);
+
   // Intersection Observer for active section highlighting
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -69,7 +97,7 @@ export default function Nav() {
         : "bg-transparent py-4"
     }`}>
       <nav className="container mx-auto flex justify-between items-center px-6">
-        {/* Logo Section with animated hover effect */}
+        {/* Logo Section */}
         <motion.div 
           className="logo relative z-10"
           whileHover={{ scale: 1.05 }}
@@ -173,7 +201,7 @@ export default function Nav() {
 
         {/* Mobile Menu Toggle */}
         <motion.div 
-          className="md:hidden z-20"
+          className="md:hidden z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -182,7 +210,8 @@ export default function Nav() {
             whileTap={{ scale: 0.95 }}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={`p-2 rounded-md focus:outline-none ${
-              scrolled ? "text-gray-800" : "text-white"
+              mobileMenuOpen ? "text-gray-800 dark:text-white" : 
+              (scrolled ? "text-gray-800 dark:text-white" : "text-white")
             }`}
             aria-label="Toggle menu"
           >
@@ -196,73 +225,75 @@ export default function Nav() {
           </motion.button>
         </motion.div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Positioned as a fullscreen overlay */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 top-0 left-0 w-full h-full bg-white dark:bg-gray-900 z-10 flex flex-col items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed left-0 top-0 w-full h-full bg-white dark:bg-gray-900 z-40 overflow-y-auto"
             >
-              <motion.ul 
-                className="flex flex-col items-center gap-6"
-                initial="closed"
-                animate="open"
-                exit="closed"
-                variants={{
-                  open: { transition: { staggerChildren: 0.1 } },
-                  closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
-                }}
-              >
-                {sections.map((section) => (
-                  <motion.li 
-                    key={section.id}
+              <div className="flex items-center justify-center min-h-screen">
+                <motion.ul 
+                  className="flex flex-col items-center gap-6 py-16 px-4"
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  variants={{
+                    open: { transition: { staggerChildren: 0.1 } },
+                    closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+                  }}
+                >
+                  {sections.map((section) => (
+                    <motion.li 
+                      key={section.id}
+                      variants={{
+                        open: { opacity: 1, y: 0 },
+                        closed: { opacity: 0, y: 20 }
+                      }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <a
+                        href={`#${section.id}`}
+                        className={`text-2xl font-medium ${
+                          activeSection === section.id 
+                            ? "text-green-600 dark:text-green-400" 
+                            : "text-gray-800 dark:text-gray-200"
+                        }`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          scrollToSection(section.id);
+                        }}
+                      >
+                        {section.label}
+                      </a>
+                    </motion.li>
+                  ))}
+                  
+                  <motion.li
                     variants={{
                       open: { opacity: 1, y: 0 },
                       closed: { opacity: 0, y: 20 }
                     }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="mt-4"
                   >
-                    <a
-                      href={`#${section.id}`}
-                      className={`text-2xl font-medium ${
-                        activeSection === section.id 
-                          ? "text-green-600 dark:text-green-400" 
-                          : "text-gray-800 dark:text-gray-200"
-                      }`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        scrollToSection(section.id);
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-green-500 text-white font-medium shadow-md"
+                      onClick={() => {
+                        scrollToSection("contact");
+                        setMobileMenuOpen(false);
                       }}
                     >
-                      {section.label}
-                    </a>
+                      Request a Quote
+                    </motion.button>
                   </motion.li>
-                ))}
-                
-                <motion.li
-                  variants={{
-                    open: { opacity: 1, y: 0 },
-                    closed: { opacity: 0, y: 20 }
-                  }}
-                  className="mt-4"
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-green-500 text-white font-medium shadow-md"
-                    onClick={() => {
-                      scrollToSection("contact");
-                      setMobileMenuOpen(false);
-                    }}
-                  >
-                    Request a Quote
-                  </motion.button>
-                </motion.li>
-              </motion.ul>
+                </motion.ul>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
