@@ -6,6 +6,7 @@ export default function Nav() {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [savedScrollY, setSavedScrollY] = useState(0);
   
   const sections = [
     { id: "hero", label: "Home" },
@@ -32,24 +33,25 @@ export default function Nav() {
     };
   }, []);
 
-  // Handle body scroll locking
+  // Handle body scroll locking with improved cleanup
   useEffect(() => {
     if (mobileMenuOpen) {
       // Save the current scroll position
-      const scrollY = window.scrollY;
+      const currentScrollY = window.scrollY;
+      setSavedScrollY(currentScrollY);
+      
       // Apply fixed positioning to body
       document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
+      document.body.style.top = `-${currentScrollY}px`;
       document.body.style.width = '100%';
     } else {
-      // Restore the scroll position
-      const scrollY = document.body.style.top;
+      // Restore the scroll position only if we're not navigating to a section
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-      }
+      
+      // Only restore the saved scroll position if we're not navigating to a section
+      // We'll check this in the scrollToSection function
     }
     
     return () => {
@@ -84,10 +86,26 @@ export default function Nav() {
     };
   }, [sections]);
 
-  // Scroll to section handler
+  // Improved scroll to section handler
   const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMobileMenuOpen(false); // Close mobile menu after selection
+    const targetSection = document.getElementById(id);
+    
+    if (mobileMenuOpen) {
+      // First close the mobile menu
+      setMobileMenuOpen(false);
+      
+      // Then use a small timeout to allow the body styles to be reset before scrolling
+      setTimeout(() => {
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 10);
+    } else {
+      // If menu is already closed, just scroll
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 
   return (
@@ -286,7 +304,6 @@ export default function Nav() {
                       className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-green-500 text-white font-medium shadow-md"
                       onClick={() => {
                         scrollToSection("contact");
-                        setMobileMenuOpen(false);
                       }}
                     >
                       Request a Quote
