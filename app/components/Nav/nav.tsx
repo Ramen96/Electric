@@ -205,7 +205,7 @@ export default function Nav() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className={`ml-4 px-5 py-2 rounded-full font-medium ${
+              className={`ml-4 px-5 py-2 rounded-full font-medium cursor-pointer ${
                 scrolled 
                   ? "bg-gradient-to-r from-blue-500 to-green-500 text-white shadow-md" 
                   : "bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30"

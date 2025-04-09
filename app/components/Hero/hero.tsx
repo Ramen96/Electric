@@ -258,7 +258,7 @@ export default function Hero() {
               document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
             }
           >
-            <span className="relative z-10">Request a Free Consultation</span>
+            <span className="relative z-10 cursor-pointer">Request a Free Consultation</span>
             <motion.span
               className="absolute inset-0 bg-gradient-to-r from-blue-500 to-green-500 opacity-0 group-hover:opacity-100"
               transition={{ duration: 0.3 }}
