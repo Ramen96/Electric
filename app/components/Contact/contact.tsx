@@ -83,8 +83,8 @@ export default function Contact() {
         </svg>
       ),
       title: "Visit Us",
-      content: "123 Business Ave, Suite 100, City, State",
-      action: "https://maps.google.com"
+      content: "510 W 1st St, Lowell, NC",
+      action: "https://www.google.com/maps/place/510+W+1st+St,+Lowell,+NC+28098"
     }
   ];
 
