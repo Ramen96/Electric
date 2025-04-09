@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "../logo.png";
+import logo from "~/assets/cc-electric-high-resolution-logo.png";
 
 export default function Nav() {
   const [activeSection, setActiveSection] = useState("hero");
