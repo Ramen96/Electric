@@ -16,8 +16,8 @@ export function LandingPage() {
       <Services />
       <Projects />
       <Contact />
-      <footer className="bg-gray-900 p-4 text-center">
-        © {new Date().getFullYear()} Power Solutions Inc. All rights reserved.
+      <footer className="bg-black p-4 text-center text-yellow-500">
+        © {new Date().getFullYear()} C&C Electrical LLC. All rights reserved.
       </footer>
     </div>
   );

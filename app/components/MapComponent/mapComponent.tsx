@@ -8,7 +8,7 @@ export default function MapComponent() {
   return (
     <MapContainer 
       center={[35.2705877, -81.104609]} 
-      zoom={11} 
+      zoom={9} 
       style={{ height: "100%", width: "100%" }}
     >
       <TileLayer
