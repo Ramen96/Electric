@@ -5,6 +5,7 @@ import Hero from "./Hero/hero";
 import About from "./About/about";
 import Services from "./Services/services";
 import Projects from "./Projects/projects";
+import Testimonials from "./Testimonials/testimonials";
 import Contact from "./Contact/contact";
 
 export function LandingPage() {
@@ -15,6 +16,7 @@ export function LandingPage() {
       <About />
       <Services />
       <Projects />
+      <Testimonials />
       <Contact />
       <footer className="bg-black p-4 text-center text-yellow-500">
         © {new Date().getFullYear()} C&C Electrical LLC. All rights reserved.
