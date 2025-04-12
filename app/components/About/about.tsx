@@ -354,8 +354,11 @@ export default function About() {
         <>
           <div className="absolute inset-0 overflow-hidden">
             {/* Animated grid background */}
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0dGVybiBpZD0icGF0dGVybiIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgNDAgNDAiPgogIDxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIC8+Cjwvc2F0dGVybj4KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIgLz4KPC9zdmc+')]" opacity={0.4} />
-            
+            <div
+              className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0dGVybiBpZD0icGF0dGVybiIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgNDAgNDAiPgogIDxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIC8+Cjwvc2F0dGVybj4KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIgLz4KPC9zdmc+')]"
+              opacity={0.4}
+            />
+
             {/* Floating orbs */}
             <motion.div
               className="absolute -top-20 left-1/4 w-64 h-64 rounded-full bg-yellow-500/10 blur-3xl"
@@ -395,7 +398,7 @@ export default function About() {
           {/* Two column layout for desktop */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left side - About content */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, ease: "easeOut" }}
@@ -410,9 +413,9 @@ export default function About() {
               >
                 <span className="text-yellow-400 font-medium">Our Story</span>
               </motion.div>
-              
+
               {/* Heading with more dramatic gradient */}
-              <motion.h2 
+              <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -423,7 +426,7 @@ export default function About() {
                 </span>
                 <span className="block text-white mt-2">For Over 15 Years</span>
               </motion.h2>
-              
+
               {/* Description with enhanced styling */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -431,14 +434,21 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
                 <p className="text-xl leading-relaxed text-gray-300 mb-6">
-                  We specialize in providing <span className="font-semibold text-yellow-400">cutting-edge electrical solutions</span> for
-                  commercial and industrial properties across the nation.
+                  We specialize in providing{" "}
+                  <span className="font-semibold text-yellow-400">
+                    cutting-edge electrical solutions
+                  </span>{" "}
+                  for commercial and industrial properties across the nation.
                 </p>
                 <p className="text-gray-400 leading-relaxed mb-8">
-                  Our team of certified experts brings decades of combined experience to every project, ensuring flawless execution from concept to completion. We've built our reputation on technical excellence, innovative approaches, and an unwavering commitment to client satisfaction.
+                  Our team of certified experts brings decades of combined
+                  experience to every project, ensuring flawless execution from
+                  concept to completion. We've built our reputation on technical
+                  excellence, innovative approaches, and an unwavering
+                  commitment to client satisfaction.
                 </p>
               </motion.div>
-              
+
               {/* Interactive button with hover effects */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -450,35 +460,42 @@ export default function About() {
                   whileTap={{ scale: 0.98 }}
                   onHoverStart={() => setIsHovered(true)}
                   onHoverEnd={() => setIsHovered(false)}
-                  className="group relative overflow-hidden px-8 py-4 bg-black text-yellow-400 font-semibold rounded-xl border-2 border-yellow-500/50 shadow-lg shadow-yellow-600/20"
+                  className="cursor-pointer group relative overflow-hidden px-8 py-4 bg-black text-yellow-400 font-semibold rounded-xl border-2 border-yellow-500/50 shadow-lg shadow-yellow-600/20"
                   onClick={() => {
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                    document
+                      .getElementById("contact")
+                      ?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
                   <span className="relative z-10 flex items-center">
                     Learn More About Us
-                    <svg 
-                      className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24" 
+                    <svg
+                      className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      ></path>
                     </svg>
                   </span>
-                  
+
                   {/* Animated background effect */}
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-yellow-500"
-                    initial={{ x: "100%" }}
-                    animate={{ x: isHovered ? "0%" : "100%" }}
+                    initial={{ x: "100%" }} // Changed from "-100%" to start from the right
+                    animate={{ x: isHovered ? "0%" : "-100%" }} // Changed to animate to left when hovered
                     transition={{ duration: 0.4 }}
                   />
                 </motion.button>
               </motion.div>
             </motion.div>
-            
+
             {/* Right side - Stats and Timeline */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
@@ -499,20 +516,25 @@ export default function About() {
                   >
                     <div className="text-2xl mb-2">{stat.icon}</div>
                     <div className="text-3xl font-bold text-yellow-400">
-                      {counters[stat.key]}{stat.unit || ""}
+                      {counters[stat.key]}
+                      {stat.unit || ""}
                     </div>
-                    <div className="text-gray-400 text-sm mt-1">{stat.label}</div>
+                    <div className="text-gray-400 text-sm mt-1">
+                      {stat.label}
+                    </div>
                   </motion.div>
                 ))}
               </div>
-              
+
               {/* Timeline */}
               <div className="bg-black/60 backdrop-blur-lg border border-yellow-500/20 p-6 rounded-xl">
-                <h3 className="text-xl font-semibold text-white mb-6">Our Journey</h3>
+                <h3 className="text-xl font-semibold text-white mb-6">
+                  Our Journey
+                </h3>
                 <div className="relative">
                   {/* Timeline line */}
                   <div className="absolute left-4 top-2 bottom-2 w-px bg-gradient-to-b from-yellow-400 to-yellow-600 z-0"></div>
-                  
+
                   {/* Timeline items */}
                   {milestones.map((milestone, index) => (
                     <motion.div
@@ -530,9 +552,15 @@ export default function About() {
                         </div>
                       </div>
                       <div className="ml-6">
-                        <div className="text-lg font-semibold text-white">{milestone.year}</div>
-                        <div className="text-yellow-400 font-medium">{milestone.title}</div>
-                        <div className="text-gray-400 text-sm mt-1">{milestone.description}</div>
+                        <div className="text-lg font-semibold text-white">
+                          {milestone.year}
+                        </div>
+                        <div className="text-yellow-400 font-medium">
+                          {milestone.title}
+                        </div>
+                        <div className="text-gray-400 text-sm mt-1">
+                          {milestone.description}
+                        </div>
                       </div>
                     </motion.div>
                   ))}
