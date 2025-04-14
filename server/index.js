@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import { PassThrough } from "node:stream";
 import { createReadableStreamFromReadable } from "@react-router/node";
-import { ServerRouter, useMatches, useActionData, useLoaderData, useParams, useRouteError, Meta, Links, ScrollRestoration, Scripts, Outlet, isRouteErrorResponse } from "react-router";
+import { ServerRouter, useMatches, useActionData, useLoaderData, useParams, useRouteError, Meta, Links, ScrollRestoration, Scripts, Outlet, isRouteErrorResponse, BrowserRouter } from "react-router";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import React, { createElement, useState, useEffect, useRef, lazy, Suspense } from "react";
@@ -2625,14 +2625,17 @@ function meta({}) {
   }];
 }
 const home = withComponentProps(function Home() {
-  return /* @__PURE__ */ jsx(LandingPage, {});
+  return /* @__PURE__ */ jsx(BrowserRouter, {
+    basename: "/Electric",
+    children: /* @__PURE__ */ jsx(LandingPage, {})
+  });
 });
 const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: home,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-Dl9XwLR0.js", "imports": ["/assets/chunk-XJI4KG32-DlLTM9Dl.js", "/assets/index-CHwLTD1X.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-tmiqCJjZ.js", "imports": ["/assets/chunk-XJI4KG32-DlLTM9Dl.js", "/assets/index-CHwLTD1X.js", "/assets/with-props-BBAZrA0c.js"], "css": ["/assets/root-CwYr8IVC.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-D0xb1Ils.js", "imports": ["/assets/with-props-BBAZrA0c.js", "/assets/chunk-XJI4KG32-DlLTM9Dl.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-e2d3238b.js", "version": "e2d3238b" };
+const serverManifest = { "entry": { "module": "/assets/entry.client-CqhpHHaw.js", "imports": ["/assets/chunk-XJI4KG32-DLpKQNaB.js", "/assets/index-fk542-rg.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-CoFwlMaa.js", "imports": ["/assets/chunk-XJI4KG32-DLpKQNaB.js", "/assets/index-fk542-rg.js", "/assets/with-props-DVwy6z6p.js"], "css": ["/assets/root-CwYr8IVC.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-kELbkEiV.js", "imports": ["/assets/with-props-DVwy6z6p.js", "/assets/chunk-XJI4KG32-DLpKQNaB.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-9232239b.js", "version": "9232239b" };
 const assetsBuildDirectory = "build/client";
 const basename = "/";
 const future = { "unstable_middleware": false, "unstable_optimizeDeps": false, "unstable_splitRouteModules": false, "unstable_viteEnvironmentApi": false };
