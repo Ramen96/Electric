@@ -73,13 +73,26 @@ export default function Nav() {
         : "bg-black/70 py-4"
     }`}>
       <div className="container mx-auto px-4 lg:px-8">
-        {/* Top bar with phone number */}
-        <div className="hidden md:flex justify-end items-center text-yellow-400 py-1">
+        {/* Top bar with contact info */}
+        <div className="hidden md:flex justify-end items-center text-yellow-400 py-1 space-x-6">
+          {/* Email first */}
+          <div className="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <a href="mailto:info@ccelectrical.com" className="text-sm font-medium hover:text-yellow-300 transition-colors">
+              info@ccelectrical.com
+            </a>
+          </div>
+          
+          {/* Phone second */}
           <div className="flex items-center space-x-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
-            <span className="text-sm font-medium">Call Today: (555) 123-4567</span>
+            <a href="tel:5551234567" className="text-sm font-medium hover:text-yellow-300 transition-colors">
+              (555) 123-4567
+            </a>
           </div>
         </div>
 
@@ -139,7 +152,17 @@ export default function Nav() {
 
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-4 lg:hidden">
-            {/* Mobile Phone Button */}
+            {/* Switched order: Email first, then phone */}
+            <a 
+              href="mailto:info@ccelectrical.com" 
+              className="p-2 text-yellow-400 hover:text-yellow-300"
+              aria-label="Email us"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </a>
+            
             <a 
               href="tel:5551234567" 
               className="p-2 text-yellow-400 hover:text-yellow-300"
@@ -175,7 +198,15 @@ export default function Nav() {
         }`}
       >
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center py-3 border-b border-gray-800">
+          <div className="flex flex-col space-y-3 py-3 border-b border-gray-800">
+            {/* Email first in mobile menu too */}
+            <div className="flex items-center space-x-2 text-yellow-400">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <a href="mailto:info@ccelectrical.com" className="text-sm font-medium">info@ccelectrical.com</a>
+            </div>
+            
             <div className="flex items-center space-x-2 text-yellow-400">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
