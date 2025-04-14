@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import logo from "~/assets/cc-electric-high-resolution-logo.png";
 
 export default function Nav() {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [savedScrollY, setSavedScrollY] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const sections = [
     { id: "hero", label: "Home" },
@@ -34,32 +33,6 @@ export default function Nav() {
     };
   }, []);
 
-  // Handle body scroll locking with improved cleanup
-  useEffect(() => {
-    if (menuOpen) {
-      // Save the current scroll position
-      const currentScrollY = window.scrollY;
-      setSavedScrollY(currentScrollY);
-      
-      // Apply fixed positioning to body
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${currentScrollY}px`;
-      document.body.style.width = '100%';
-    } else {
-      // Restore the scroll position only if we're not navigating to a section
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-    }
-    
-    return () => {
-      // Cleanup in case component unmounts while menu is open
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-    };
-  }, [menuOpen]);
-
   // Intersection Observer for active section highlighting
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -84,25 +57,12 @@ export default function Nav() {
     };
   }, [sections]);
 
-  // Improved scroll to section handler
+  // Scroll to section handler
   const scrollToSection = (id) => {
     const targetSection = document.getElementById(id);
-    
-    if (menuOpen) {
-      // First close the menu
-      setMenuOpen(false);
-      
-      // Then use a small timeout to allow the body styles to be reset before scrolling
-      setTimeout(() => {
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 10);
-    } else {
-      // If menu is already closed, just scroll
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: "smooth" });
-      }
+    if (targetSection) {
+      targetSection.scrollIntoView({ behavior: "smooth" });
+      setMobileMenuOpen(false);
     }
   };
 
@@ -112,145 +72,149 @@ export default function Nav() {
         ? "bg-black/90 backdrop-blur-md shadow-lg py-2" 
         : "bg-black/70 py-4"
     }`}>
-      <nav className="container mx-auto flex justify-between items-center px-6">
-        {/* Logo Section */}
-        <motion.div 
-          className="logo relative z-10"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          <motion.div
+      <div className="container mx-auto px-4 lg:px-8">
+        {/* Top bar with phone number */}
+        <div className="hidden md:flex justify-end items-center text-yellow-400 py-1">
+          <div className="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <span className="text-sm font-medium">Call Today: (555) 123-4567</span>
+          </div>
+        </div>
+
+        <nav className="flex justify-between items-center py-2">
+          {/* Logo and Company Name */}
+          <motion.div 
+            className="flex items-center space-x-3"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center"
           >
             <img
               src={logo}
-              alt="Company Logo"
+              alt="C&C Electrical Logo"
               className={`transition-all duration-300 ${
-                scrolled ? "h-16 w-auto" : "h-20 w-auto"
+                scrolled ? "h-12 w-auto" : "h-16 w-auto"
               }`}
             />
-            
-            {/* Animated energy bolt under logo */}
-            <motion.div 
-              className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full ${
-                scrolled ? "w-full" : "w-0"
-              }`}
-              animate={{ width: scrolled ? "100%" : "0%" }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-            />
+            <div className="flex flex-col">
+              <span className="text-yellow-400 font-bold text-lg md:text-xl">C&C Electrical</span>
+              <span className="text-gray-300 text-xs hidden sm:block">Quality Electrical Services</span>
+            </div>
           </motion.div>
-        </motion.div>
 
-        {/* Hamburger Menu Button - Always visible */}
-        <motion.div 
-          className="z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 rounded-md focus:outline-none text-yellow-500 hover:text-yellow-300 transition-colors"
-            aria-label="Toggle menu"
-          >
-            <div className="flex items-center gap-2">
-              {!menuOpen && (
-                <span className="text-sm font-medium hidden sm:inline">MENU</span>
-              )}
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-8">
+            {sections.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className={`relative group ${
+                  activeSection === section.id 
+                    ? "text-yellow-400" 
+                    : "text-gray-200 hover:text-yellow-300"
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(section.id);
+                }}
+              >
+                <span className="text-sm font-medium">{section.label}</span>
+                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full ${
+                  activeSection === section.id ? "w-full" : ""
+                }`}></span>
+              </a>
+            ))}
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-4 py-2 rounded-md bg-gradient-to-r from-yellow-500 to-yellow-700 text-black text-sm font-bold transition-all"
+              onClick={() => scrollToSection("contact")}
+            >
+              Get Estimate
+            </motion.button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="flex items-center space-x-4 lg:hidden">
+            {/* Mobile Phone Button */}
+            <a 
+              href="tel:5551234567" 
+              className="p-2 text-yellow-400 hover:text-yellow-300"
+              aria-label="Call us"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+            </a>
+            
+            {/* Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-md text-yellow-500 hover:text-yellow-300 focus:outline-none"
+              aria-label="Toggle menu"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {menuOpen ? (
+                {mobileMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
-            </div>
-          </motion.button>
-        </motion.div>
+            </button>
+          </div>
+        </nav>
+      </div>
 
-        {/* Menu Overlay - Full screen for all devices */}
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed left-0 top-0 w-full h-full bg-black/95 z-40 overflow-y-auto"
-            >
-              <div className="flex items-center justify-center min-h-screen">
-                <motion.ul 
-                  className="flex flex-col items-center gap-6 py-16 px-4"
-                  initial="closed"
-                  animate="open"
-                  exit="closed"
-                  variants={{
-                    open: { transition: { staggerChildren: 0.1 } },
-                    closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+      {/* Mobile Menu Dropdown */}
+      <div 
+        className={`lg:hidden bg-black/95 overflow-hidden transition-all duration-300 ${
+          mobileMenuOpen ? "max-h-screen py-4" : "max-h-0"
+        }`}
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center py-3 border-b border-gray-800">
+            <div className="flex items-center space-x-2 text-yellow-400">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <a href="tel:5551234567" className="text-sm font-medium">(555) 123-4567</a>
+            </div>
+          </div>
+          
+          <ul className="py-4 space-y-4">
+            {sections.map((section) => (
+              <li key={section.id}>
+                <a
+                  href={`#${section.id}`}
+                  className={`block py-2 px-4 border-l-2 ${
+                    activeSection === section.id 
+                      ? "border-yellow-400 text-yellow-400" 
+                      : "border-transparent text-gray-300 hover:text-yellow-300"
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(section.id);
                   }}
                 >
-                  {sections.map((section) => (
-                    <motion.li 
-                      key={section.id}
-                      variants={{
-                        open: { opacity: 1, y: 0 },
-                        closed: { opacity: 0, y: 20 }
-                      }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <a
-                        href={`#${section.id}`}
-                        className={`text-2xl font-medium relative group ${
-                          activeSection === section.id 
-                            ? "text-yellow-400" 
-                            : "text-gray-200 hover:text-yellow-300"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          scrollToSection(section.id);
-                        }}
-                      >
-                        {section.label}
-                        
-                        {/* Line animation on hover */}
-                        <span className={`absolute -bottom-2 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full ${
-                          activeSection === section.id ? "w-full" : ""
-                        }`}></span>
-                      </a>
-                    </motion.li>
-                  ))}
-                  
-                  <motion.li
-                    variants={{
-                      open: { opacity: 1, y: 0 },
-                      closed: { opacity: 0, y: 20 }
-                    }}
-                    className="mt-8"
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-8 py-3 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-700 text-black font-bold shadow-md border border-yellow-300"
-                      onClick={() => {
-                        scrollToSection("contact");
-                      }}
-                    >
-                      Request an Estimate
-                    </motion.button>
-                  </motion.li>
-                </motion.ul>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
+                  {section.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          
+          <div className="py-4 flex justify-center">
+            <button
+              className="w-full py-3 rounded-md bg-gradient-to-r from-yellow-500 to-yellow-700 text-black font-bold text-sm"
+              onClick={() => scrollToSection("contact")}
+            >
+              Request an Estimate
+            </button>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }
-
-
