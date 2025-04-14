@@ -1,7 +1,7 @@
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import { PassThrough } from "node:stream";
 import { createReadableStreamFromReadable } from "@react-router/node";
-import { ServerRouter, useMatches, useActionData, useLoaderData, useParams, useRouteError, Meta, Links, ScrollRestoration, Scripts, Outlet, isRouteErrorResponse, BrowserRouter } from "react-router";
+import { ServerRouter, useMatches, useActionData, useLoaderData, useParams, useRouteError, Meta, Links, ScrollRestoration, Scripts, Outlet, isRouteErrorResponse } from "react-router";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import React, { createElement, useState, useEffect, useRef, lazy, Suspense } from "react";
@@ -129,7 +129,7 @@ const route0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   default: root,
   links
 }, Symbol.toStringTag, { value: "Module" }));
-const logo = "/assets/cc-electric-high-resolution-logo-CPvV7lEq.png";
+const logo = "/Electric/assets/cc-electric-high-resolution-logo-CPvV7lEq.png";
 function Nav() {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
@@ -317,7 +317,7 @@ function Nav() {
     )
   ] });
 }
-const heroImg = "/assets/wire2-CV3GtddK.jpg";
+const heroImg = "/Electric/assets/wire2-CV3GtddK.jpg";
 const rng = seedrandom("fixed-seed");
 const pathDs = Array.from({ length: 20 }, () => {
   const x1 = rng() * 100;
@@ -1173,10 +1173,10 @@ function Services() {
     }
   );
 }
-const warehouseImg = "/assets/warehouse-DL0h7ntM.jpg";
-const officeImg = "/assets/office-Dbhkk6od.jpg";
-const mfgImg = "/assets/manufacturing-BHrSPJwX.jpg";
-const retailImg = "/assets/retail-CGGhgSun.jpg";
+const warehouseImg = "/Electric/assets/warehouse-DL0h7ntM.jpg";
+const officeImg = "/Electric/assets/office-Dbhkk6od.jpg";
+const mfgImg = "/Electric/assets/manufacturing-BHrSPJwX.jpg";
+const retailImg = "/Electric/assets/retail-CGGhgSun.jpg";
 function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -1504,10 +1504,10 @@ function Projects() {
     }
   );
 }
-const avatarImg1 = "/assets/avatar1-BLryAb-3.jpg";
-const avatarImg2 = "/assets/avatar2-CNE0vwU3.jpg";
-const avatarImg3 = "/assets/avatar3-rzZen0MW.jpg";
-const avatarImg4 = "/assets/avatar4-D0gb320Z.jpg";
+const avatarImg1 = "/Electric/assets/avatar1-BLryAb-3.jpg";
+const avatarImg2 = "/Electric/assets/avatar2-CNE0vwU3.jpg";
+const avatarImg3 = "/Electric/assets/avatar3-rzZen0MW.jpg";
+const avatarImg4 = "/Electric/assets/avatar4-D0gb320Z.jpg";
 function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -2625,24 +2625,24 @@ function meta({}) {
   }];
 }
 const home = withComponentProps(function Home() {
-  return /* @__PURE__ */ jsx(BrowserRouter, {
-    basename: "/Electric",
-    children: /* @__PURE__ */ jsx(LandingPage, {})
-  });
+  return (
+    // <BrowserRouter basename="/Electric">
+    /* @__PURE__ */ jsx(LandingPage, {})
+  );
 });
 const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: home,
   meta
 }, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-CqhpHHaw.js", "imports": ["/assets/chunk-XJI4KG32-DLpKQNaB.js", "/assets/index-fk542-rg.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/assets/root-CoFwlMaa.js", "imports": ["/assets/chunk-XJI4KG32-DLpKQNaB.js", "/assets/index-fk542-rg.js", "/assets/with-props-DVwy6z6p.js"], "css": ["/assets/root-CwYr8IVC.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/assets/home-kELbkEiV.js", "imports": ["/assets/with-props-DVwy6z6p.js", "/assets/chunk-XJI4KG32-DLpKQNaB.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/assets/manifest-9232239b.js", "version": "9232239b" };
+const serverManifest = { "entry": { "module": "/Electricassets/entry.client-Dl9XwLR0.js", "imports": ["/Electricassets/chunk-XJI4KG32-DlLTM9Dl.js", "/Electricassets/index-CHwLTD1X.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": true, "module": "/Electricassets/root-tmiqCJjZ.js", "imports": ["/Electricassets/chunk-XJI4KG32-DlLTM9Dl.js", "/Electricassets/index-CHwLTD1X.js", "/Electricassets/with-props-BBAZrA0c.js"], "css": ["/Electricassets/root-CwYr8IVC.css"], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 }, "routes/home": { "id": "routes/home", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasClientMiddleware": false, "hasErrorBoundary": false, "module": "/Electricassets/home-D1liYdZm.js", "imports": ["/Electricassets/with-props-BBAZrA0c.js", "/Electricassets/chunk-XJI4KG32-DlLTM9Dl.js"], "css": [], "clientActionModule": void 0, "clientLoaderModule": void 0, "clientMiddlewareModule": void 0, "hydrateFallbackModule": void 0 } }, "url": "/Electricassets/manifest-42b19206.js", "version": "42b19206" };
 const assetsBuildDirectory = "build/client";
 const basename = "/";
 const future = { "unstable_middleware": false, "unstable_optimizeDeps": false, "unstable_splitRouteModules": false, "unstable_viteEnvironmentApi": false };
 const ssr = true;
 const isSpaMode = false;
 const prerender = [];
-const publicPath = "/";
+const publicPath = "/Electric";
 const entry = { module: entryServer };
 const routes = {
   "root": {
