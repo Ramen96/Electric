@@ -58,7 +58,7 @@ export default function Nav() {
   }, [sections]);
 
   // Scroll to section handler
-  const scrollToSection = (id) => {
+  const scrollToSection = (id:string) => {
     const targetSection = document.getElementById(id);
     if (targetSection) {
       targetSection.scrollIntoView({ behavior: "smooth" });
