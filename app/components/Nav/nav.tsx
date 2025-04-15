@@ -96,23 +96,27 @@ export default function Nav() {
           </div>
         </div>
 
-        <nav className="flex justify-between items-center py-2">
+        <nav className="flex justify-between items-center">
           {/* Logo and Company Name */}
           <motion.div 
-            className="flex items-center space-x-3"
+            className="flex items-center space-x-3 cursor-pointer"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("hero");
+            }}
           >
             <img
               src={logo}
               alt="C&C Electrical Logo"
-              className={`transition-all duration-300 ${
-                scrolled ? "h-12 w-auto" : "h-16 w-auto"
+              className={`transition-all rounded-md duration-300 ${
+                scrolled ? "h-16 w-auto" : "h-20 w-auto"
               }`}
             />
             <div className="flex flex-col">
-              <span className="text-yellow-400 font-bold text-lg md:text-xl">C&C Electrical</span>
+              <span className="text-yellow-400 font-bold text-xl md:text-2xl lg:text-5xl">C&C Electrical</span>
               <span className="text-gray-300 text-xs hidden sm:block">Quality Electrical Services</span>
             </div>
           </motion.div>
