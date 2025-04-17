@@ -13,3 +13,11 @@ body {
     color-scheme: dark;
   }
 }
+
+/* globals.css */
+@layer utilities {
+  .glow-yellow {
+    --tw-shadow-color: theme('colors.yellow.600');
+    box-shadow: 0 0 20px 1px var(--tw-shadow-color);
+  }
+}
