@@ -6,6 +6,7 @@ import About from "./About/about";
 import Services from "./Services/services";
 import Portfolio from "./Portfolio/portfolio";
 import Testimonials from "./Testimonials/testimonials";
+import Team from "./Team/team";
 import Contact from "./Contact/contact";
 
 export function LandingPage() {
@@ -16,7 +17,7 @@ export function LandingPage() {
       <Services />
       <Portfolio />
       <Testimonials />
-      {/* Add Team here */}
+      <Team /> 
       <About />
       <Contact />
       <footer className="bg-black p-4 text-center text-yellow-500">
