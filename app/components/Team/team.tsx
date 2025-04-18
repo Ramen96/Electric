@@ -23,34 +23,46 @@ export default function Team() {
       id: 1,
       name: "Chad",
       role: "Chief Executive Officer",
-      description: "With over 20 years in electrical engineering, Chad has led our company to national recognition through his innovative vision and technical expertise.",
+      description:
+        "With over 20 years in electrical engineering, Chad has led our company to national recognition through his innovative vision and technical expertise.",
       image: "/api/placeholder/300/300",
-      specialties: ["Strategic Planning", "Business Development", "Electrical Engineering"]
+      specialties: [
+        "Strategic Planning",
+        "Business Development",
+        "Electrical Engineering",
+      ],
     },
     {
       id: 2,
       name: "Marcus",
       role: "Technical Director",
-      description: "Marcus brings 15+ years of experience in complex electrical systems and has pioneered many of our smart electrical solutions for commercial spaces.",
+      description:
+        "Marcus brings 15+ years of experience in complex electrical systems and has pioneered many of our smart electrical solutions for commercial spaces.",
       image: "/api/placeholder/300/300",
-      specialties: ["System Design", "Smart Buildings", "Quality Assurance"]
+      specialties: ["System Design", "Smart Buildings", "Quality Assurance"],
     },
     {
       id: 3,
-      name: "Johnathan",
-      role: "Operations Manager",
-      description: "Johnathan ensures our day-to-day operations run flawlessly while maintaining our high standards of safety and client satisfaction.",
+      name: "Lucas",
+      role: "Sales Director",
+      description:
+        "With 12 years in the industry and an engineering background, Lucas leads our sales team with a consultative approach that has expanded our client portfolio by 175% since 2018.",
       image: "/api/placeholder/300/300",
-      specialties: ["Project Management", "Team Leadership", "Process Optimization"]
+      specialties: ["Client Partnerships", "Solutions Selling", "Contract Negotiation"],
     },
     {
       id: 4,
       name: "James",
       role: "Lead Electrician",
-      description: "James has completed over 200 major installations and mentors our team of electricians to deliver precision work on every project.",
+      description:
+        "James has completed over 200 major installations and mentors our team of electricians to deliver precision work on every project.",
       image: "/api/placeholder/300/300",
-      specialties: ["Industrial Installations", "Troubleshooting", "Team Training"]
-    }
+      specialties: [
+        "Industrial Installations",
+        "Troubleshooting",
+        "Team Training",
+      ],
+    },
   ];
 
   useEffect(() => {
