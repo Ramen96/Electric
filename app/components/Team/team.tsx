@@ -292,7 +292,7 @@ export default function Team() {
               <motion.button
                 key={dept.id}
                 onClick={() => handleDepartmentChange(dept.id)}
-                className={`px-6 py-3 rounded-full transition-all duration-300 ${
+                className={`px-6 py-3 rounded-full transition-all cursor-pointer duration-300 ${
                   activeDepartment === dept.id
                     ? "bg-yellow-500 text-black font-medium shadow-lg shadow-yellow-500/20"
                     : "bg-black/40 border border-yellow-500/20 text-yellow-400 hover:bg-black/60"
@@ -371,7 +371,7 @@ export default function Team() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.98 }}
-                      className="mt-6 w-full py-2 px-4 bg-gradient-to-r from-yellow-600 to-yellow-500 text-black font-medium rounded-lg flex items-center justify-center"
+                      className="cursor-pointer mt-6 w-full py-2 px-4 bg-gradient-to-r from-yellow-600 to-yellow-500 text-black font-medium rounded-lg flex items-center justify-center"
                     >
                       <span>Contact {member.name.split(" ")[0]}</span>
                       <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
