@@ -47,7 +47,7 @@ export default function Team() {
     management: [
       {
         id: 1,
-        name: "Chad Phillips",
+        name: "Chad Hefner",
         role: "Chief Executive Officer",
         description:
           "With over 20 years in electrical engineering, Chad has led our company to national recognition through his innovative vision and technical expertise.",
