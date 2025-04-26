@@ -807,36 +807,12 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 2.2, duration: 1 }}
         >
-          <motion.div className="flex flex-col items-center gap-2">
-            <motion.div
-              className="w-6 h-10 md:w-8 md:h-12 rounded-full border-2 border-yellow-500/50 flex items-start justify-center"
-              animate={{
-                y: [0, 8, 0],
-                boxShadow: [
-                  "0 0 0px rgba(234, 179, 8, 0.2)",
-                  "0 0 10px rgba(234, 179, 8, 0.5)",
-                  "0 0 0px rgba(234, 179, 8, 0.2)",
-                ],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 1.8,
-                ease: "easeInOut",
-              }}
-            >
-              <motion.div
-                className="w-1 h-2 md:w-1.5 md:h-3 bg-yellow-400 rounded-full mt-2"
-                animate={{
-                  y: [0, 4, 0],
-                  opacity: [0.5, 1, 0.5],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 1.8,
-                  ease: "easeInOut",
-                }}
-              />
-            </motion.div>
+          <motion.div
+            className="w-6 h-10 rounded-full border-2 border-yellow-500/50 flex items-start justify-center"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+          >
+            <motion.div className="w-1 h-2 bg-yellow-400/80 rounded-full mt-2" />
           </motion.div>
         </motion.div>
       </div>
