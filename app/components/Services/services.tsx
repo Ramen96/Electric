@@ -1,4 +1,26 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { BoltIcon, Battery100Icon, LightBulbIcon } from "@heroicons/react/24/outline";
+
+export default function Services() {
+  const [hoveredCard, setHoveredCard] = useState(null);
+
+  const services = [
+    {
+      title: "High-Voltage Systems",
+      description: "Expert installation, maintenance, and upgrades for commercial and industrial electrical systems.",
+      icon: <BoltIcon className="w-12 h-12" />,
+      color: "from-yellow-400 to-yellow-600",
+      textColor: "text-yellow-400",
+      bgLight: "bg-yellow-500/10",
+      bgDark: "bg-yellow-900/20",
+    },
+    {
+      title: "Backup Power Solutions",
+      description: "Custom design and installation of reliable backup generators and power systems.",
+      icon: <Battery100Icon className="w-12 h-12" />,
+      color: "from-yellow-300 to-yellow-500",
+      textColor: "text-yellow-400"// import React, { useState } from "react";
 // import { motion } from "framer-motion";
 // import { BoltIcon, Battery100Icon, LightBulbIcon } from "@heroicons/react/24/outline";
 
@@ -229,31 +251,7 @@
 //   );
 // }
 
-
-
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { BoltIcon, Battery100Icon, LightBulbIcon } from "@heroicons/react/24/outline";
-
-export default function Services() {
-  const [hoveredCard, setHoveredCard] = useState(null);
-
-  const services = [
-    {
-      title: "High-Voltage Systems",
-      description: "Expert installation, maintenance, and upgrades for commercial and industrial electrical systems.",
-      icon: <BoltIcon className="w-12 h-12" />,
-      color: "from-yellow-400 to-yellow-600",
-      textColor: "text-yellow-400",
-      bgLight: "bg-yellow-500/10",
-      bgDark: "bg-yellow-900/20",
-    },
-    {
-      title: "Backup Power Solutions",
-      description: "Custom design and installation of reliable backup generators and power systems.",
-      icon: <Battery100Icon className="w-12 h-12" />,
-      color: "from-yellow-300 to-yellow-500",
-      textColor: "text-yellow-400",
+,
       bgLight: "bg-yellow-500/10",
       bgDark: "bg-yellow-900/20",
     },
