@@ -1,7 +1,5 @@
 import React from "react";
-
 import type { LoaderFunction } from "@react-router/dev";
-
 // Loader
 export const loader: LoaderFunction = async () => {
   return null;
