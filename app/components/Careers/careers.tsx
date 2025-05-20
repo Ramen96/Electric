@@ -1,5 +1,7 @@
 import React from "react";
 import type { LoaderFunction } from "@react-router/dev";
+import ApplicationForm from "../ApplicationForm/applicationForm";
+
 // Loader
 export const loader: LoaderFunction = async () => {
   return null;
@@ -8,10 +10,7 @@ export const loader: LoaderFunction = async () => {
 // Component
 export default function Careers() {
   return (
-    <div>
-      <h1>Careers</h1>
-      <p>Welcome to the Careers page at C&C Electric!</p>
-    </div>
+    <ApplicationForm />
   );
 }
 
