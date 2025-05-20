@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "~/assets/cc-electrical.png";
+import { Link } from "react-router";
 
 export default function Nav() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -35,11 +36,11 @@ export default function Nav() {
     { id: "team", label: "Team" },
     { id: "about", label: "About Us" },
     { id: "contact", label: "Contact Us" },
-    { id: "careers", label: "Careers" },
+    { id: "careers", label: "Careers", isExternalRoute: true, path: "/careers" }, // Added isExternalRoute flag and path
   ];
 
   // All sections for mobile menu
-  const allSections = [...leftSections.filter(item => !item.hasDropdown), ...rightSections];
+  const allSections = [...leftSections.filter(item => !item.hasDropdown), ...rightSections.filter(item => !item.isExternalRoute)];
   const allServicesItems = leftSections.find(item => item.id === "services")?.dropdownItems || [];
 
   // Handle clicks outside of dropdown
@@ -304,6 +305,28 @@ export default function Nav() {
             )}
           </AnimatePresence>
         </div>
+      );
+    }
+    
+    // Handle external routes (like Careers page)
+    if (section.isExternalRoute) {
+      return (
+        <Link to={section.path} key={section.id}>
+          <motion.button
+            variants={enhancedButtonVariants}
+            initial="initial"
+            animate={activeSection === section.id ? "active" : "inactive"}
+            whileHover="hover"
+            whileTap="tap"
+            className={`px-4 py-2 rounded-md transition-all duration-300 text-xl font-bold cursor-pointer ${
+              activeSection === section.id
+                ? "bg-gradient-to-r from-yellow-500 to-yellow-700 text-black"
+                : "bg-black/50 text-white hover:bg-yellow-500/80 hover:text-black"
+            }`}
+          >
+            {section.label}
+          </motion.button>
+        </Link>
       );
     }
     
@@ -581,6 +604,25 @@ export default function Nav() {
                     >
                       {section.label}
                     </motion.button>
+                  ))}
+
+                  {/* External routes in Mobile (like Careers) */}
+                  {rightSections.filter(item => item.isExternalRoute).map((section) => (
+                    <Link to={section.path} key={section.id} className="block w-full">
+                      <motion.button
+                        variants={buttonVariants}
+                        initial="initial"
+                        whileHover="hover"
+                        whileTap="tap"
+                        className={`w-full py-2 rounded-md transition-all duration-300 ${
+                          activeSection === section.id
+                            ? "bg-gradient-to-r from-yellow-500 to-yellow-700 text-black"
+                            : "bg-black/50 text-white hover:bg-yellow-500/80 hover:text-black"
+                        }`}
+                      >
+                        {section.label}
+                      </motion.button>
+                    </Link>
                   ))}
                   
                   {/* Services Section with dropdown in Mobile */}
