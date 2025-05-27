@@ -274,7 +274,7 @@ export default function ApplicationForm() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6">
+    <div className="min-h-screen bg-black text-white p-6 mt-40">
       <div className="max-w-5xl mx-auto bg-black border-2 border-amber-500 rounded-lg shadow-lg p-8">
         <header className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-amber-500">EMPLOYEE APPLICATION FORM</h1>
