@@ -1,5 +1,63 @@
 import React, { useState } from 'react';
 
+// Define reusable components outside ApplicationForm to prevent redefinition on render
+const TextField = ({ label, name, value, onChange, required = false, className = '' }) => (
+  <div className={`mb-4 ${className}`}>
+    <label htmlFor={name} className="block text-sm font-medium text-gray-200 mb-1">
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
+    <input
+      type="text"
+      id={name}
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+      className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+    />
+  </div>
+);
+
+const TextArea = ({ label, name, value, onChange, required = false, rows = 3 }) => (
+  <div className="mb-4">
+    <label htmlFor={name} className="block text-sm font-medium text-gray-200 mb-1">
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
+    <textarea
+      id={name}
+      name={name}
+      value={value}
+      onChange={onChange}
+      required={required}
+      rows={rows}
+      className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+    />
+  </div>
+);
+
+const Checkbox = ({ label, name, checked, onChange }) => (
+  <div className="mb-4 flex items-center">
+    <input
+      type="checkbox"
+      id={name}
+      name={name}
+      checked={checked}
+      onChange={onChange}
+      className="h-4 w-4 text-amber-500 focus:ring-amber-500 border-gray-700 rounded"
+    />
+    <label htmlFor={name} className="ml-2 block text-sm text-gray-200">
+      {label}
+    </label>
+  </div>
+);
+
+const Section = ({ title, children }) => (
+  <div className="mb-8">
+    <h2 className="text-xl font-bold mb-4 text-amber-500 border-b border-amber-500 pb-2">{title}</h2>
+    {children}
+  </div>
+);
+
 interface EmploymentRecord {
   employer: string;
   address: string;
@@ -180,64 +238,6 @@ export default function ApplicationForm() {
       ],
     });
   };
-
-  // Reusable field components
-  const TextField = ({ label, name, value, onChange, required = false, className = '' }) => (
-    <div className={`mb-4 ${className}`}>
-      <label htmlFor={name} className="block text-sm font-medium text-gray-200 mb-1">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <input
-        type="text"
-        id={name}
-        name={name}
-        value={value}
-        onChange={onChange}
-        required={required}
-        className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-      />
-    </div>
-  );
-
-  const TextArea = ({ label, name, value, onChange, required = false, rows = 3 }) => (
-    <div className="mb-4">
-      <label htmlFor={name} className="block text-sm font-medium text-gray-200 mb-1">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <textarea
-        id={name}
-        name={name}
-        value={value}
-        onChange={onChange}
-        required={required}
-        rows={rows}
-        className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-      />
-    </div>
-  );
-
-  const Checkbox = ({ label, name, checked, onChange }) => (
-    <div className="mb-4 flex items-center">
-      <input
-        type="checkbox"
-        id={name}
-        name={name}
-        checked={checked}
-        onChange={onChange}
-        className="h-4 w-4 text-amber-500 focus:ring-amber-500 border-gray-700 rounded"
-      />
-      <label htmlFor={name} className="ml-2 block text-sm text-gray-200">
-        {label}
-      </label>
-    </div>
-  );
-
-  const Section = ({ title, children }) => (
-    <div className="mb-8">
-      <h2 className="text-xl font-bold mb-4 text-amber-500 border-b border-amber-500 pb-2">{title}</h2>
-      {children}
-    </div>
-  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -723,181 +723,3 @@ export default function ApplicationForm() {
     </div>
   );
 }
-
-
-// import React, { useState } from 'react';
-
-// export default function ApplicationForm() {
-//   // Instead of a complex nested state object, we'll use individual state variables for each field
-//   const [firstName, setFirstName] = useState('');
-//   const [lastName, setLastName] = useState('');
-//   const [email, setEmail] = useState('');
-//   const [address, setAddress] = useState('');
-//   const [zipCode, setZipCode] = useState('');
-//   const [phone, setPhone] = useState('');
-//   const [workPhone, setWorkPhone] = useState('');
-//   const [mobilePhone, setMobilePhone] = useState('');
-//   const [experienceSkills, setExperienceSkills] = useState('');
-  
-//   // Simple direct handlers for each field
-//   const handleFirstNameChange = (e) => setFirstName(e.target.value);
-//   const handleLastNameChange = (e) => setLastName(e.target.value);
-//   const handleEmailChange = (e) => setEmail(e.target.value);
-//   const handleAddressChange = (e) => setAddress(e.target.value);
-//   const handleZipCodeChange = (e) => setZipCode(e.target.value);
-//   const handlePhoneChange = (e) => setPhone(e.target.value);
-//   const handleWorkPhoneChange = (e) => setWorkPhone(e.target.value);
-//   const handleMobilePhoneChange = (e) => setMobilePhone(e.target.value);
-//   const handleExperienceSkillsChange = (e) => setExperienceSkills(e.target.value);
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log('Form data:', { firstName, lastName, email, address, zipCode, phone, workPhone, mobilePhone, experienceSkills });
-//     alert("Form submitted!");
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-black text-white p-6">
-//       <div className="max-w-3xl mx-auto bg-black border-2 border-amber-500 rounded-lg shadow-lg p-8">
-//         <header className="mb-8 text-center">
-//           <h1 className="text-3xl font-bold text-amber-500">SIMPLE APPLICATION FORM</h1>
-//           <p className="mt-2 text-gray-300">
-//             Please complete this form with your information.
-//           </p>
-//         </header>
-
-//         <form onSubmit={handleSubmit}>
-//           <div className="mb-8">
-//             <h2 className="text-xl font-bold mb-4 text-amber-500 border-b border-amber-500 pb-2">PERSONAL DETAILS</h2>
-            
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-//               <div className="mb-4">
-//                 <label className="block text-sm font-medium text-gray-200 mb-1">
-//                   First Name <span className="text-red-500">*</span>
-//                 </label>
-//                 <input
-//                   type="text"
-//                   value={firstName}
-//                   onChange={handleFirstNameChange}
-//                   className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-//                   required
-//                 />
-//               </div>
-              
-//               <div className="mb-4">
-//                 <label className="block text-sm font-medium text-gray-200 mb-1">
-//                   Last Name <span className="text-red-500">*</span>
-//                 </label>
-//                 <input
-//                   type="text"
-//                   value={lastName}
-//                   onChange={handleLastNameChange}
-//                   className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-//                   required
-//                 />
-//               </div>
-//             </div>
-            
-//             <div className="mb-4">
-//               <label className="block text-sm font-medium text-gray-200 mb-1">
-//                 Email <span className="text-red-500">*</span>
-//               </label>
-//               <input
-//                 type="email"
-//                 value={email}
-//                 onChange={handleEmailChange}
-//                 className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-//                 required
-//               />
-//             </div>
-            
-//             <div className="mb-4">
-//               <label className="block text-sm font-medium text-gray-200 mb-1">
-//                 Home Address <span className="text-red-500">*</span>
-//               </label>
-//               <textarea
-//                 value={address}
-//                 onChange={handleAddressChange}
-//                 rows={3}
-//                 className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-//                 required
-//               ></textarea>
-//             </div>
-            
-//             <div className="mb-4">
-//               <label className="block text-sm font-medium text-gray-200 mb-1">
-//                 Zip Code <span className="text-red-500">*</span>
-//               </label>
-//               <input
-//                 type="text"
-//                 value={zipCode}
-//                 onChange={handleZipCodeChange}
-//                 className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-//                 required
-//               />
-//             </div>
-            
-//             <div className="mb-4">
-//               <p className="block text-sm font-medium text-gray-200 mb-2">Telephone Numbers</p>
-//               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-//                 <div>
-//                   <label className="block text-sm font-medium text-gray-200 mb-1">Home</label>
-//                   <input
-//                     type="tel"
-//                     value={phone}
-//                     onChange={handlePhoneChange}
-//                     className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-//                   />
-//                 </div>
-//                 <div>
-//                   <label className="block text-sm font-medium text-gray-200 mb-1">Work</label>
-//                   <input
-//                     type="tel"
-//                     value={workPhone}
-//                     onChange={handleWorkPhoneChange}
-//                     className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-//                   />
-//                 </div>
-//                 <div>
-//                   <label className="block text-sm font-medium text-gray-200 mb-1">Mobile</label>
-//                   <input
-//                     type="tel"
-//                     value={mobilePhone}
-//                     onChange={handleMobilePhoneChange}
-//                     className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-//                   />
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-          
-//           <div className="mb-8">
-//             <h2 className="text-xl font-bold mb-4 text-amber-500 border-b border-amber-500 pb-2">EXPERIENCE / SKILLS</h2>
-//             <div className="mb-4">
-//               <label className="block text-sm font-medium text-gray-200 mb-1">
-//                 Please describe your skills and experience
-//               </label>
-//               <textarea
-//                 value={experienceSkills}
-//                 onChange={handleExperienceSkillsChange}
-//                 rows={8}
-//                 className="w-full p-2 border border-gray-700 bg-black text-white rounded focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-//               ></textarea>
-//             </div>
-//           </div>
-
-//           <div className="mt-8 text-center">
-//             <button
-//               type="submit"
-//               className="px-8 py-3 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded shadow-lg transition duration-200"
-//             >
-//               Submit Application
-//             </button>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
-
-
