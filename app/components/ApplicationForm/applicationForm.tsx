@@ -134,6 +134,7 @@ interface ApplicationFormData {
   experienceSkills: string;
   references: Reference[];
   hasCriminalConvictions: boolean;
+  drugAlcoholPolicyAcknowledged: boolean;
 }
 
 export default function ApplicationForm() {
@@ -225,6 +226,7 @@ export default function ApplicationForm() {
       },
     ],
     hasCriminalConvictions: false,
+    drugAlcoholPolicyAcknowledged: false,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -842,6 +844,83 @@ export default function ApplicationForm() {
               exclude any spent convictions under Section 4(2) of the
               Rehabilitation of Offenders Act 1974.
             </p>
+          </Section>
+
+          <Section title="8. DRUG AND ALCOHOL POLICY ACKNOWLEDGMENT">
+            <div className="mb-4 p-4 border border-gray-700 rounded bg-gray-900">
+              <h3 className="text-lg font-bold text-amber-500 mb-4 text-center">
+                DRUG AND ALCOHOL POLICY
+              </h3>
+              <h4 className="text-md font-bold text-amber-400 mb-3">Terms</h4>
+
+              <div className="text-sm text-gray-300 space-y-3 mb-6 max-h-64 overflow-y-auto">
+                <p>
+                  Drug and alcohol abuse contributes to billions of dollars of
+                  lost productivity and thousands of workplace injuries every
+                  year. Our policy is to employ a workforce free from alcohol
+                  abuse or the use of illegal drugs. C&C Construction and
+                  Electrical takes drug and alcohol abuse as a serious matter
+                  and will not tolerate it. C&C Construction and Electrical
+                  absolutely prohibits the use of alcohol or non-prescribed
+                  drugs at the workplace or while on company premises. It also
+                  discourages non-workplace drug and alcohol abuse. The use,
+                  sale, or possession of alcohol or drugs while on the job site
+                  or on company property will result in disciplinary action, up
+                  to and including termination, and may have legal consequences.
+                  Employees are expected and required to report to work on time
+                  and in appropriate mental and physical condition for work. It
+                  is our intent and obligation to provide a drug-free,
+                  healthful, and safe work environment. C&C Construction and
+                  Electrical reserves the right to demand a drug or alcohol test
+                  of any employee based upon reasonable suspicion. Reasonable
+                  substantial drop off in work performance. Failure to take a
+                  requested drug test may lead to discipline, including possible
+                  termination.
+                </p>
+                <p>
+                  C&C Construction and Electrical also cautions against the use
+                  of prescribed or over-the-counter medication which can affect
+                  your workplace performance. You may be suspended or discharged
+                  if the company concludes that you cannot perform your job
+                  properly or safely because of using over-the-counter or
+                  prescribed medication. Please inform your supervisor prior to
+                  working under the influence of a prescribed or
+                  over-the-counter medication that may affect your performance.
+                </p>
+                <p>
+                  Employees must report any conviction under a criminal drug
+                  statute for violations occurring on or off the Company's
+                  premises while conducting company business. A report of a
+                  conviction must be made within (3-5) days after the
+                  conviction. C&C Construction and Electrical will make every
+                  effort to assist its employees who wish to seek treatment or
+                  rehabilitation for drug or alcohol dependency. Conscious
+                  efforts to seek such help will not jeopardize any employee's
+                  job and will not be noted in any personal record. You may also
+                  be required to agree to random testing and a "one-strike"
+                  rule.
+                </p>
+                <p className="font-semibold text-amber-400">
+                  If you have a drug or alcohol problem, please ask for our
+                  help!
+                </p>
+              </div>
+
+              <div className="border-t border-gray-600 pt-4">
+                <h4 className="text-md font-bold text-amber-400 mb-3">
+                  EMPLOYEE AGREEMENT ON DRUG AND ALCOHOL POLICY
+                </h4>
+                <Checkbox
+                  label="I have read, understand, and agree to comply with the foregoing policies, rules, and conditions. I am aware that violations of this guideline may subject me to disciplinary action, including termination from employment, legal action, and criminal liability. I further understand that I am responsible for maintaining a positive representation of the company and governing myself accordingly. Furthermore, I know that this policy can be amended at any time."
+                  name="drugAlcoholPolicyAcknowledged"
+                  checked={formData.drugAlcoholPolicyAcknowledged}
+                  onChange={handleCheckboxChange}
+                />
+                <p className="text-xs text-red-400 ml-6 mt-1">
+                  * This acknowledgment is required for employment
+                </p>
+              </div>
+            </div>
           </Section>
 
           <Section title="8. DECLARATION AND SIGNATURE">
