@@ -26,9 +26,9 @@ export default function Team() {
       description: "Our leadership team brings decades of industry experience and a passion for electrical excellence.",
     },
     {
-      id: "engineering",
-      name: "Engineering",
-      description: "Expert electrical engineers designing innovative and efficient solutions for every project.",
+      id: "hr",
+      name: "Human Resources",
+      description: "Committed professionals fostering a supportive workplace through talent acquisition, employee development, and culture-building initiatives.",
     },
     {
       id: "field",
@@ -60,10 +60,9 @@ export default function Team() {
       },
       {
         id: 2,
-        name: "Sandra Martinez",
-        role: "Chief Operations Officer",
-        description:
-          "Sandra oversees all operations with precision and efficiency, ensuring every project meets our high standards of quality and safety.",
+        name: "Jon Ivester",
+        role: "Public Relations",
+        description: "Behind every strong brand, is an even stronger message.",
         image: pfp,
         specialties: [
           "Operational Excellence",
@@ -72,42 +71,22 @@ export default function Team() {
         ],
       },
     ],
-    engineering: [
+    hr: [
       {
         id: 3,
-        name: "Marcus Lee",
-        role: "Technical Director",
-        description:
-          "Marcus brings 15+ years of experience in complex electrical systems and has pioneered many of our smart electrical solutions for commercial spaces.",
+        name: "Emily Nolasco",
+        role: "Administrative Director",
+        description: "Success is 90% hustle and 10% coffee.",
         image: pfp,
         specialties: ["System Design", "Smart Buildings", "Quality Assurance"],
-      },
-      {
-        id: 4,
-        name: "Alicia Chen",
-        role: "Lead Design Engineer",
-        description:
-          "Alicia specializes in creating sustainable electrical systems that minimize environmental impact while maximizing efficiency and performance.",
-        image: pfp,
-        specialties: ["Sustainable Design", "3D Modeling", "Renewable Integration"],
-      },
-      {
-        id: 5,
-        name: "Robert Kim",
-        role: "Systems Engineer",
-        description:
-          "Robert's expertise in industrial automation has revolutionized our approach to factory and warehouse electrical solutions.",
-        image: pfp,
-        specialties: ["Industrial Automation", "PLC Programming", "SCADA Systems"],
-      },
+      }
     ],
     field: [
       {
         id: 6,
-        name: "James Wilson",
-        role: "Field Operations Manager",
-        description:
-          "James has completed over 200 major installations and mentors our team of electricians to deliver precision work on every project.",
+        name: "Charles Dowing",
+        role: "Operations Specialist",
+        description: "Stay steady and ready - that's how you run operations and reel in results.", 
         image: pfp,
         specialties: [
           "Industrial Installations",
@@ -115,74 +94,24 @@ export default function Team() {
           "Team Training",
         ],
       },
-      {
-        id: 7,
-        name: "Tanya Rodriguez",
-        role: "Senior Electrician",
-        description:
-          "Tanya's attention to detail and commitment to safety has made her one of our most requested electricians for complex commercial projects.",
-        image: pfp,
-        specialties: [
-          "Commercial Wiring",
-          "Safety Protocols",
-          "Code Compliance",
-        ],
-      },
-      {
-        id: 8,
-        name: "Michael Thompson",
-        role: "Lead Installer",
-        description:
-          "Michael specializes in high-end residential electrical installations, bringing innovative solutions to luxury homes.",
-        image: pfp,
-        specialties: [
-          "Residential Systems",
-          "Home Automation",
-          "Lighting Design",
-        ],
-      },
-      {
-        id: 9,
-        name: "Dave Patel",
-        role: "Service Technician",
-        description:
-          "Dave excels at diagnosing and resolving complex electrical issues quickly, minimizing downtime for our clients.",
-        image: pfp,
-        specialties: [
-          "Diagnostic Expertise",
-          "Emergency Repairs",
-          "Preventative Maintenance",
-        ],
-      },
     ],
     sales: [
       {
         id: 10,
         name: "Lucas Shaffer",
-        role: "Sales Director",
-        description:
-          "With 12 years in the industry and an engineering background, Lucas leads our sales team with a consultative approach that has expanded our client portfolio by 175% since 2018.",
+        role: " Central Regional Director",
+        description: "Good energy - that's how we power forward.",
         image: pfp,
         specialties: ["Client Partnerships", "Solutions Selling", "Contract Negotiation"],
       },
       {
         id: 11,
-        name: "Emily Johnson",
-        role: "Client Relations Manager",
-        description:
-          "Emily ensures our clients receive exceptional service throughout their journey with us, from initial consultation to project completion.",
+        name: "Dan Huggins",
+        role: "Southern regional Director",
+        description: "Some days I close deals, some days I catch bass- either way, i'm hooked.",
         image: pfp,
         specialties: ["Client Satisfaction", "Project Coordination", "Communication"],
-      },
-      {
-        id: 12,
-        name: "Carlos Mendez",
-        role: "Estimator",
-        description:
-          "Carlos provides accurate and competitive estimates for projects of all sizes, helping clients understand the value and scope of our electrical solutions.",
-        image: pfp,
-        specialties: ["Cost Analysis", "Project Scoping", "Value Engineering"],
-      },
+      }
     ],
   };
 
@@ -266,7 +195,7 @@ export default function Team() {
               className="text-5xl font-extrabold mb-6 leading-tight"
             >
               <span className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text">
-                Meet Our Electrical Experts
+                MEET OUR FAMILY
               </span>
             </motion.h2>
 
@@ -277,7 +206,7 @@ export default function Team() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl text-gray-300 max-w-3xl mx-auto"
             >
-              Our talented team brings together expertise from across the electrical industry to deliver exceptional solutions for every project.
+              We give thanks to the hard working individuals that make C&C possible,Given the many years of experience, our team knows how to handle every project with precision, accuracy and customer care.
             </motion.p>
           </div>
 
