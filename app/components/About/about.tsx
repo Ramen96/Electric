@@ -21,16 +21,16 @@ export default function About() {
   // Stats with animation
   const stats = [
     { value: 15, label: "Years Experience", icon: "🏆", key: "stat0" },
-    { value: 500, label: "Projects Completed", icon: "⚡", key: "stat1" },
+    { value: 200, label: "Projects Completed", icon: "⚡", key: "stat1" },
     { value: 99.8, label: "Client Satisfaction", unit: "%", icon: "❤️", key: "stat2" },
   ];
 
   // Experience timeline items
   const milestones = [
-    { year: 2010, title: "Company Founded", description: "Started with just 3 electricians serving local businesses" },
-    { year: 2015, title: "Expansion", description: "Grew to 25 employees and expanded to statewide operations" },
-    { year: 2020, title: "Innovation", description: "Pioneered smart electrical systems for commercial spaces" },
-    { year: 2024, title: "National Recognition", description: "Recognized as industry leaders in electrical contracting" },
+    { title: "Consultation", description: "Lets schedule a free consultation to discuss your project goals, timeline and budget." },
+    { title: "Site Visits & Estimating", description: "We’ll visit your location to make our assessments, gather details and take measurements." },
+    { title: "Planning & Scheduling", description: "We pull permits! And schedule a start date that works for you." },
+    { title: "We Get To Work", description: "Staying steady , we maintain a clean job site and keep you informed throughout the entire process. Once the project is complete, a final walk through!  To ensure safe and secure results." },
   ];
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function About() {
     if (!isInView) return;
     
     const duration = 2000;
-    const statValues = { stat0: 15, stat1: 500, stat2: 99.8 };
+    const statValues = { stat0: 15, stat1: 200, stat2: 99.8 };
     
     let startTime;
     let animationFrameId;
@@ -147,9 +147,11 @@ export default function About() {
                 className="text-5xl font-extrabold mb-8 leading-tight"
               >
                 <span className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text">
-                  Powering Innovation
+                  Building Connections
                 </span>
-                <span className="block text-white mt-2">For Over 15 Years</span>
+                <span className="block text-white mt-2">
+                  All over the Carolinas
+                </span>
               </motion.h2>
 
               {/* Description with enhanced styling */}
@@ -159,18 +161,41 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
                 <p className="text-xl leading-relaxed text-gray-300 mb-6">
-                  We specialize in providing{" "}
+                  C&C just a name, its a promise that when you work with us,
+                  you’ll be working with{" "}
                   <span className="font-semibold text-yellow-400">
-                    cutting-edge electrical solutions
+                    people who care.
                   </span>{" "}
-                  for commercial and industrial properties across the nation.
+                  Thats why we treat every project like its our own,and every
+                  client like a partner. Lets build something great together!
                 </p>
                 <p className="text-gray-400 leading-relaxed mb-8">
-                  Our team of certified experts brings decades of combined
-                  experience to every project, ensuring flawless execution from
-                  concept to completion. We've built our reputation on technical
-                  excellence, innovative approaches, and an unwavering
-                  commitment to client satisfaction.
+                  {" "}
+                  <span className="font-semibold text-yellow-500">
+                    Here at C&C Construction and Electrical
+                  </span>{" "}
+                  we are a dedicated, detail-driven family who proudly serve the
+                  greater North Carolina region and surrounding areas. At C&C we
+                  pride ourselves on being more than just contractors, we are a
+                  dedicated team of professionals who believe in doing the right
+                  thing even when no one is watching. The foundation of our
+                  reputation was built by not only our craftsmanship but our
+                  character. We specialize in delivering high-quality
+                  construction and electrical services for residential,
+                  commercial, and industrial projects. Whether it’s a small
+                  wiring job or a large-scale new construction project, we bring
+                  the same level of care and communication. No fluff, no
+                  shortcuts — just honest work backed by real experience.
+                </p>
+                <p className="text-gray-400 leading-relaxed mb-8">
+                  {" "}
+                  <span className="font-semibold text-gray-300">
+                    We look forward
+                  </span>{" "}
+                  for the opportunity to work with you, build
+                  lasting partnerships, and earning your trust as your go-to
+                  partner for quality construction and electrical work one
+                  successful project at a time.
                 </p>
               </motion.div>
 
@@ -254,7 +279,7 @@ export default function About() {
               {/* Timeline */}
               <div className="bg-black/60 backdrop-blur-lg border border-yellow-500/20 p-6 rounded-xl">
                 <h3 className="text-xl font-semibold text-white mb-6">
-                  Our Journey
+                  How it works
                 </h3>
                 <div className="relative">
                   {/* Timeline line */}
@@ -277,12 +302,18 @@ export default function About() {
                         </div>
                       </div>
                       <div className="ml-6">
-                        <div className="text-lg font-semibold text-white">
-                          {milestone.year}
-                        </div>
-                        <div className="text-yellow-400 font-medium">
+                        <div className="text-lg font-semibold text-yellow-400">
                           {milestone.title}
                         </div>
+
+                        {/* <div className="text-yellow-400 font-semibold">
+                          {milestone.title}
+                        </div> */}
+
+                        {/* <div className="text-gray-400 text-sm mt-1">
+                          {milestone.description}
+                        </div> */}
+
                         <div className="text-gray-400 text-sm mt-1">
                           {milestone.description}
                         </div>
