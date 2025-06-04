@@ -366,12 +366,12 @@ export default function Hero() {
               <div className="text-yellow-400">
                 <h4 className="text-sm font-semibold mb-1">Our Location</h4>
                 <address className="text-sm not-italic text-gray-200">
-                  1234 Electric Avenue
+                  510 West 1st Street.
                   <br />
-                  Circuit City, CA 92123
+                  Lowell, NC 28098
                   <br />
                   <span className="text-yellow-300 font-medium">
-                    Phone: (555) 123-4567
+                    Phone: (704) 879-4057
                   </span>
                 </address>
               </div>
