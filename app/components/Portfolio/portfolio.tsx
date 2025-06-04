@@ -30,7 +30,6 @@ export default function Portfolio() {
       image: warehouseImg,
       tags: ["Industrial", "Energy-Efficient", "Safety Compliance"],
       duration: "3 weeks",
-      client: "Global Distribution Co.",
     },
     {
       title: "Office Building Lighting Upgrade",
@@ -39,7 +38,6 @@ export default function Portfolio() {
       image: officeImg,
       tags: ["Commercial", "Smart Systems", "LED Technology"],
       duration: "5 weeks",
-      client: "Metro Business Center",
     },
     {
       title: "Manufacturing Plant Power Systems",
@@ -48,7 +46,6 @@ export default function Portfolio() {
       image: mfgImg,
       tags: ["Industrial", "High-Capacity", "Redundant Systems"],
       duration: "8 weeks",
-      client: "Precision Manufacturing Inc.",
     },
     {
       title: "Retail Complex Electrical Renovation",
@@ -57,7 +54,6 @@ export default function Portfolio() {
       image: retailImg,
       tags: ["Retail", "Code Compliance", "Minimal Disruption"],
       duration: "6 weeks",
-      client: "Westside Shopping Plaza",
     },
   ];
 
@@ -228,10 +224,6 @@ export default function Portfolio() {
                       <div>
                         <h4 className="text-yellow-400 font-medium mb-1">Duration</h4>
                         <p className="text-white">{projects[currentIndex].duration}</p>
-                      </div>
-                      <div>
-                        <h4 className="text-yellow-400 font-medium mb-1">Client</h4>
-                        <p className="text-white">{projects[currentIndex].client}</p>
                       </div>
                     </div>
 
