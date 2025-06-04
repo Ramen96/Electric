@@ -74,8 +74,8 @@ export default function Contact() {
         </svg>
       ),
       title: "Call Us",
-      content: "(555) 123-4567",
-      action: "tel:+15551234567",
+      content: "(704)-879-4057",
+      action: "tel:+17048794057",
     },
     {
       icon: (
@@ -122,7 +122,7 @@ export default function Contact() {
         </svg>
       ),
       title: "Visit Us",
-      content: "510 W 1st St, Lowell, NC",
+      content: "510 West 1st Street. Lowell, NC 28098",
       action:
         "https://www.google.com/maps/place/510+W+1st+St,+Lowell,+NC+28098",
     },
