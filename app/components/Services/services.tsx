@@ -27,7 +27,6 @@ export default function Services() {
         ],
         benefits: [
           "Licensed and insured electricians",
-          "24/7 emergency service available",
           "Warranty on all work performed",
           "Free estimates and consultations"
         ]
