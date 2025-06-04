@@ -166,7 +166,7 @@ export default function About() {
                   <span className="font-semibold text-yellow-400">
                     people who care.
                   </span>{" "}
-                  Thats why we treat every project like its our own,and every
+                  Thats why we treat every project like its our own and every
                   client like a partner. Lets build something great together!
                 </p>
                 <p className="text-gray-400 leading-relaxed mb-8">
