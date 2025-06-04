@@ -195,7 +195,7 @@ export default function Team() {
               className="text-5xl font-extrabold mb-6 leading-tight"
             >
               <span className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text">
-                MEET OUR FAMILY
+                Meet Our Family
               </span>
             </motion.h2>
 
