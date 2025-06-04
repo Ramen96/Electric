@@ -297,7 +297,7 @@ export default function Team() {
                     </div>
                     
                     {/* Connect button */}
-                    <motion.button
+                    {/* <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.98 }}
                       className="cursor-pointer mt-6 w-full py-2 px-4 bg-gradient-to-r from-yellow-600 to-yellow-500 text-black font-medium rounded-lg flex items-center justify-center"
@@ -306,7 +306,7 @@ export default function Team() {
                       <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                       </svg>
-                    </motion.button>
+                    </motion.button> */}
                   </div>
                 </div>
               </motion.div>
