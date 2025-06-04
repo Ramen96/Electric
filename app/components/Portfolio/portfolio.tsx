@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import warehouseImg from "~/assets/warehouse.jpg";
-import officeImg from "~/assets/office.jpg";
-import mfgImg from "~/assets/manufacturing.jpg";
-import retailImg from "~/assets/retail.jpg";
+import warehouseImg from "~/assets/BlueMountainRidge.png";
+import officeImg from "~/assets/DunkinDonuts.png";
+import mfgImg from "~/assets/foodlionphoto.png";
+import retailImg from "~/assets/foodlionphoto1.png";
 
 export default function Portfolio() {
   const [currentIndex, setCurrentIndex] = useState(0);
