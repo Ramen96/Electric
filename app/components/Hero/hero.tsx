@@ -283,9 +283,9 @@ export default function Hero() {
                 custom={4}
               >
                 {[
-                  { value: "500+", label: "Projects Completed" },
+                  { value: "200+", label: "Projects Completed" },
                   { value: "15+", label: "Years Experience" },
-                  { value: "100%", label: "Client Satisfaction" },
+                  { value: "99.8%", label: "Client Satisfaction" },
                 ].map((stat, index) => (
                   <motion.div
                     key={index}
