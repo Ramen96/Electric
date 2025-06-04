@@ -135,7 +135,7 @@ export default function Careers() {
             {/* Contact icons */}
             <div className="flex items-center gap-3">
               <motion.a
-                href="tel:5551234567"
+                href="tel:7048794057"
                 variants={buttonVariants}
                 initial="initial"
                 whileHover="hover"
