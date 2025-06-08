@@ -11,12 +11,12 @@ export default function Nav() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const servicesDropdownRef = useRef(null);
   const mobileServicesRef = useRef(null);
-  
+
   // Left side menu items
   const leftSections = [
     { id: "hero", label: "Home" },
-    { 
-      id: "services", 
+    {
+      id: "services",
       label: "Our Services",
       hasDropdown: true,
       dropdownItems: [
@@ -24,8 +24,8 @@ export default function Nav() {
         { id: "commercial", label: "Commercial Electrical" },
         { id: "industrial", label: "Industrial Electrical" },
         { id: "ev-installations", label: "EV Installations" },
-        { id: "solar", label: "Solar Panel Installation" }
-      ]
+        { id: "solar", label: "Solar Panel Installation" },
+      ],
     },
     { id: "projects", label: "Portfolio" },
     { id: "testimonials", label: "Testimonials" },
@@ -36,20 +36,35 @@ export default function Nav() {
     { id: "team", label: "Team" },
     { id: "about", label: "About Us" },
     { id: "contact", label: "Contact Us" },
-    { id: "careers", label: "Careers", isExternalRoute: true, path: "/careers" }, // Added isExternalRoute flag and path
+    {
+      id: "careers",
+      label: "Careers",
+      isExternalRoute: true,
+      path: "/careers",
+    }, // Added isExternalRoute flag and path
   ];
 
   // All sections for mobile menu
-  const allSections = [...leftSections.filter(item => !item.hasDropdown), ...rightSections.filter(item => !item.isExternalRoute)];
-  const allServicesItems = leftSections.find(item => item.id === "services")?.dropdownItems || [];
+  const allSections = [
+    ...leftSections.filter((item) => !item.hasDropdown),
+    ...rightSections.filter((item) => !item.isExternalRoute),
+  ];
+  const allServicesItems =
+    leftSections.find((item) => item.id === "services")?.dropdownItems || [];
 
   // Handle clicks outside of dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (servicesDropdownRef.current && !servicesDropdownRef.current.contains(event.target)) {
+      if (
+        servicesDropdownRef.current &&
+        !servicesDropdownRef.current.contains(event.target)
+      ) {
         setServicesDropdownOpen(false);
       }
-      if (mobileServicesRef.current && !mobileServicesRef.current.contains(event.target)) {
+      if (
+        mobileServicesRef.current &&
+        !mobileServicesRef.current.contains(event.target)
+      ) {
         setMobileServicesOpen(false);
       }
     };
@@ -92,21 +107,23 @@ export default function Nav() {
       },
       { threshold: 0.3, rootMargin: "-20% 0px -20% 0px" }
     );
-    
+
     // Adding both individual sections and service subsections
     const sectionIds = [
-      ...allSections.map(section => section.id), 
-      ...allServicesItems.map(item => item.id),
-      "services" // Make sure we're explicitly observing the services section
+      ...allSections.map((section) => section.id),
+      ...allServicesItems.map((item) => item.id),
+      "services", // Make sure we're explicitly observing the services section
     ];
-    
+
     // Remove duplicates in case there are any
     const uniqueSectionIds = [...new Set(sectionIds)];
-    
-    const sectionElements = uniqueSectionIds.map(id => document.getElementById(id));
-    
+
+    const sectionElements = uniqueSectionIds.map((id) =>
+      document.getElementById(id)
+    );
+
     sectionElements.forEach((el) => el && observer.observe(el));
-    
+
     return () => {
       sectionElements.forEach((el) => el && observer.unobserve(el));
     };
@@ -133,7 +150,7 @@ export default function Nav() {
   // Check if service section or any of its subsections is active
   const isServicesActive = () => {
     if (activeSection === "services") return true;
-    return allServicesItems.some(item => item.id === activeSection);
+    return allServicesItems.some((item) => item.id === activeSection);
   };
 
   // Button animation variants
@@ -148,17 +165,17 @@ export default function Nav() {
         scale: {
           type: "spring",
           stiffness: 400,
-          damping: 10
+          damping: 10,
         },
         boxShadow: {
-          duration: 0.3
-        }
-      }
+          duration: 0.3,
+        },
+      },
     },
     tap: {
       scale: 0.95,
       boxShadow: "0 0 5px rgba(234, 179, 8, 0.9)",
-    }
+    },
   };
 
   // Enhanced button animation with transition for active state
@@ -171,12 +188,12 @@ export default function Nav() {
         scale: {
           type: "spring",
           stiffness: 400,
-          damping: 10
+          damping: 10,
         },
         boxShadow: {
-          duration: 0.4
-        }
-      }
+          duration: 0.4,
+        },
+      },
     },
     inactive: {
       scale: 1,
@@ -185,59 +202,60 @@ export default function Nav() {
         scale: {
           type: "spring",
           stiffness: 400,
-          damping: 15
+          damping: 15,
         },
         boxShadow: {
-          duration: 0.3
-        }
-      }
-    }
+          duration: 0.3,
+        },
+      },
+    },
   };
 
   // Dropdown animation variants
   const dropdownVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       y: -5,
       transition: {
-        duration: 0.2
-      }
+        duration: 0.2,
+      },
     },
-    visible: { 
+    visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.3,
-        staggerChildren: 0.05
-      }
-    }
+        staggerChildren: 0.05,
+      },
+    },
   };
 
   const dropdownItemVariants = {
     hidden: { opacity: 0, x: -10 },
-    visible: { opacity: 1, x: 0 }
+    visible: { opacity: 1, x: 0 },
   };
 
   // Mobile dropdown animation variants
   const mobileDropdownVariants = {
-    hidden: { 
+    hidden: {
       height: 0,
       opacity: 0,
       transition: {
-        duration: 0.2
-      }
+        duration: 0.2,
+      },
     },
-    visible: { 
+    visible: {
       height: "auto",
       opacity: 1,
       transition: {
         duration: 0.3,
-        staggerChildren: 0.05
-      }
-    }
+        staggerChildren: 0.05,
+      },
+    },
   };
 
   // Render menu button for each section
+
   const renderNavButton = (section) => {
     // Special handling for services with dropdown
     if (section.hasDropdown) {
@@ -249,7 +267,7 @@ export default function Nav() {
             animate={isServicesActive() ? "active" : "inactive"}
             whileHover="hover"
             whileTap="tap"
-            className={`px-4 py-2 rounded-md transition-all duration-300 text-xl font-bold cursor-pointer flex items-center gap-2 ${
+            className={`px-1 md:px-2 lg:px-3 xl:px-4 py-2 rounded-md transition-all duration-300 text-sm md:text-base lg:text-lg xl:text-xl font-bold cursor-pointer flex items-center gap-1 ${
               isServicesActive() || servicesDropdownOpen
                 ? "bg-gradient-to-r from-yellow-500 to-yellow-700 text-black"
                 : "bg-black/50 text-white hover:bg-yellow-500/80 hover:text-black"
@@ -262,22 +280,29 @@ export default function Nav() {
             }}
             onMouseEnter={() => setServicesDropdownOpen(true)}
           >
-            <span>{section.label}</span>
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              className={`h-4 w-4 transition-transform duration-300 ${servicesDropdownOpen ? "rotate-180" : ""}`}
-              fill="none" 
-              viewBox="0 0 24 24" 
+            <span className="whitespace-nowrap">{section.label}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={`h-3 w-3 md:h-4 md:w-4 transition-transform duration-300 ${
+                servicesDropdownOpen ? "rotate-180" : ""
+              }`}
+              fill="none"
+              viewBox="0 0 24 24"
               stroke="currentColor"
               onClick={(e) => {
                 e.stopPropagation(); // Prevent navigation when clicking just the arrow
                 setServicesDropdownOpen(!servicesDropdownOpen);
               }}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </motion.button>
-          
+
           <AnimatePresence>
             {servicesDropdownOpen && (
               <motion.div
@@ -307,7 +332,7 @@ export default function Nav() {
         </div>
       );
     }
-    
+
     // Handle external routes (like Careers page)
     if (section.isExternalRoute) {
       return (
@@ -318,7 +343,7 @@ export default function Nav() {
             animate={activeSection === section.id ? "active" : "inactive"}
             whileHover="hover"
             whileTap="tap"
-            className={`px-4 py-2 rounded-md transition-all duration-300 text-xl font-bold cursor-pointer ${
+            className={`px-1 md:px-2 lg:px-3 xl:px-4 py-2 rounded-md transition-all duration-300 text-sm md:text-base lg:text-lg xl:text-xl font-bold cursor-pointer whitespace-nowrap ${
               activeSection === section.id
                 ? "bg-gradient-to-r from-yellow-500 to-yellow-700 text-black"
                 : "bg-black/50 text-white hover:bg-yellow-500/80 hover:text-black"
@@ -329,7 +354,7 @@ export default function Nav() {
         </Link>
       );
     }
-    
+
     // Regular button without dropdown
     return (
       <motion.button
@@ -339,7 +364,7 @@ export default function Nav() {
         animate={activeSection === section.id ? "active" : "inactive"}
         whileHover="hover"
         whileTap="tap"
-        className={`px-4 py-2 rounded-md transition-all duration-300 text-xl font-bold cursor-pointer ${
+        className={`px-1 md:px-2 lg:px-3 xl:px-4 py-2 rounded-md transition-all duration-300 text-sm md:text-base lg:text-lg xl:text-xl font-bold cursor-pointer whitespace-nowrap ${
           activeSection === section.id
             ? "bg-gradient-to-r from-yellow-500 to-yellow-700 text-black"
             : "bg-black/50 text-white hover:bg-yellow-500/80 hover:text-black"
@@ -354,19 +379,19 @@ export default function Nav() {
   // Contact icons for desktop navbar
   const renderContactIcons = () => {
     return (
-      <div className="flex items-center gap-3 ml-4">
+      <div className="flex items-center gap-1 md:gap-2 xl:gap-3">
         <motion.a
           href="tel:7048794057"
           variants={buttonVariants}
           initial="initial"
           whileHover="hover"
           whileTap="tap"
-          className="bg-black/50 p-2 rounded-full text-yellow-500 hover:bg-yellow-500/80 hover:text-black transition-all duration-300"
+          className="bg-black/50 p-1.5 md:p-2 rounded-full text-yellow-500 hover:bg-yellow-500/80 hover:text-black transition-all duration-300"
           aria-label="Call us"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
+            className="h-4 w-4 md:h-5 md:w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -385,12 +410,12 @@ export default function Nav() {
           initial="initial"
           whileHover="hover"
           whileTap="tap"
-          className="bg-black/50 p-2 rounded-full text-yellow-500 hover:bg-yellow-500/80 hover:text-black transition-all duration-300"
+          className="bg-black/50 p-1.5 md:p-2 rounded-full text-yellow-500 hover:bg-yellow-500/80 hover:text-black transition-all duration-300"
           aria-label="Email us"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
+            className="h-4 w-4 md:h-5 md:w-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -416,63 +441,68 @@ export default function Nav() {
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
-        <nav className="flex flex-col md:flex-row items-center justify-center">
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex justify-between items-center w-full">
+        <nav className="flex flex-col xl:flex-row items-center justify-center">
+          {/* Desktop Navigation - Now only shows on xl+ screens */}
+          <div className="hidden xl:flex justify-between items-center w-full">
             {/* Left side menu */}
-            <div className="flex items-center space-x-4 flex-1 justify-end pr-8">
+            <div className="flex items-center space-x-1 xl:space-x-4 flex-1 justify-end pr-2 lg:pr-4 xl:pr-8">
               {leftSections.map(renderNavButton)}
             </div>
 
-            {/* Logo in center */}
+            {/* Logo in center - Enhanced responsiveness */}
             <motion.div
-              className="flex items-center justify-center mx-4"
+              className="flex items-center justify-center mx-1 md:mx-2 lg:mx-4 flex-shrink-0"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               onClick={() => scrollToSection("hero")}
             >
-              <motion.div 
+              <motion.div
                 className="inline-block overflow-visible"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
                   rotate: [0, -2, 0, 2, 0],
-                  transition: { 
-                    rotate: { 
-                      repeat: Infinity, 
-                      repeatType: "mirror", 
-                      duration: 0.5 
+                  transition: {
+                    rotate: {
+                      repeat: Infinity,
+                      repeatType: "mirror",
+                      duration: 0.5,
                     },
-                    scale: { duration: 0.3 }
-                  }
+                    scale: { duration: 0.3 },
+                  },
                 }}
               >
                 <img
                   src={logo}
                   alt="C&C Electrical Logo"
                   className={`
-                    transition-all duration-300 cursor-pointer rounded-full glow-yellow border-yellow-600 border-2
-                    ${scrolled ? "h-24 w-auto" : "h-32 w-auto"}
-                  `}
+                  transition-all duration-300 cursor-pointer rounded-full glow-yellow border-yellow-600 border-2
+                  ${
+                    scrolled
+                      ? "h-16 md:h-18 lg:h-20 xl:h-24 w-auto"
+                      : "h-20 md:h-22 lg:h-24 xl:h-32 w-auto"
+                  }
+                `}
                   style={{
-                    boxShadow: "0 0 20px rgba(234, 179, 8, 0.4)"
+                    boxShadow: "0 0 20px rgba(234, 179, 8, 0.4)",
+                    minWidth: "auto",
                   }}
                 />
               </motion.div>
             </motion.div>
 
             {/* Right side menu and contact icons */}
-            <div className="flex items-center space-x-4 flex-1 pl-8">
+            <div className="flex items-center space-x-1 xl:space-x-4 flex-1 pl-2 lg:pl-4 xl:pl-8">
               {rightSections.map(renderNavButton)}
               {renderContactIcons()}
             </div>
           </div>
 
-          {/* Mobile version */}
-          <div className="flex w-full md:hidden justify-between items-center">
-            {/* Logo on left */}
+          {/* Mobile/Tablet version - Now shows on screens smaller than xl */}
+          <div className="flex w-full xl:hidden justify-between items-center">
+            {/* Logo and company name on left */}
             <motion.div
-              className="flex items-center"
+              className="flex items-center gap-3"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -481,14 +511,22 @@ export default function Nav() {
               <img
                 src={logo}
                 alt="C&C Electrical Logo"
-                className="h-14 w-auto transition-all duration-300 rounded-full glow-yellow border-yellow-600 border-2"
+                className="h-12 sm:h-14 w-auto transition-all duration-300 rounded-full glow-yellow border-yellow-600 border-2 cursor-pointer"
                 style={{
-                  boxShadow: "0 0 15px rgba(234, 179, 8, 0.4)"
+                  boxShadow: "0 0 15px rgba(234, 179, 8, 0.4)",
                 }}
               />
+              <div className="flex flex-col cursor-pointer">
+                <h1 className="text-yellow-500 font-bold text-lg sm:text-xl leading-tight">
+                  C&C Electrical
+                </h1>
+                <p className="text-yellow-400/80 text-xs sm:text-sm leading-tight">
+                  Professional Service
+                </p>
+              </div>
             </motion.div>
-            
-            {/* Contact icons and hamburger on right - rearranged */}
+
+            {/* Contact icons and hamburger on right */}
             <div className="flex items-center gap-2">
               <motion.a
                 href="tel:7048794057"
@@ -576,7 +614,7 @@ export default function Nav() {
           </div>
         </nav>
 
-        {/* Mobile Menu Dropdown */}
+        {/* Mobile Menu Dropdown - Now shows on screens smaller than xl */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
@@ -584,7 +622,7 @@ export default function Nav() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden"
+              className="xl:hidden overflow-hidden"
             >
               <div className="container mx-auto px-4">
                 <div className="py-4 space-y-3">
@@ -607,24 +645,30 @@ export default function Nav() {
                   ))}
 
                   {/* External routes in Mobile (like Careers) */}
-                  {rightSections.filter(item => item.isExternalRoute).map((section) => (
-                    <Link to={section.path} key={section.id} className="block w-full">
-                      <motion.button
-                        variants={buttonVariants}
-                        initial="initial"
-                        whileHover="hover"
-                        whileTap="tap"
-                        className={`w-full py-2 rounded-md transition-all duration-300 ${
-                          activeSection === section.id
-                            ? "bg-gradient-to-r from-yellow-500 to-yellow-700 text-black"
-                            : "bg-black/50 text-white hover:bg-yellow-500/80 hover:text-black"
-                        }`}
+                  {rightSections
+                    .filter((item) => item.isExternalRoute)
+                    .map((section) => (
+                      <Link
+                        to={section.path}
+                        key={section.id}
+                        className="block w-full"
                       >
-                        {section.label}
-                      </motion.button>
-                    </Link>
-                  ))}
-                  
+                        <motion.button
+                          variants={buttonVariants}
+                          initial="initial"
+                          whileHover="hover"
+                          whileTap="tap"
+                          className={`w-full py-2 rounded-md transition-all duration-300 ${
+                            activeSection === section.id
+                              ? "bg-gradient-to-r from-yellow-500 to-yellow-700 text-black"
+                              : "bg-black/50 text-white hover:bg-yellow-500/80 hover:text-black"
+                          }`}
+                        >
+                          {section.label}
+                        </motion.button>
+                      </Link>
+                    ))}
+
                   {/* Services Section with dropdown in Mobile */}
                   <div className="relative" ref={mobileServicesRef}>
                     <motion.button
@@ -643,17 +687,24 @@ export default function Nav() {
                       }}
                     >
                       <span>Our Services</span>
-                      <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        className={`h-4 w-4 transition-transform duration-300 ${mobileServicesOpen ? "rotate-180" : ""}`}
-                        fill="none" 
-                        viewBox="0 0 24 24" 
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={`h-4 w-4 transition-transform duration-300 ${
+                          mobileServicesOpen ? "rotate-180" : ""
+                        }`}
+                        fill="none"
+                        viewBox="0 0 24 24"
                         stroke="currentColor"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
                       </svg>
                     </motion.button>
-                    
+
                     <AnimatePresence>
                       {mobileServicesOpen && (
                         <motion.div
