@@ -521,7 +521,7 @@ export default function Nav() {
                   C&C Electrical
                 </h1>
                 <p className="text-yellow-400/80 text-xs sm:text-sm leading-tight">
-                  Professional Service
+                  Construction and Electrical 
                 </p>
               </div>
             </motion.div>
