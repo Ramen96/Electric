@@ -1,334 +1,313 @@
 import React, { useState, useRef } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { StarIcon } from "@heroicons/react/24/solid";
-import avatarImg1 from "~/assets/avatar1.jpg";
-import avatarImg2 from "~/assets/avatar2.jpg";
-import avatarImg3 from "~/assets/avatar3.jpg";
-import avatarImg4 from "~/assets/avatar4.jpg";
+import { motion, useInView } from "framer-motion";
+import { Star, Quote, Zap, CheckCircle, Award } from "lucide-react";
 
-export default function Testimonials() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+export default function BlackGoldTestimonialsLayout() {
+  const [activeIndex, setActiveIndex] = useState(null);
   const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
-  // Parallax effect
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-
-  // Example testimonials with detailed information
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      position: "Facilities Manager",
-      company: "Metro Business Center",
-      image: avatarImg1,
-      quote: "The office lighting upgrade transformed our workplace. Energy costs are down by 65%, and employee satisfaction has increased significantly. C&C Electrical' team was professional from start to finish.",
       rating: 5,
-      project: "Office Building Lighting Upgrade",
+      title: "Top-notch service from start to finish!",
+      content: "C&C Construction and Electrical exceeded our expectations on a commercial renovation project. Their team was punctual and professional every step of the way. The electrical work was clean, up to code, and finished ahead of schedule. I highly recommend them for any business in need of dependable contractors.",
+      icon: CheckCircle,
+      gradient: "from-yellow-400 via-amber-500 to-yellow-600",
+      accentColor: "gold"
     },
     {
-      name: "Michael Rodriguez",
-      position: "Operations Director",
-      company: "Global Distribution Co.",
-      image: avatarImg2,
-      quote: "When our warehouse needed a complete electrical overhaul, C&C Electrical delivered beyond expectations. Their team worked efficiently with minimal disruption to our operations, and the new safety systems give us peace of mind.",
       rating: 5,
-      project: "Commercial Warehouse Rewiring",
+      title: "Honest, reliable, and efficient.",
+      content: "We've worked with a lot of subcontractors over the years, and C&C stands out. They were transparent with their pricing, stuck to the agreed timeline, and took pride in their work. We'll definitely be partnering with them again.",
+      icon: Award,
+      gradient: "from-amber-400 via-yellow-500 to-orange-500",
+      accentColor: "gold"
     },
     {
-      name: "Jennifer Park",
-      position: "Plant Manager",
-      company: "Precision Manufacturing Inc.",
-      image: avatarImg3,
-      quote: "The redundant power systems C&C Electrical installed have eliminated our production downtime issues completely. Their understanding of industrial electrical needs is unmatched in the industry.",
       rating: 5,
-      project: "Manufacturing Plant Power Systems",
-    },
-    {
-      name: "David Thompson",
-      position: "Property Manager",
-      company: "Westside Shopping Plaza",
-      image: avatarImg4,
-      quote: "Renovating a busy shopping center without disrupting business seemed impossible, but C&C Electrical made it happen. All 24 stores remained operational during the upgrade, and the new electrical infrastructure is both code-compliant and energy-efficient.",
-      rating: 5,
-      project: "Retail Complex Electrical Renovation",
-    },
+      title: "Our go-to for electrical work!",
+      content: "C&C has helped us on several residential and light commercial projects, and they always deliver. Their crew is professional and easy to work with, plus they keep the job site clean. Great communication and trustworthy leadership. You can tell they care about doing it right.",
+      icon: Zap,
+      gradient: "from-yellow-500 via-amber-500 to-yellow-400",
+      accentColor: "gold"
+    }
   ];
 
-  // Navigation controls for carousel
-  const nextTestimonial = () => {
-    setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    setTimeout(() => setIsTransitioning(false), 300);
+  const getAccentClasses = () => {
+    return {
+      border: "border-yellow-500/40",
+      bg: "from-yellow-500/10 to-amber-600/15",
+      text: "text-yellow-400",
+      icon: "text-yellow-400",
+      shadow: "shadow-yellow-500/25",
+      glow: "0 0 40px rgba(251, 191, 36, 0.4)"
+    };
   };
-
-  const prevTestimonial = () => {
-    setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
-    setTimeout(() => setIsTransitioning(false), 300);
-  };
-
-  // Auto-scroll carousel with pause on hover
-  React.useEffect(() => {
-    if (isHovered) return;
-
-    const interval = setInterval(() => {
-      nextTestimonial();
-    }, 6000);
-
-    return () => clearInterval(interval);
-  }, [isHovered]);
 
   return (
     <section
       id="testimonials"
       ref={containerRef}
-      className="relative min-h-screen flex justify-center items-center bg-gradient-to-br from-black via-gray-900 to-black py-24 overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-black py-24 overflow-hidden"
     >
-      {/* Preload images */}
-      <div style={{ display: "none" }}>
-        {testimonials.map((testimonial, index) => (
-          <img key={index} src={testimonial.image} alt="" />
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1MSwgMTkxLCAzNiwgMC4wNSkiIHN0cm9rZS13aWR0aD0iMSIvPgogICAgPC9wYXR0ZXJuPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPgo8L3N2Zz4=')] opacity-60" />
+        
+        {/* Floating golden orbs */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-3 h-3 rounded-full bg-gradient-to-r from-yellow-400 to-amber-500 opacity-30"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [-30, 30, -30],
+              opacity: [0.2, 0.6, 0.2],
+              scale: [0.8, 1.2, 0.8],
+            }}
+            transition={{
+              duration: 5 + Math.random() * 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.3,
+            }}
+          />
         ))}
-      </div>
 
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0dGVybiBpZD0icGF0dGVybiIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgNDAgNDAiPgogIDxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIC8+Cjwvc2F0dGVybj4KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIgLz4KPC9zdmc+')]" opacity={0.4} />
-
-        {/* Floating orbs with conditional animation - in gold/yellow */}
-        <motion.div
-          className="absolute -top-20 left-1/4 w-64 h-64 rounded-full bg-yellow-500/10 blur-3xl"
-          animate={isTransitioning ? {} : {
-            y: [0, 40, 0],
-            x: [0, 20, 0],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-40 -right-20 w-96 h-96 rounded-full bg-yellow-600/10 blur-3xl"
-          animate={isTransitioning ? {} : {
-            y: [0, -60, 0],
-            x: [0, -30, 0],
-            opacity: [0.2, 0.5, 0.2],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+        {/* Radial gradient overlay */}
+        <div className="absolute inset-0 bg-radial-gradient from-yellow-500/5 via-transparent to-transparent" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div style={{ y, opacity }} className="max-w-7xl mx-auto">
-          <div className="flex flex-col items-center mb-12">
-            {/* Badge */}
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-20"
+          >
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4 }}
-              className="inline-block px-4 py-1 rounded-full bg-yellow-500/10 backdrop-blur-sm border border-yellow-500/20 mb-6"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={isInView ? { scale: 1, opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-yellow-500/10 to-amber-500/10 backdrop-blur-sm border border-yellow-500/30 mb-8"
             >
-              <span className="text-yellow-400 font-medium">Client Success</span>
+              <Quote className="w-5 h-5 text-yellow-400" />
+              <span className="text-yellow-100 font-semibold">Client Testimonials</span>
             </motion.div>
 
-            {/* Heading with gradient */}
-            <motion.h2
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-5xl font-extrabold mb-8 text-center leading-tight"
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-6xl md:text-7xl font-bold mb-8"
             >
-              <span className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text">
-                What Our Clients Say
+              <span className="bg-gradient-to-r from-white via-gray-100 to-white text-transparent bg-clip-text">
+                What Our
               </span>
-              <span className="block text-white mt-2">About Our Services</span>
-            </motion.h2>
-
-            <motion.div
-              initial={{ opacity: 0, width: 0 }}
-              whileInView={{ opacity: 1, width: "80px" }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded mb-6"
-            />
+              <br />
+              <span className="bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 text-transparent bg-clip-text">
+                Clients Say
+              </span>
+            </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-xl leading-relaxed text-gray-300 mb-8 text-center max-w-xl"
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-xl text-gray-300 max-w-2xl mx-auto"
             >
-              Hear directly from our valued clients about their experience working with our team of electrical experts.
+              Real feedback from real clients who trust C&C Construction and Electrical
             </motion.p>
-          </div>
+          </motion.div>
 
-          {/* Testimonial Carousel */}
-          <div className="relative max-w-5xl mx-auto">
-            <motion.div
-              className="relative overflow-hidden rounded-2xl border border-yellow-500/20 shadow-2xl shadow-yellow-600/10"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <AnimatePresence mode="wait">
+          {/* Testimonials */}
+          <div className="space-y-12">
+            {testimonials.map((testimonial, index) => {
+              const IconComponent = testimonial.icon;
+              const accentClasses = getAccentClasses();
+              
+              return (
                 <motion.div
-                  key={currentIndex}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="bg-black/60 backdrop-blur-lg p-8 md:p-12"
+                  key={index}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
+                  className={`group relative ${index % 2 === 0 ? 'md:mr-20' : 'md:ml-20'}`}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(null)}
                 >
-                  {/* Quotation mark decoration */}
-                  <div className="absolute top-8 left-8 text-yellow-500/20 text-9xl font-serif">
-                    "
-                  </div>
+                  <motion.div
+                    className={`relative p-10 rounded-3xl border-2 backdrop-blur-sm transition-all duration-700 ${
+                      accentClasses.border
+                    } bg-gradient-to-br from-black/80 via-gray-900/60 to-black/80 hover:shadow-2xl ${accentClasses.shadow}`}
+                    whileHover={{ 
+                      y: -12,
+                      scale: 1.03,
+                    }}
+                    animate={activeIndex === index ? {
+                      boxShadow: [
+                        `0 15px 40px rgba(0, 0, 0, 0.4)`,
+                        accentClasses.glow,
+                        `0 15px 40px rgba(0, 0, 0, 0.4)`,
+                      ]
+                    } : {}}
+                    transition={{ duration: 2.5, repeat: Infinity }}
+                  >
+                    {/* Decorative corner elements */}
+                    <div className="absolute top-6 right-6">
+                      <motion.div
+                        animate={activeIndex === index ? {
+                          rotate: [0, 360],
+                          scale: [1, 1.3, 1],
+                        } : { rotate: 0, scale: 1 }}
+                        transition={{ duration: 3, repeat: activeIndex === index ? Infinity : 0 }}
+                      >
+                        <IconComponent className={`w-7 h-7 ${accentClasses.icon}`} />
+                      </motion.div>
+                    </div>
 
-                  {/* Content Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
-                    {/* Avatar and info section */}
-                    <div className="md:col-span-4 flex flex-col items-center md:items-start">
-                      <div className="relative mb-4">
-                        <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-yellow-500/50 shadow-lg shadow-yellow-600/30">
-                          <img 
-                            src={testimonials[currentIndex].image} 
-                            alt={testimonials[currentIndex].name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <motion.div 
-                          className="absolute -bottom-2 -right-2 bg-yellow-500 rounded-full p-1.5 shadow-md"
-                          initial={{ rotate: 0 }}
-                          animate={{ rotate: [0, 10, 0, -10, 0] }}
-                          transition={{ duration: 0.5, delay: 0.5 }}
+                    {/* Quote icon */}
+                    <motion.div
+                      className={`inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-gradient-to-br ${testimonial.gradient} mb-8 shadow-lg`}
+                      animate={activeIndex === index ? {
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 10, -10, 0],
+                      } : { scale: 1, rotate: 0 }}
+                      transition={{ duration: 2.5, repeat: activeIndex === index ? Infinity : 0 }}
+                    >
+                      <Quote className="w-8 h-8 text-black font-bold" />
+                    </motion.div>
+
+                    {/* Stars */}
+                    <div className="flex items-center gap-2 mb-6">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          animate={activeIndex === index ? {
+                            scale: [1, 1.4, 1],
+                            rotate: [0, 180, 360],
+                          } : {}}
+                          transition={{ 
+                            duration: 2,
+                            delay: i * 0.15,
+                            repeat: activeIndex === index ? Infinity : 0,
+                          }}
                         >
-                          <StarIcon className="w-4 h-4 text-black" />
+                          <Star className={`w-6 h-6 fill-current ${accentClasses.text}`} />
                         </motion.div>
-                      </div>
-
-                      <h3 className="text-xl font-bold text-white mb-1 text-center md:text-left">
-                        {testimonials[currentIndex].name}
-                      </h3>
-                      <p className="text-yellow-400 font-medium mb-2 text-center md:text-left">
-                        {testimonials[currentIndex].position}
-                      </p>
-                      <p className="text-gray-300 text-sm mb-4 text-center md:text-left">
-                        {testimonials[currentIndex].company}
-                      </p>
-
-                      {/* Rating stars */}
-                      <div className="flex items-center mb-4">
-                        {[...Array(5)].map((_, i) => (
-                          <StarIcon 
-                            key={i} 
-                            className={`w-5 h-5 ${
-                              i < testimonials[currentIndex].rating 
-                                ? "text-yellow-400" 
-                                : "text-gray-600"
-                            }`} 
-                          />
-                        ))}
-                      </div>
-                      
-                      <div className="px-3 py-1 text-xs font-medium rounded-full bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">
-                        {testimonials[currentIndex].project}
-                      </div>
+                      ))}
                     </div>
 
-                    {/* Quote section */}
-                    <div className="md:col-span-8 flex flex-col justify-center">
-                      <p className="text-gray-300 text-lg md:text-xl italic leading-relaxed">
-                        {testimonials[currentIndex].quote}
-                      </p>
-                    </div>
-                  </div>
+                    {/* Title */}
+                    <motion.h3
+                      className="text-3xl font-bold text-white mb-6 leading-tight"
+                      animate={activeIndex === index ? {
+                        color: [
+                          "rgb(255, 255, 255)",
+                          "rgb(251, 191, 36)",
+                          "rgb(255, 255, 255)"
+                        ]
+                      } : {}}
+                      transition={{ duration: 2.5, repeat: Infinity }}
+                    >
+                      {testimonial.title}
+                    </motion.h3>
+
+                    {/* Content */}
+                    <motion.p
+                      className="text-gray-200 text-lg leading-relaxed"
+                      animate={activeIndex === index ? {
+                        color: ["rgb(229, 231, 235)", "rgb(255, 255, 255)", "rgb(229, 231, 235)"]
+                      } : {}}
+                      transition={{ duration: 3.5, repeat: Infinity }}
+                    >
+                      {testimonial.content}
+                    </motion.p>
+
+                    {/* Animated border */}
+                    {activeIndex === index && (
+                      <motion.div
+                        className="absolute inset-0 rounded-3xl pointer-events-none"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <motion.div
+                          className="absolute inset-0 rounded-3xl border-2"
+                          animate={{
+                            borderColor: [
+                              "rgba(251, 191, 36, 0.4)",
+                              "rgba(251, 191, 36, 0.9)",
+                              "rgba(251, 191, 36, 0.4)",
+                            ]
+                          }}
+                          transition={{ duration: 2.5, repeat: Infinity }}
+                        />
+                      </motion.div>
+                    )}
+                  </motion.div>
                 </motion.div>
-              </AnimatePresence>
-
-              {/* Navigation controls */}
-              <div className="absolute bottom-4 right-4 flex space-x-2 z-20 md:bottom-8 md:right-8">
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 rounded-full bg-black/30 border border-yellow-500/20 flex items-center justify-center text-white hover:bg-yellow-600/50 transition-colors"
-                  onClick={prevTestimonial}
-                >
-                  <ChevronLeftIcon className="w-5 h-5" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 rounded-full bg-black/30 border border-yellow-500/20 flex items-center justify-center text-white hover:bg-yellow-600/50 transition-colors"
-                  onClick={nextTestimonial}
-                >
-                  <ChevronRightIcon className="w-5 h-5" />
-                </motion.button>
-              </div>
-
-              {/* Progress indicator */}
-              <div className="absolute bottom-4 left-4 flex space-x-2 z-20 md:bottom-8 md:left-8">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      currentIndex === index ? "w-8 bg-yellow-500" : "bg-white/30 hover:bg-yellow-400/50"
-                    }`}
-                    aria-label={`Go to testimonial ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </motion.div>
+              );
+            })}
           </div>
 
           {/* CTA Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="mt-16 text-center"
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 2 }}
+            className="text-center mt-24"
           >
-            <p className="text-xl text-gray-300 mb-6">
-              Join our growing list of satisfied commercial and industrial clients
-            </p>
-            <button
-              onClick={() => {
-                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+            <motion.p
+              className="text-2xl text-gray-200 mb-10"
+              animate={{
+                opacity: [0.8, 1, 0.8],
               }}
-              className="relative overflow-hidden cursor-pointer group px-8 py-4 rounded-xl bg-black text-yellow-400 font-semibold border-2 border-yellow-500/50 shadow-lg shadow-yellow-600/20 inline-flex items-center hover:-translate-y-1 transition-transform duration-300"
+              transition={{ duration: 3, repeat: Infinity }}
             >
-              <span className="relative z-10 flex items-center">
-                Get an Estimate
-                <svg className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                </svg>
+              Ready to join our satisfied clients?
+            </motion.p>
+
+            <motion.button
+              className="group relative px-12 py-5 bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 text-black font-bold text-xl rounded-3xl overflow-hidden shadow-2xl border-2 border-yellow-400/30"
+              whileHover={{ 
+                scale: 1.08,
+                boxShadow: "0 30px 60px rgba(251, 191, 36, 0.3)",
+              }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="relative z-10 flex items-center font-bold">
+                Get Your Free Quote
+                <motion.span
+                  className="ml-4 text-2xl"
+                  animate={{
+                    x: [0, 8, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                  }}
+                >
+                  →
+                </motion.span>
               </span>
 
-              {/* Animated background effect */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-yellow-500"
+                className="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500"
                 initial={{ x: "-100%" }}
                 whileHover={{ x: "0%" }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.6 }}
               />
-            </button>
+            </motion.button>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
