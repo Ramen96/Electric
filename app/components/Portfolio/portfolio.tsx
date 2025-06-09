@@ -1,10 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import warehouseImg from "~/assets/BlueMountainRidge.png";
-import officeImg from "~/assets/DunkinDonuts.png";
-import mfgImg from "~/assets/foodlionphoto.png";
-import retailImg from "~/assets/foodlionphoto1.png";
+import blueRidgeMountain from "~/assets/BlueMountainRidge.png";
+import dunkinDonutsImg from "~/assets/DunkinDonuts.png";
+import greaseMonkeyImg from "~/assets/GreaseMonkey.png";
+import foodLionImg from "~/assets/foodlionphoto.png";
+import foodLionImg1 from "~/assets/foodlionphoto1.png";
 
 export default function Portfolio() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,39 +27,44 @@ export default function Portfolio() {
   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
-  // Example projects with detailed information
+  // Projects with detailed information
   const projects = [
     {
-      title: "Commercial Warehouse Rewiring",
-      description:
-        "Complete electrical system overhaul for a 50,000 sq ft distribution center. Implemented energy-efficient lighting and updated all safety systems.",
-      image: warehouseImg,
-      tags: ["Industrial", "Energy-Efficient", "Safety Compliance"],
+      title:
+        "Multi family dwelling spaces with specialty, 2) re-centers, 18) street poles, and swimming pool.",
+      description: "need description",
+      image: blueRidgeMountain,
+      tags: ["need", "more", "tags"],
       duration: "3 weeks",
     },
     {
-      title: "Office Building Lighting Upgrade",
-      description:
-        "Retrofitted a 12-story office complex with smart LED lighting solutions, reducing energy consumption by 65% and improving workplace illumination.",
-      image: officeImg,
-      tags: ["Commercial", "Smart Systems", "LED Technology"],
+      title:
+        "Commercial Restaurant Renovation with main branch circuit wiring.",
+      description: "description needed",
+      image: dunkinDonutsImg,
+      tags: ["need", "more", "tags"],
       duration: "5 weeks",
     },
     {
-      title: "Manufacturing Plant Power Systems",
-      description:
-        "Designed and installed high-capacity electrical systems for heavy machinery with built-in redundancies to prevent costly downtime.",
-      image: mfgImg,
-      tags: ["Industrial", "High-Capacity", "Redundant Systems"],
-      duration: "8 weeks",
+      title: "Corporate food retail up fits with storefront remodel.",
+      description: "description needed",
+      image: foodLionImg,
+      tags: ["need", "more", "tags"],
+      duration: "3 months",
     },
     {
-      title: "Retail Complex Electrical Renovation",
-      description:
-        "Modernized electrical infrastructure for a shopping center with 24 storefronts, updating to code while maintaining business operations.",
-      image: retailImg,
-      tags: ["Retail", "Code Compliance", "Minimal Disruption"],
+      title: "Corporate food retail up fits with storefront remodel.",
+      image: foodLionImg1,
+      description: "description needed",
+      tags: ["need", "more", "tags"],
       duration: "6 weeks",
+    },
+    {
+      title: "Underground Utility Raceway with oil change center and trenches.",
+      description: "need description",
+      image: greaseMonkeyImg,
+      tags: ["need", "more", "tags"],
+      duration: "3 months",
     },
   ];
 
@@ -66,7 +77,9 @@ export default function Portfolio() {
 
   const prevProject = () => {
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + projects.length) % projects.length
+    );
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
@@ -98,16 +111,23 @@ export default function Portfolio() {
 
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0dGVybiBpZD0icGF0dGVybiIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgNDAgNDAiPgogIDxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIC8+Cjwvc2F0dGVybj4KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIgLz4KPC9zdmc+')]" opacity={0.4} />
+        <div
+          className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0dGVybiBpZD0icGF0dGVybiIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgNDAgNDAiPgogIDxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIC8+Cjwvc2F0dGVybj4KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIgLz4KPC9zdmc+')]"
+          opacity={0.4}
+        />
 
         {/* Floating orbs with conditional animation - now in gold/yellow */}
         <motion.div
           className="absolute -top-20 right-1/4 w-64 h-64 rounded-full bg-yellow-500/10 blur-3xl"
-          animate={isTransitioning ? {} : {
-            y: [0, 40, 0],
-            x: [0, 20, 0],
-            opacity: [0.3, 0.6, 0.3],
-          }}
+          animate={
+            isTransitioning
+              ? {}
+              : {
+                  y: [0, 40, 0],
+                  x: [0, 20, 0],
+                  opacity: [0.3, 0.6, 0.3],
+                }
+          }
           transition={{
             duration: 15,
             repeat: Infinity,
@@ -116,11 +136,15 @@ export default function Portfolio() {
         />
         <motion.div
           className="absolute bottom-40 -left-20 w-96 h-96 rounded-full bg-yellow-600/10 blur-3xl"
-          animate={isTransitioning ? {} : {
-            y: [0, -60, 0],
-            x: [0, -30, 0],
-            opacity: [0.2, 0.5, 0.2],
-          }}
+          animate={
+            isTransitioning
+              ? {}
+              : {
+                  y: [0, -60, 0],
+                  x: [0, -30, 0],
+                  opacity: [0.2, 0.5, 0.2],
+                }
+          }
           transition={{
             duration: 25,
             repeat: Infinity,
@@ -152,7 +176,9 @@ export default function Portfolio() {
               <span className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text">
                 Featured Projects
               </span>
-              <span className="block text-white mt-2">That Showcase Our Expertise</span>
+              <span className="block text-white mt-2">
+                That Showcase Our Expertise
+              </span>
             </motion.h2>
 
             <motion.div
@@ -168,7 +194,8 @@ export default function Portfolio() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl leading-relaxed text-gray-300 mb-8 text-center max-w-xl"
             >
-              Explore our recent electrical projects that demonstrate our commitment to quality, safety, and cutting-edge solutions.
+              Explore our recent electrical projects that demonstrate our
+              commitment to quality, safety, and cutting-edge solutions.
             </motion.p>
           </div>
 
@@ -197,13 +224,17 @@ export default function Portfolio() {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent lg:hidden">
-                      <h3 className="text-xl font-bold text-white">{projects[currentIndex].title}</h3>
+                      <h3 className="text-xl font-bold text-white">
+                        {projects[currentIndex].title}
+                      </h3>
                     </div>
                   </div>
 
                   {/* Content section */}
                   <div className="p-8 bg-black/60 backdrop-blur-lg">
-                    <h3 className="text-3xl font-bold text-white mb-3 hidden lg:block">{projects[currentIndex].title}</h3>
+                    <h3 className="text-3xl font-bold text-white mb-3 hidden lg:block">
+                      {projects[currentIndex].title}
+                    </h3>
 
                     <div className="flex flex-wrap gap-2 mb-4">
                       {projects[currentIndex].tags.map((tag, index) => (
@@ -222,8 +253,12 @@ export default function Portfolio() {
 
                     <div className="grid grid-cols-2 gap-4 mb-8">
                       <div>
-                        <h4 className="text-yellow-400 font-medium mb-1">Duration</h4>
-                        <p className="text-white">{projects[currentIndex].duration}</p>
+                        <h4 className="text-yellow-400 font-medium mb-1">
+                          Duration
+                        </h4>
+                        <p className="text-white">
+                          {projects[currentIndex].duration}
+                        </p>
                       </div>
                     </div>
 
@@ -232,7 +267,9 @@ export default function Portfolio() {
                       whileTap={{ scale: 0.98 }}
                       className="group relative overflow-hidden px-8 py-3 bg-black text-yellow-400 font-semibold rounded-xl border-2 border-yellow-500/50 shadow-lg shadow-yellow-600/20"
                       onClick={() => {
-                        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                        document
+                          .getElementById("contact")
+                          ?.scrollIntoView({ behavior: "smooth" });
                       }}
                     >
                       <span className="relative z-10 flex items-center">
@@ -252,7 +289,7 @@ export default function Portfolio() {
                           ></path>
                         </svg>
                       </span>
-                      
+
                       {/* Animated background effect */}
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-yellow-500"
@@ -292,7 +329,9 @@ export default function Portfolio() {
                     key={index}
                     onClick={() => setCurrentIndex(index)}
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      currentIndex === index ? "w-8 bg-yellow-500" : "bg-white/30 hover:bg-yellow-400/50"
+                      currentIndex === index
+                        ? "w-8 bg-yellow-500"
+                        : "bg-white/30 hover:bg-yellow-400/50"
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
@@ -309,18 +348,32 @@ export default function Portfolio() {
             className="mt-16 text-center"
           >
             <p className="text-xl text-gray-300 mb-6">
-              Ready to transform your commercial or industrial electrical systems?
+              Ready to transform your commercial or industrial electrical
+              systems?
             </p>
             <button
               onClick={() => {
-                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                document
+                  .getElementById("contact")
+                  ?.scrollIntoView({ behavior: "smooth" });
               }}
               className="relative overflow-hidden cursor-pointer group px-8 py-4 rounded-xl bg-black text-yellow-400 font-semibold border-2 border-yellow-500/50 shadow-lg shadow-yellow-600/20 inline-flex items-center hover:-translate-y-1 transition-transform duration-300"
             >
               <span className="relative z-10 flex items-center">
                 Start Your Project
-                <svg className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                <svg
+                  className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  ></path>
                 </svg>
               </span>
 
