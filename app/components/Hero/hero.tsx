@@ -439,12 +439,10 @@ export default function Hero() {
               <div className="text-yellow-400">
                 <h4 className="text-sm font-semibold mb-1">Business Hours</h4>
                 <div className="text-sm text-gray-200">
-                  Monday - Friday: 8AM - 6PM
-                  <br />
-                  Saturday: 9AM - 2PM
+                  Monday - Friday: 7AM - 3PM
                   <br />
                   <span className="text-yellow-300 font-medium">
-                    Sunday: Closed
+                    Weekends: Closed
                   </span>
                 </div>
               </div>
