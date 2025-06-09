@@ -98,7 +98,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="mt-20 relative w-full overflow-hidden flex flex-col justify-center items-center min-h-screen"
+      className="xl:mt-20 md:mt-3 relative w-full overflow-hidden flex flex-col justify-center items-center min-h-screen"
     >
       <div className="w-11/12 flex flex-col items-center gap-6 max-w-screen-2xl mx-auto">
         {/* Main bordered container for the hero image */}
