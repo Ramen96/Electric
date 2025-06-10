@@ -284,7 +284,7 @@ export default function BlackGoldTestimonialsLayout() {
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10 flex items-center font-bold">
-                Get Your Free Quote
+                Get an Estimate 
                 <motion.span
                   className="ml-4 text-2xl"
                   animate={{
