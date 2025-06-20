@@ -31,39 +31,44 @@ export default function Portfolio() {
   const projects = [
     {
       title:
-        "Multi family dwelling spaces with specialty, 2) re-centers, 18) street poles, and swimming pool.",
-      description: "need description",
+        "Blue Ridge Mountain",
+      description:
+        "Complete electrical installation fro multi-family community featuring two recreation centers, 18 street lights poles and a swimming pool -  full wiring from the ground up with focus on safety, efficiency, and code compliance.",
       image: blueRidgeMountain,
-      tags: ["need", "more", "tags"],
+      tags: ["Community", "Code Compliance", "Establishment"],
       duration: "3 weeks",
     },
     {
       title:
-        "Commercial Restaurant Renovation with main branch circuit wiring.",
-      description: "description needed",
+        "Restaurant Renovation",
+      description: 
+        "Restaurant renovation with main branch circuit wiring and electrical upgrade to support new equipment layouts, lighting, and code compliance. Work completed to meet franchise standards.",
       image: dunkinDonutsImg,
-      tags: ["need", "more", "tags"],
+      tags: ["Electrical Upgrade", "Main Branch Circuit", "Interior Wiring"],
       duration: "5 weeks",
     },
     {
-      title: "Corporate food retail up fits with storefront remodel.",
-      description: "description needed",
+      title:  "Retail Location",
+      description: 
+        "Full electrical up-fit for a Food Lion retail location, including service rework, lighting,and storefront systems as part of a complete interior renovation to meet corporate standards.",
       image: foodLionImg,
-      tags: ["need", "more", "tags"],
+      tags: ["Lighting Installation", "Electrical Remodel", "Retail Construction"],
       duration: "3 months",
     },
     {
-      title: "Corporate food retail up fits with storefront remodel.",
+      title:  "Retail Location",
+      description: 
+        "Full electrical up-fit for a Food Lion retail location, including service rework, lighting,and storefront systems as part of a complete interior renovation to meet corporate standards.",
       image: foodLionImg1,
-      description: "description needed",
-      tags: ["need", "more", "tags"],
-      duration: "6 weeks",
+      tags: ["Lighting Installation", "Electrical Remodel", "Retail Construction"],
+      duration: "3 months",
     },
     {
-      title: "Underground Utility Raceway with oil change center and trenches.",
-      description: "need description",
+      title: "Grease Monkey Location",
+      description: 
+        "Completed underground electrical raceway and trenching. Scope included conduit layout for power and service equipment, working closely with utility crews to ensure clean, code-compliant installation before slab pour.",
       image: greaseMonkeyImg,
-      tags: ["need", "more", "tags"],
+      tags: ["Utility Prep", "Electrical Trenching", "Ground Work"],
       duration: "3 months",
     },
   ];

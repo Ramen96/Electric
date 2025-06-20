@@ -62,7 +62,8 @@ export default function Team() {
         id: 2,
         name: "Jon Ivester",
         role: "Public Relations",
-        description: "Behind every strong brand, is an even stronger message.",
+        description: 
+          "As our PR Director, Jon oversees all of the company’s public communications. He ensures our image remains consistent and aligned with our values, playing a key role in shaping how we are represented across all platforms and to the public.",
         image: pfp,
         specialties: [
           "Operational Excellence",
@@ -76,7 +77,8 @@ export default function Team() {
         id: 3,
         name: "Emily Nolasco",
         role: "Administrative Director",
-        description: "Success is 90% hustle and 10% coffee.",
+        description: 
+          "At C&C headquarters Emily is responsible for the organization and coordination of our internal systems, reporting and working closely with leadership to maintain efficiency to keep operations aligned with our goals.",
         image: pfp,
         specialties: ["System Design", "Smart Buildings", "Quality Assurance"],
       }
@@ -86,7 +88,8 @@ export default function Team() {
         id: 6,
         name: "Charles Dowing",
         role: "Operations Specialist",
-        description: "Stay steady and ready - that's how you run operations and reel in results.", 
+        description: 
+          "One of the many pillars that keep us going, Charles manages core operations including scheduling, ensuring materials and project logistics, ensuring smooth project flow from start to finish.", 
         image: pfp,
         specialties: [
           "Industrial Installations",
@@ -100,7 +103,8 @@ export default function Team() {
         id: 10,
         name: "Lucas Shaffer",
         role: " Central Regional Director",
-        description: "Good energy - that's how we power forward.",
+        description: 
+          "Regional Director Lucas leads the sales team by overseeing estimates, identifying project opportunities and driving sales that align with our company's values. Working closely with management supporting growth.",
         image: pfp,
         specialties: ["Client Partnerships", "Solutions Selling", "Contract Negotiation"],
       },
@@ -108,7 +112,8 @@ export default function Team() {
         id: 11,
         name: "Dan Huggins",
         role: "Southern regional Director",
-        description: "Some days I close deals, some days I catch bass- either way, i'm hooked.",
+        description: 
+          "As our Southern Regional Director, Dan connects directly with clients to understand their needs, by providing project estimates and guiding them through our services. Ensuring clear and aligned project expectations from the start.",
         image: pfp,
         specialties: ["Client Satisfaction", "Project Coordination", "Communication"],
       }
