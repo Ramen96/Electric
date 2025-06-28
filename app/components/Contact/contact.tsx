@@ -2,6 +2,15 @@ import React, { useEffect, useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 const MapComponent = lazy(() => import("../MapComponent/mapComponent"));
 
+interface ContactFormData {
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  projectType: string;
+  message: string;
+}
+
 export default function Contact() {
   const [formState, setFormState] = useState({
     name: "",
@@ -14,23 +23,76 @@ export default function Contact() {
     loading: false,
   });
 
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormState((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleContactSubmit = async (formData: ContactFormData) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSuccessMessage("Message sent successfully!");
+        setErrorMessage("");
+        // Reset form fields after successful submission
+        setFormState((prev) => ({
+          ...prev,
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          projectType: "",
+          message: "",
+        }));
+      } else {
+        // Handle HTTP error responses
+        const errorData = await response.text();
+        setErrorMessage(
+          `Failed to send message: ${response.status} ${response.statusText}`
+        );
+        setSuccessMessage("");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      setErrorMessage("Network error: Unable to connect to server");
+      setSuccessMessage("");
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormState((prev) => ({ ...prev, loading: true }));
 
-    // Simulate form submission
-    setTimeout(() => {
-      setFormState((prev) => ({
-        ...prev,
-        loading: false,
-        submitted: true,
-      }));
-    }, 1500);
+    // Clear previous messages
+    setSuccessMessage("");
+    setErrorMessage("");
+
+    const formData: ContactFormData = {
+      name: formState.name,
+      email: formState.email,
+      phone: formState.phone,
+      company: formState.company,
+      projectType: formState.projectType,
+      message: formState.message,
+    };
+
+    await handleContactSubmit(formData);
+
+    setFormState((prev) => ({
+      ...prev,
+      loading: false,
+      submitted: true,
+    }));
   };
 
   // Animation variants
@@ -387,6 +449,16 @@ export default function Contact() {
               </motion.div>
             ) : (
               <div className="p-8">
+                {errorMessage && (
+                  <div className="mb-4 p-3 bg-red-900/30 border border-red-500/50 rounded-lg text-red-400">
+                    {errorMessage}
+                  </div>
+                )}
+                {successMessage && (
+                  <div className="mb-4 p-3 bg-green-900/30 border border-green-500/50 rounded-lg text-green-400">
+                    {successMessage}
+                  </div>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <h3 className="text-xl font-semibold mb-6 text-white">
                     Send Us a Message
