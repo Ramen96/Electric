@@ -229,10 +229,126 @@ export default function ApplicationForm() {
     drugAlcoholPolicyAcknowledged: false,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Here you would typically send the data to a server
+    setIsSubmitting(true);
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/job-application`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        setSuccessMessage("Application submitted successfully!");
+        setErrorMessage("");
+        // Reset form to initial state
+        setFormData({
+          jobTitle: "",
+          department: "",
+          referenceNumber: "",
+          advertisementSource: "",
+          title: "",
+          lastName: "",
+          firstName: "",
+          homeAddress: "",
+          zipCode: "",
+          homePhone: "",
+          workPhone: "",
+          mobilePhone: "",
+          email: "",
+          hasDriversLicense: false,
+          hasMedicalCondition: false,
+          hasWorkRestrictions: false,
+          noticeRequired: "",
+          employmentRecords: [
+            {
+              employer: "",
+              address: "",
+              jobTitle: "",
+              fromDate: "",
+              toDate: "",
+              duties: "",
+              reasonForLeaving: "",
+            },
+            {
+              employer: "",
+              address: "",
+              jobTitle: "",
+              fromDate: "",
+              toDate: "",
+              duties: "",
+              reasonForLeaving: "",
+            },
+            {
+              employer: "",
+              address: "",
+              jobTitle: "",
+              fromDate: "",
+              toDate: "",
+              duties: "",
+              reasonForLeaving: "",
+            },
+            {
+              employer: "",
+              address: "",
+              jobTitle: "",
+              fromDate: "",
+              toDate: "",
+              duties: "",
+              reasonForLeaving: "",
+            },
+          ],
+          educationRecords: [
+            { institution: "", subject: "", qualification: "", dateGained: "" },
+          ],
+          trainingRecords: [{ course: "", date: "" }],
+          experienceSkills: "",
+          references: [
+            {
+              name: "",
+              position: "",
+              organization: "",
+              address: "",
+              telephone: "",
+            },
+            {
+              name: "",
+              position: "",
+              organization: "",
+              address: "",
+              telephone: "",
+            },
+          ],
+          hasCriminalConvictions: false,
+          drugAlcoholPolicyAcknowledged: false,
+        });
+      } else {
+        const errorData = await response.text();
+        setErrorMessage(
+          `Failed to submit application: ${response.status} ${response.statusText}`
+        );
+        setSuccessMessage("");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      setErrorMessage("Network error: Unable to connect to server");
+      setSuccessMessage("");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const addEducationRecord = () => {
@@ -954,12 +1070,28 @@ export default function ApplicationForm() {
           <div className="mt-8 text-center">
             <button
               type="submit"
-              className="px-8 py-3 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded shadow-lg transition duration-200"
+              disabled={isSubmitting}
+              className={`px-8 py-3 font-bold rounded shadow-lg transition duration-200 ${
+                isSubmitting
+                  ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                  : "bg-amber-500 hover:bg-amber-600 text-black"
+              }`}
             >
-              Submit Application
+              {isSubmitting ? "Submitting..." : "Submit Application"}
             </button>
           </div>
         </form>
+        {successMessage && (
+          <div className="mb-6 p-4 bg-green-900 border border-green-500 rounded text-green-200">
+            {successMessage}
+          </div>
+        )}
+
+        {errorMessage && (
+          <div className="mb-6 p-4 bg-red-900 border border-red-500 rounded text-red-200">
+            {errorMessage}
+          </div>
+        )}
       </div>
     </div>
   );
