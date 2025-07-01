@@ -239,9 +239,11 @@ export default function ApplicationForm() {
     setErrorMessage("");
     setSuccessMessage("");
 
+    const apiUrl = import.meta.env.VITE_API_URL || '';
+
     try {
       const response = await fetch(
-        `http://localhost:3001/api/job-application`,
+        `${apiUrl}/api/job-application`,
         {
           method: "POST",
           headers: {

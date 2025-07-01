@@ -53,8 +53,9 @@ export default function Contact() {
   };
 
   const handleContactSubmit = async (formData: ContactFormData) => {
+    const apiUrl = import.meta.env.VITE_API_URL || '';
     try {
-      const response = await fetch(`http://localhost:3001/api/contact`, {
+      const response = await fetch(`${apiUrl}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -178,8 +179,8 @@ export default function Contact() {
         </svg>
       ),
       title: "Email Us",
-      content: "info@yourcompany.com",
-      action: "mailto:info@yourcompany.com",
+      content: "emily.cncconstruction@gmail.com",
+      action: "mailto:emily.cncconstruction@gmail.com",
     },
     {
       icon: (

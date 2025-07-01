@@ -405,7 +405,7 @@ export default function Nav() {
           </svg>
         </motion.a>
         <motion.a
-          href="mailto:info@ccelectrical.com"
+          href="mailto:emily.cncconstruction@gmail.com"
           variants={buttonVariants}
           initial="initial"
           whileHover="hover"
@@ -553,7 +553,7 @@ export default function Nav() {
                 </svg>
               </motion.a>
               <motion.a
-                href="mailto:info@ccelectrical.com"
+                href="mailto:emily.cncconstruction@gmail.com"
                 variants={buttonVariants}
                 initial="initial"
                 whileHover="hover"
