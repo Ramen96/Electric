@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import Nav from "./Nav/nav";
 import Hero from "./Hero/hero";
+import ConstructionBanner from "./ConstructionBanner/constructionBanner";
 
 // Lazy load components
 const About = lazy(() => import("./About/about"));
@@ -200,6 +201,7 @@ export function LandingPage() {
     <ScrollContext.Provider value={{ registerSection, pendingScroll }}>
       <div className="flex flex-col">
         {/* Pass scrollToSection to Nav if needed */}
+        <ConstructionBanner />
         <Nav scrollToSection={scrollToSection} />
         <Hero />
         

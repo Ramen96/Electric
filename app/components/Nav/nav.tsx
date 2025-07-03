@@ -335,7 +335,7 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
           <AnimatePresence>
             {servicesDropdownOpen && (
               <motion.div
-                className="absolute left-0 mt-2 w-64 rounded-md shadow-lg py-1 bg-black/90 backdrop-blur-md border border-yellow-500/30 z-50"
+                className="absolute left-0 mt-2 w-64 rounded-md shadow-lg py-1 bg-black/90 backdrop-blur-md border border-yellow-500/30 z-40"
                 variants={dropdownVariants}
                 initial="hidden"
                 animate="visible"
