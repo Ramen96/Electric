@@ -21,3 +21,12 @@ body {
     box-shadow: 0 0 20px 1px var(--tw-shadow-color);
   }
 }
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

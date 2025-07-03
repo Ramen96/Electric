@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import logo from "~/assets/cc-electrical.png";
 import { Link } from "react-router";
 
-export default function Nav() {
+export default function Nav({ scrollToSection: parentScrollToSection }) {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -93,59 +93,88 @@ export default function Nav() {
   }, []);
 
   // Intersection Observer for active section highlighting with improved transitions
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Add smooth transition to active section change
-            setTimeout(() => {
-              setActiveSection(entry.target.id);
-            }, 100);
-          }
-        });
-      },
-      { threshold: 0.3, rootMargin: "-20% 0px -20% 0px" }
-    );
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         if (entry.isIntersecting) {
+  //           // Add smooth transition to active section change
+  //           setTimeout(() => {
+  //             setActiveSection(entry.target.id);
+  //           }, 100);
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.3, rootMargin: "-20% 0px -20% 0px" }
+  //   );
 
-    // Adding both individual sections and service subsections
-    const sectionIds = [
-      ...allSections.map((section) => section.id),
-      ...allServicesItems.map((item) => item.id),
-      "services", // Make sure we're explicitly observing the services section
-    ];
+  //   // Adding both individual sections and service subsections
+  //   const sectionIds = [
+  //     ...allSections.map((section) => section.id),
+  //     ...allServicesItems.map((item) => item.id),
+  //     "services", // Make sure we're explicitly observing the services section
+  //   ];
 
-    // Remove duplicates in case there are any
-    const uniqueSectionIds = [...new Set(sectionIds)];
+  //   // Remove duplicates in case there are any
+  //   const uniqueSectionIds = [...new Set(sectionIds)];
 
-    const sectionElements = uniqueSectionIds.map((id) =>
-      document.getElementById(id)
-    );
+  //   const sectionElements = uniqueSectionIds.map((id) =>
+  //     document.getElementById(id)
+  //   );
 
-    sectionElements.forEach((el) => el && observer.observe(el));
+  //   sectionElements.forEach((el) => el && observer.observe(el));
 
-    return () => {
-      sectionElements.forEach((el) => el && observer.unobserve(el));
-    };
-  }, [allSections, allServicesItems]);
+  //   return () => {
+  //     sectionElements.forEach((el) => el && observer.unobserve(el));
+  //   };
+  // }, [allSections, allServicesItems]);
+
+
 
   const scrollToSection = (id, keepMobileMenuOpen = false) => {
-    console.log(`Attempting to scroll to section: ${id}`);
+  console.log(`Attempting to scroll to section: ${id}`);
+  
+  if (parentScrollToSection) {
+    parentScrollToSection(id);
+  } else {
+    // Fallback to original logic
     const targetSection = document.getElementById(id);
     if (targetSection) {
       console.log(`Found section: ${id}`);
       targetSection.scrollIntoView({ behavior: "smooth" });
-      if (!keepMobileMenuOpen) {
-        setTimeout(() => {
-          setMobileMenuOpen(false);
-          setServicesDropdownOpen(false);
-          setMobileServicesOpen(false);
-        }, 300);
-      }
     } else {
       console.log(`Section not found: ${id}`);
     }
-  };
+  }
+  
+  if (!keepMobileMenuOpen) {
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+      setServicesDropdownOpen(false);
+      setMobileServicesOpen(false);
+    }, 300);
+  }
+};
+
+
+
+  // const scrollToSection = (id, keepMobileMenuOpen = false) => {
+  //   console.log(`Attempting to scroll to section: ${id}`);
+  //   const targetSection = document.getElementById(id);
+  //   if (targetSection) {
+  //     console.log(`Found section: ${id}`);
+  //     targetSection.scrollIntoView({ behavior: "smooth" });
+  //     if (!keepMobileMenuOpen) {
+  //       setTimeout(() => {
+  //         setMobileMenuOpen(false);
+  //         setServicesDropdownOpen(false);
+  //         setMobileServicesOpen(false);
+  //       }, 300);
+  //     }
+  //   } else {
+  //     console.log(`Section not found: ${id}`);
+  //   }
+  // };
 
   // Check if service section or any of its subsections is active
   const isServicesActive = () => {
