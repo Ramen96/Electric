@@ -1,10 +1,9 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import { motion } from "framer-motion";
 import Nav from "./Nav/nav";
 import Hero from "./Hero/hero";
 import ConstructionBanner from "./ConstructionBanner/constructionBanner";
 
-// Lazy load components
 const About = lazy(() => import("./About/about"));
 const Services = lazy(() => import("./Services/services"));
 const Portfolio = lazy(() => import("./Portfolio/portfolio"));
@@ -12,7 +11,6 @@ const Testimonials = lazy(() => import("./Testimonials/testimonials"));
 const Team = lazy(() => import("./Team/team"));
 const Contact = lazy(() => import("./Contact/contact"));
 
-// Enhanced intersection observer hook
 function useIntersectionObserver(options = {}) {
   const [isVisible, setIsVisible] = React.useState(false);
   const [hasBeenVisible, setHasBeenVisible] = React.useState(false);
@@ -46,7 +44,6 @@ function useIntersectionObserver(options = {}) {
     };
   }, [hasBeenVisible]);
 
-  // Expose force load function
   const forceLoad = React.useCallback(() => {
     setShouldForceLoad(true);
     setHasBeenVisible(true);
@@ -55,10 +52,6 @@ function useIntersectionObserver(options = {}) {
   return [elementRef, hasBeenVisible || shouldForceLoad, forceLoad];
 }
 
-// Create a context for handling navigation scrolling
-const ScrollContext = React.createContext({});
-
-// Enhanced lazy section component
 function LazySection({ 
   children, 
   sectionId,
@@ -69,14 +62,12 @@ function LazySection({
   const [ref, shouldLoad, forceLoad] = useIntersectionObserver();
   const { registerSection, pendingScroll } = React.useContext(ScrollContext);
 
-  // Register this section with the scroll handler
   React.useEffect(() => {
     if (registerSection && sectionId) {
       registerSection(sectionId, forceLoad);
     }
   }, [registerSection, sectionId, forceLoad]);
 
-  // Check if this section needs to be force-loaded for navigation
   React.useEffect(() => {
     if (pendingScroll === sectionId && !shouldLoad) {
       forceLoad();
@@ -105,7 +96,8 @@ function LazySection({
   );
 }
 
-// Custom hook for handling navigation scrolling
+const ScrollContext = React.createContext({});
+
 function useNavigationScroll() {
   const [sectionLoaders, setSectionLoaders] = React.useState({});
   const [pendingScroll, setPendingScroll] = React.useState(null);
@@ -121,20 +113,16 @@ function useNavigationScroll() {
     const element = document.getElementById(sectionId);
     
     if (element) {
-      // Element exists, scroll immediately
       element.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
       });
     } else {
-      // Element doesn't exist, force load it first
       setPendingScroll(sectionId);
       
       if (sectionLoaders[sectionId]) {
-        // Force load the section
         sectionLoaders[sectionId]();
         
-        // Wait a bit for the component to load and render
         setTimeout(() => {
           const loadedElement = document.getElementById(sectionId);
           if (loadedElement) {
@@ -158,8 +146,8 @@ function useNavigationScroll() {
 
 export function LandingPage() {
   const { registerSection, scrollToSection, pendingScroll } = useNavigationScroll();
-  
-  // Preload components on user interaction
+  const [selectedService, setSelectedService] = useState(null);
+
   React.useEffect(() => {
     const preloadComponents = () => {
       import("./About/about");
@@ -191,23 +179,18 @@ export function LandingPage() {
     };
   }, []);
 
-  // Make scrollToSection available globally or pass to Nav
   React.useEffect(() => {
-    // You can attach this to window for global access
     window.scrollToSection = scrollToSection;
   }, [scrollToSection]);
 
   return (
     <ScrollContext.Provider value={{ registerSection, pendingScroll }}>
       <div className="flex flex-col">
-        {/* Pass scrollToSection to Nav if needed */}
-        {/* <ConstructionBanner /> */}
-        <Nav scrollToSection={scrollToSection} />
+        <Nav scrollToSection={scrollToSection} setSelectedService={setSelectedService} />
         <Hero />
         
-        {/* Lazy loaded sections with section IDs */}
         <LazySection sectionId="services" skeletonHeight="300px">
-          <Services />
+          <Services initialServiceIndex={selectedService} />
         </LazySection>
         
         <LazySection sectionId="projects" skeletonHeight="400px">

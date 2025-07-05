@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Zap, Building, Factory, Car, Sun, X } from "lucide-react";
 
-export default function Services() {
+export default function Services({ initialServiceIndex = null }) {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
 
@@ -142,6 +142,12 @@ export default function Services() {
     }
   ];
 
+  useEffect(() => {
+    if (initialServiceIndex !== null && initialServiceIndex >= 0 && initialServiceIndex < services.length) {
+      setSelectedService(services[initialServiceIndex]);
+    }
+  }, [initialServiceIndex]);
+
   const closePopup = () => {
     setSelectedService(null);
   };
@@ -155,7 +161,6 @@ export default function Services() {
       id="services"
       className="min-h-screen flex justify-center items-center bg-gradient-to-br from-black via-gray-900 to-black py-24 overflow-hidden relative"
     >
-      {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden opacity-40">
         <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_24%,rgba(255,255,255,0.05)_25%,rgba(255,255,255,0.05)_26%,transparent_27%,transparent_74%,rgba(255,255,255,0.05)_75%,rgba(255,255,255,0.05)_76%,transparent_77%)] bg-[length:40px_40px]" />
         
@@ -245,7 +250,6 @@ export default function Services() {
         </div>
       </div>
 
-      {/* Service Info Popup */}
       {selectedService && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
           <div className="bg-gray-900 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-yellow-500/20 shadow-2xl shadow-yellow-600/20 animate-scaleIn">

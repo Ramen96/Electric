@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import logo from "~/assets/cc-electrical.png";
 import ConstructionBanner from "../ConstructionBanner/constructionBanner.tsx";
 
-export default function Nav({ scrollToSection: parentScrollToSection }) {
+export default function Nav({ scrollToSection, setSelectedService }) {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,11 +19,11 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
       label: "Services",
       hasDropdown: true,
       dropdownItems: [
-        { id: "residential", label: "Residential" },
-        { id: "commercial", label: "Commercial" },
-        { id: "industrial", label: "Industrial" },
-        { id: "ev-installations", label: "EV Installations" },
-        { id: "solar", label: "Solar Panels" },
+        { id: "residential", label: "Residential", serviceIndex: 0 },
+        { id: "commercial", label: "Commercial", serviceIndex: 1 },
+        { id: "industrial", label: "Industrial", serviceIndex: 2 },
+        { id: "ev-installations", label: "EV Installations", serviceIndex: 3 },
+        { id: "solar", label: "Solar Panels", serviceIndex: 4 },
       ],
     },
     { id: "projects", label: "Portfolio" },
@@ -102,8 +102,6 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
         const element = document.getElementById(sectionId);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Consider a section active if it's in the top portion of the viewport
-          // Adjust the threshold as needed (100px from top)
           if (rect.top <= 100 && rect.bottom >= 100) {
             currentSection = sectionId;
             break;
@@ -111,7 +109,6 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
         }
       }
       
-      // Special handling for when we're at the very top
       if (window.scrollY < 100) {
         currentSection = "hero";
       }
@@ -119,10 +116,8 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
       setActiveSection(currentSection);
     };
 
-    // Initial check
     handleScroll();
 
-    // Throttle scroll events for better performance
     let ticking = false;
     const throttledHandleScroll = () => {
       if (!ticking) {
@@ -146,23 +141,22 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
       document.body.style.overflow = 'unset';
     }
 
-    // Cleanup when component unmounts
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [mobileMenuOpen]);
 
-  const scrollToSection = (id) => {
-    if (parentScrollToSection) {
-      parentScrollToSection(id);
+  const scrollToSectionWithService = (id, serviceIndex = null) => {
+    if (serviceIndex !== null) {
+      setSelectedService(serviceIndex);
     } else {
-      const targetSection = document.getElementById(id);
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: "smooth" });
-      }
+      setSelectedService(null);
     }
     setMobileMenuOpen(false);
     setServicesDropdownOpen(false);
+    setTimeout(() => {
+      scrollToSection(id);
+    }, 100); // Delay to ensure menu closes before scrolling
   };
 
   const isServicesActive = () => {
@@ -190,28 +184,43 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
               if (isMobile) {
                 setServicesDropdownOpen(!servicesDropdownOpen);
               } else {
-                scrollToSection(section.id);
+                scrollToSectionWithService(section.id);
               }
             }}
             onMouseEnter={() => !isMobile && setServicesDropdownOpen(true)}
             onMouseLeave={() => !isMobile && setServicesDropdownOpen(false)}
           >
-            <span className="text-base font-medium">{section.label}</span>
-            <svg
-              className={`w-5 h-5 transition-transform duration-300 ${
-                servicesDropdownOpen ? "rotate-180" : ""
-              }`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
+            {isMobile ? (
+              <>
+                <span
+                  className="text-base font-medium"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    scrollToSectionWithService("services");
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  Services
+                </span>
+                <svg
+                  className={`w-5 h-5 transition-transform duration-300 ${
+                    servicesDropdownOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </>
+            ) : (
+              <span className="text-base font-medium">{section.label}</span>
+            )}
           </button>
 
           {!isMobile && (
@@ -232,7 +241,7 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
                       className={`w-full text-left px-4 py-3 text-gray-300 hover:text-yellow-400 hover:bg-black/50 transition-all duration-200 ${
                         activeSection === item.id ? "text-yellow-400 bg-black/50" : ""
                       }`}
-                      onClick={() => scrollToSection(item.id)}
+                      onClick={() => scrollToSectionWithService("services", item.serviceIndex)}
                     >
                       {item.label}
                     </button>
@@ -265,7 +274,7 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
         className={`${baseClasses} ${
           activeSection === section.id ? activeClasses : ""
         } ${isMobile ? "font-medium" : ""}`}
-        onClick={() => scrollToSection(section.id)}
+        onClick={() => scrollToSectionWithService(section.id)}
       >
         {section.label}
         {!isMobile && activeSection === section.id && (
@@ -289,20 +298,17 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
           : "bg-transparent"
       }`}
     >
-
-          <ConstructionBanner />
+      <ConstructionBanner />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18 lg:h-20">
-          {/* Left Navigation - Hidden on mobile */}
           <nav className="hidden lg:flex items-center space-x-8 flex-1">
             {leftSections.map((section) => renderNavButton(section))}
           </nav>
 
-          {/* Mobile: Logo and Contact Icons */}
           <div className="flex lg:hidden items-center gap-3">
             <motion.div
               className="flex items-center gap-2 cursor-pointer"
-              onClick={() => scrollToSection("hero")}
+              onClick={() => scrollToSectionWithService("hero")}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -339,10 +345,9 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
             </motion.div>
           </div>
 
-          {/* Desktop: Center Logo */}
           <motion.div
             className="hidden lg:flex items-center gap-2 sm:gap-3 cursor-pointer flex-shrink-0"
-            onClick={() => scrollToSection("hero")}
+            onClick={() => scrollToSectionWithService("hero")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -383,13 +388,11 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
             </div>
           </motion.div>
 
-          {/* Right Navigation & Contact - Hidden on mobile */}
           <div className="hidden lg:flex items-center space-x-8 flex-1 justify-end">
             <nav className="flex items-center space-x-8">
               {rightSections.map((section) => renderNavButton(section))}
             </nav>
             
-            {/* Contact Icons */}
             <div className="flex items-center gap-3">
               <motion.a
                 href="tel:7048794057"
@@ -427,7 +430,6 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
             </div>
           </div>
 
-          {/* Mobile: Contact Icons & Menu Button */}
           <div className="flex lg:hidden items-center gap-2 sm:gap-3 flex-shrink-0">
             <motion.a
               href="tel:7048794057"
@@ -463,7 +465,6 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
               </svg>
             </motion.a>
 
-            {/* Mobile Menu Button */}
             <motion.button
               className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -493,7 +494,6 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -505,16 +505,13 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
             style={{ height: 'calc(100vh - 4rem)' }}
           >
             <div className="flex flex-col h-full overflow-y-auto">
-              {/* Navigation Items */}
               <nav className="flex-1">
                 {allSections.map((section) => renderNavButton(section, true))}
                 
-                {/* External routes */}
                 {rightSections
                   .filter((item) => item.isExternalRoute)
                   .map((section) => renderNavButton(section, true))}
 
-                {/* Mobile Services Section */}
                 <div>
                   <button
                     className={`block w-full text-left px-6 py-4 text-gray-200 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800 transition-all duration-300 flex items-center justify-between ${
@@ -522,7 +519,16 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
                     }`}
                     onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
                   >
-                    <span className="text-base font-medium">Services</span>
+                    <span
+                      className="text-base font-medium"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        scrollToSectionWithService("services");
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      Services
+                    </span>
                     <svg
                       className={`w-5 h-5 transition-transform duration-300 ${
                         servicesDropdownOpen ? "rotate-180" : ""
@@ -553,7 +559,7 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
                           className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800/50 transition-all duration-200 ${
                             activeSection === "services" ? "text-yellow-400 bg-yellow-400/10" : ""
                           }`}
-                          onClick={() => scrollToSection("services")}
+                          onClick={() => scrollToSectionWithService("services")}
                         >
                           All Services
                         </button>
@@ -563,7 +569,7 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
                             className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800/50 transition-all duration-200 ${
                               activeSection === item.id ? "text-yellow-400 bg-yellow-400/10" : ""
                             }`}
-                            onClick={() => scrollToSection(item.id)}
+                            onClick={() => scrollToSectionWithService("services", item.serviceIndex)}
                           >
                             {item.label}
                           </button>
@@ -574,7 +580,6 @@ export default function Nav({ scrollToSection: parentScrollToSection }) {
                 </div>
               </nav>
 
-              {/* Contact Section at Bottom */}
               <div className="p-6 bg-gray-900/50 border-t border-yellow-500/30">
                 <h3 className="text-yellow-400 font-semibold mb-4">Get Quick Access</h3>
                 <div className="space-y-3">
