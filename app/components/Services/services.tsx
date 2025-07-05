@@ -209,12 +209,10 @@ export default function Services() {
                 <h3 className="text-2xl font-bold mb-3 text-center text-yellow-400 transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-gray-300 text-center leading-relaxed">
+                <p className="text-gray-300 text-center leading-relaxed mb-6">
                   {service.description}
                 </p>
-                <div 
-                  className={`mt-6 flex justify-center transition-all duration-300 ${hoveredCard === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
-                >
+                <div className="flex justify-center">
                   <button 
                     onClick={() => openServiceInfo(service)}
                     className="relative overflow-hidden cursor-pointer group px-6 py-2 rounded-full bg-black text-yellow-400 font-medium text-sm flex items-center border-2 border-yellow-500/50 shadow-lg shadow-yellow-600/20 hover:bg-gradient-to-r hover:from-yellow-600 hover:to-yellow-500 hover:text-black transition-all duration-400"
