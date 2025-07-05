@@ -201,7 +201,7 @@ export function LandingPage() {
     <ScrollContext.Provider value={{ registerSection, pendingScroll }}>
       <div className="flex flex-col">
         {/* Pass scrollToSection to Nav if needed */}
-        <ConstructionBanner />
+        {/* <ConstructionBanner /> */}
         <Nav scrollToSection={scrollToSection} />
         <Hero />
         
