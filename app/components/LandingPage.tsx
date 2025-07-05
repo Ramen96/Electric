@@ -2,7 +2,6 @@ import React, { Suspense, lazy, useState } from "react";
 import { motion } from "framer-motion";
 import Nav from "./Nav/nav";
 import Hero from "./Hero/hero";
-import ConstructionBanner from "./ConstructionBanner/constructionBanner";
 
 const About = lazy(() => import("./About/about"));
 const Services = lazy(() => import("./Services/services"));
@@ -57,10 +56,13 @@ function LazySection({
   sectionId,
   fallback = null, 
   className = "",
-  skeletonHeight = "200px" 
+  skeletonHeight = "200px",
+  shouldLoad = false,
+  onMounted = () => {}
 }) {
-  const [ref, shouldLoad, forceLoad] = useIntersectionObserver();
+  const [ref, intersectionShouldLoad, forceLoad] = useIntersectionObserver();
   const { registerSection, pendingScroll } = React.useContext(ScrollContext);
+  const [hasMounted, setHasMounted] = React.useState(false);
 
   React.useEffect(() => {
     if (registerSection && sectionId) {
@@ -73,6 +75,14 @@ function LazySection({
       forceLoad();
     }
   }, [pendingScroll, sectionId, shouldLoad, forceLoad]);
+
+  // Handle mounting callback
+  React.useEffect(() => {
+    if (shouldLoad && !hasMounted) {
+      setHasMounted(true);
+      onMounted();
+    }
+  }, [shouldLoad, hasMounted, onMounted]);
 
   const defaultFallback = (
     <div 
@@ -144,40 +154,46 @@ function useNavigationScroll() {
   };
 }
 
-export function LandingPage() {
-  const { registerSection, scrollToSection, pendingScroll } = useNavigationScroll();
-  const [selectedService, setSelectedService] = useState(null);
+function useSequentialLoading() {
+  const [loadedSections, setLoadedSections] = React.useState({
+    services: false,
+    projects: false,
+    testimonials: false,
+    team: false,
+    about: false,
+    contact: false
+  });
+
+  const sectionOrder = ['services', 'projects', 'testimonials', 'team', 'about', 'contact'];
 
   React.useEffect(() => {
-    const preloadComponents = () => {
-      import("./About/about");
-      import("./Services/services");
-      import("./Portfolio/portfolio");
-      import("./Testimonials/testimonials");
-      import("./Team/team");
-      import("./Contact/contact");
-    };
+    // Start loading the first section immediately
+    const timer = setTimeout(() => {
+      setLoadedSections(prev => ({ ...prev, services: true }));
+    }, 100);
 
-    const handleUserInteraction = () => {
-      preloadComponents();
-      window.removeEventListener('scroll', handleUserInteraction);
-      window.removeEventListener('mousemove', handleUserInteraction);
-      window.removeEventListener('touchstart', handleUserInteraction);
-    };
-
-    window.addEventListener('scroll', handleUserInteraction, { passive: true });
-    window.addEventListener('mousemove', handleUserInteraction, { passive: true });
-    window.addEventListener('touchstart', handleUserInteraction, { passive: true });
-
-    const timeout = setTimeout(preloadComponents, 3000);
-
-    return () => {
-      clearTimeout(timeout);
-      window.removeEventListener('scroll', handleUserInteraction);
-      window.removeEventListener('mousemove', handleUserInteraction);
-      window.removeEventListener('touchstart', handleUserInteraction);
-    };
+    return () => clearTimeout(timer);
   }, []);
+
+  const onSectionMounted = React.useCallback((sectionId) => {
+    const currentIndex = sectionOrder.indexOf(sectionId);
+    const nextSectionId = sectionOrder[currentIndex + 1];
+    
+    if (nextSectionId) {
+      // Load the next section after a small delay to ensure smooth loading
+      setTimeout(() => {
+        setLoadedSections(prev => ({ ...prev, [nextSectionId]: true }));
+      }, 300);
+    }
+  }, [sectionOrder]);
+
+  return { loadedSections, onSectionMounted };
+}
+
+export function LandingPage() {
+  const { registerSection, scrollToSection, pendingScroll } = useNavigationScroll();
+  const { loadedSections, onSectionMounted } = useSequentialLoading();
+  const [selectedService, setSelectedService] = useState(null);
 
   React.useEffect(() => {
     window.scrollToSection = scrollToSection;
@@ -189,27 +205,57 @@ export function LandingPage() {
         <Nav scrollToSection={scrollToSection} setSelectedService={setSelectedService} />
         <Hero />
         
-        <LazySection sectionId="services" skeletonHeight="300px">
+        <LazySection 
+          sectionId="services" 
+          skeletonHeight="300px"
+          shouldLoad={loadedSections.services}
+          onMounted={() => onSectionMounted('services')}
+        >
           <Services initialServiceIndex={selectedService} />
         </LazySection>
         
-        <LazySection sectionId="projects" skeletonHeight="400px">
+        <LazySection 
+          sectionId="projects" 
+          skeletonHeight="400px"
+          shouldLoad={loadedSections.projects}
+          onMounted={() => onSectionMounted('projects')}
+        >
           <Portfolio />
         </LazySection>
         
-        <LazySection sectionId="testimonials" skeletonHeight="350px">
+        <LazySection 
+          sectionId="testimonials" 
+          skeletonHeight="350px"
+          shouldLoad={loadedSections.testimonials}
+          onMounted={() => onSectionMounted('testimonials')}
+        >
           <Testimonials />
         </LazySection>
         
-        <LazySection sectionId="team" skeletonHeight="300px">
+        <LazySection 
+          sectionId="team" 
+          skeletonHeight="300px"
+          shouldLoad={loadedSections.team}
+          onMounted={() => onSectionMounted('team')}
+        >
           <Team />
         </LazySection>
         
-        <LazySection sectionId="about" skeletonHeight="250px">
+        <LazySection 
+          sectionId="about" 
+          skeletonHeight="250px"
+          shouldLoad={loadedSections.about}
+          onMounted={() => onSectionMounted('about')}
+        >
           <About />
         </LazySection>
         
-        <LazySection sectionId="contact" skeletonHeight="400px">
+        <LazySection 
+          sectionId="contact" 
+          skeletonHeight="400px"
+          shouldLoad={loadedSections.contact}
+          onMounted={() => onSectionMounted('contact')}
+        >
           <Contact />
         </LazySection>
         
