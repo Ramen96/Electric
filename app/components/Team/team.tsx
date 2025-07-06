@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useInView,
+} from "framer-motion";
+import { Navigate, useNavigate } from "react-router";
 import pfp from "~/assets/pfp.png";
 
 export default function Team() {
@@ -7,13 +14,13 @@ export default function Team() {
   const [activeDepartment, setActiveDepartment] = useState("management");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-100px" });
-  
+
   // Parallax effect
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
-  
+
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
@@ -23,22 +30,26 @@ export default function Team() {
     {
       id: "management",
       name: "Management",
-      description: "Our leadership team brings decades of industry experience and a passion for electrical excellence.",
+      description:
+        "Our leadership team brings decades of industry experience and a passion for electrical excellence.",
     },
     {
       id: "hr",
       name: "Human Resources",
-      description: "Committed professionals fostering a supportive workplace through talent acquisition, employee development, and culture-building initiatives.",
+      description:
+        "Committed professionals fostering a supportive workplace through talent acquisition, employee development, and culture-building initiatives.",
     },
     {
       id: "field",
       name: "Field Operations",
-      description: "Skilled electricians and technicians delivering precision work on-site with safety as the priority.",
+      description:
+        "Skilled electricians and technicians delivering precision work on-site with safety as the priority.",
     },
     {
       id: "sales",
       name: "Sales & Support",
-      description: "Dedicated professionals helping clients find the perfect electrical solutions for their needs.",
+      description:
+        "Dedicated professionals helping clients find the perfect electrical solutions for their needs.",
     },
   ];
 
@@ -62,7 +73,7 @@ export default function Team() {
         id: 2,
         name: "Jon Ivester",
         role: "Public Relations",
-        description: 
+        description:
           "As our PR Director, Jon oversees all of the company’s public communications. He ensures our image remains consistent and aligned with our values, playing a key role in shaping how we are represented across all platforms and to the public.",
         image: pfp,
         specialties: [
@@ -77,19 +88,19 @@ export default function Team() {
         id: 3,
         name: "Emily Nolasco",
         role: "Administrative Director",
-        description: 
+        description:
           "At C&C headquarters Emily is responsible for the organization and coordination of our internal systems, reporting and working closely with leadership to maintain efficiency to keep operations aligned with our goals.",
         image: pfp,
         specialties: ["System Design", "Smart Buildings", "Quality Assurance"],
-      }
+      },
     ],
     field: [
       {
         id: 6,
         name: "Charles Dowing",
         role: "Operations Specialist",
-        description: 
-          "One of the many pillars that keep us going, Charles manages core operations including scheduling, ensuring materials and project logistics, ensuring smooth project flow from start to finish.", 
+        description:
+          "One of the many pillars that keep us going, Charles manages core operations including scheduling, ensuring materials and project logistics, ensuring smooth project flow from start to finish.",
         image: pfp,
         specialties: [
           "Industrial Installations",
@@ -103,20 +114,28 @@ export default function Team() {
         id: 10,
         name: "Lucas Shaffer",
         role: " Central Regional Director",
-        description: 
+        description:
           "Regional Director Lucas leads the sales team by overseeing estimates, identifying project opportunities and driving sales that align with our company's values. Working closely with management supporting growth.",
         image: pfp,
-        specialties: ["Client Partnerships", "Solutions Selling", "Contract Negotiation"],
+        specialties: [
+          "Client Partnerships",
+          "Solutions Selling",
+          "Contract Negotiation",
+        ],
       },
       {
         id: 11,
         name: "Dan Huggins",
         role: "Southern regional Director",
-        description: 
+        description:
           "As our Southern Regional Director, Dan connects directly with clients to understand their needs, by providing project estimates and guiding them through our services. Ensuring clear and aligned project expectations from the start.",
         image: pfp,
-        specialties: ["Client Satisfaction", "Project Coordination", "Communication"],
-      }
+        specialties: [
+          "Client Satisfaction",
+          "Project Coordination",
+          "Communication",
+        ],
+      },
     ],
   };
 
@@ -126,6 +145,12 @@ export default function Team() {
 
   const handleDepartmentChange = (departmentId) => {
     setActiveDepartment(departmentId);
+  };
+
+  const navigate = useNavigate();
+
+  const handleCareersClick = () => {
+    navigate("/careers");
   };
 
   return (
@@ -211,7 +236,9 @@ export default function Team() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-xl text-gray-300 max-w-3xl mx-auto"
             >
-              We give thanks to the hard working individuals that make C&C possible,Given the many years of experience, our team knows how to handle every project with precision, accuracy and customer care.
+              We give thanks to the hard working individuals that make C&C
+              possible,Given the many years of experience, our team knows how to
+              handle every project with precision, accuracy and customer care.
             </motion.p>
           </div>
 
@@ -248,7 +275,7 @@ export default function Team() {
             className="text-center mb-12"
           >
             <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              {departments.find(d => d.id === activeDepartment).description}
+              {departments.find((d) => d.id === activeDepartment).description}
             </p>
           </motion.div>
 
@@ -273,26 +300,30 @@ export default function Team() {
                   {/* Image container */}
                   <div className="relative h-64 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent z-10"></div>
-                    <img 
-                      src={member.image} 
-                      alt={member.name} 
+                    <img
+                      src={member.image}
+                      alt={member.name}
                       className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
                     />
-                    
+
                     {/* Yellow glow overlay effect on hover */}
                     <div className="absolute inset-0 bg-yellow-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  
+
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-white">{member.name}</h3>
-                    <p className="text-yellow-400 font-medium mb-4">{member.role}</p>
+                    <h3 className="text-xl font-bold text-white">
+                      {member.name}
+                    </h3>
+                    <p className="text-yellow-400 font-medium mb-4">
+                      {member.role}
+                    </p>
                     <p className="text-gray-400 mb-4">{member.description}</p>
-                    
+
                     {/* Specialties */}
                     <div className="flex flex-wrap gap-2 mt-4">
                       {member.specialties.map((specialty, idx) => (
-                        <span 
+                        <span
                           key={idx}
                           className="text-xs px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400"
                         >
@@ -300,24 +331,12 @@ export default function Team() {
                         </span>
                       ))}
                     </div>
-                    
-                    {/* Connect button */}
-                    {/* <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="cursor-pointer mt-6 w-full py-2 px-4 bg-gradient-to-r from-yellow-600 to-yellow-500 text-black font-medium rounded-lg flex items-center justify-center"
-                    >
-                      <span>Contact {member.name.split(" ")[0]}</span>
-                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                      </svg>
-                    </motion.button> */}
                   </div>
                 </div>
               </motion.div>
             ))}
           </motion.div>
-          
+
           {/* CTA Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -326,17 +345,21 @@ export default function Team() {
             className="mt-16 text-center"
           >
             <div className="bg-black/60 backdrop-blur-lg border border-yellow-500/20 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold text-white mb-4">Join Our Electrical Team</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">
+                Join Our Electrical Team
+              </h3>
               <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-                We're always looking for talented professionals to join our mission of delivering excellence in electrical solutions.
+                We're always looking for talented professionals to join our
+                mission of delivering excellence in electrical solutions.
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={handleCareersClick}
                 className="cursor-pointer relative overflow-hidden px-8 py-4 bg-black text-yellow-400 font-semibold rounded-xl border-2 border-yellow-500/50 shadow-lg shadow-yellow-600/20 inline-flex items-center group"
               >
                 <span className="relative z-10 flex items-center">
-                  View Open Positions
+                  Join Our Team
                   <svg
                     className="w-5 h-5 ml-2 transition-transform duration-300 transform group-hover:translate-x-1"
                     fill="none"
@@ -352,11 +375,9 @@ export default function Team() {
                     ></path>
                   </svg>
                 </span>
-                
+
                 {/* Button hover effect */}
-                <div
-                  className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-yellow-500 -translate-x-full group-hover:translate-x-0 transition-transform duration-300"
-                />
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-yellow-500 -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
               </motion.button>
             </div>
           </motion.div>
