@@ -45,16 +45,52 @@ export default function BlackGoldTestimonialsLayout() {
     };
   };
 
+  // Generate Schema.org JSON-LD
+  const getTestimonialsSchema = () => {
+    const reviews = testimonials.map((t, index) => ({
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": t.rating,
+        "bestRating": 5 
+      },
+      "reviewBody": t.content,
+      "name": t.title,
+      // You might add a datePublished if you have it: "datePublished": "2024-01-15"
+    }));
+
+    const aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": (testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length).toFixed(1),
+      "reviewCount": testimonials.length,
+      "bestRating": 5 
+    };
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness", 
+      "name": "C&C Construction and Electrical", 
+      "aggregateRating": aggregateRating,
+      "review": reviews
+    };
+  };
+
   return (
     <section
       id="testimonials"
       ref={containerRef}
       className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-black py-24 overflow-hidden"
     >
-      {/* Animated Background */}
+      {/* Inject Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getTestimonialsSchema()) }}
+      />
+
+      {/* Animated Background and other JSX */}
       <div className="absolute inset-0">
         {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1MSwgMTkxLCAzNiwgMC4wNSkiIHN0cm9rZS13aWR0aD0iMSIvPgogICAgPC9wYXR0ZXJuPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPgo8L3N2Zz4=')] opacity-60" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UuLi4iPgogICAgICA8cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1MSwgMTkxLCAzNiwgMC4wNSkiIHN0cm9rZS13aWR0aD0iMSIvPgogICAgPC9wYXR0ZXJuPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPgo8L3N2Zz4=')] opacity-60" />
         
         {/* Floating golden orbs */}
         {[...Array(20)].map((_, i) => (

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
-import logo from "~/assets/cc-electrical.png";
+import logo from "public/images/cncelectricco-logo.png"
 import ConstructionBanner from "../ConstructionBanner/constructionBanner.tsx";
 
 export default function Nav({ scrollToSection, setSelectedService }) {

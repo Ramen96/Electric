@@ -89,7 +89,7 @@ export default function Hero() {
       >
         <img
           src={heroImg}
-          alt="Electrical Solutions"
+          alt="Close-up of industrial electrical wiring and conduits"
           className="w-full h-full object-cover"
         />
       </div>
@@ -171,7 +171,7 @@ export default function Hero() {
           >
             Powering Your{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
-              Business Future
+              Electrical Services
             </span>
           </motion.h1>
 
@@ -181,7 +181,7 @@ export default function Hero() {
             custom={2}
             className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-3 sm:mb-4 max-w-3xl mx-auto px-2"
           >
-            Expert electrical solutions for commercial & industrial projects
+            Leading Commercial & Industrial Electricians in North Carolina.
           </motion.p>
 
           <motion.p
