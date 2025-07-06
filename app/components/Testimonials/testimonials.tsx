@@ -276,6 +276,9 @@ export default function BlackGoldTestimonialsLayout() {
             </motion.p>
 
             <motion.button
+              onClick={() => {
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="group relative px-12 py-5 bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 text-black font-bold text-xl rounded-3xl overflow-hidden shadow-2xl border-2 border-yellow-400/30"
               whileHover={{ 
                 scale: 1.08,
