@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
-import logo from "public/images/cncelectricco-logo.png"
+import logo from "~/assets/cncelectricco-logo.png"
 import ConstructionBanner from "../ConstructionBanner/constructionBanner.tsx";
 
 export default function Nav({ scrollToSection, setSelectedService }) {
@@ -412,7 +412,7 @@ export default function Nav({ scrollToSection, setSelectedService }) {
               </motion.a>
 
               <motion.a
-                href="mailto:emily.cncconstruction@gmail.com"
+                href="mailto:electricco.cnc@gmail.com"
                 className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -449,7 +449,7 @@ export default function Nav({ scrollToSection, setSelectedService }) {
             </motion.a>
 
             <motion.a
-              href="mailto:emily.cncconstruction@gmail.com"
+              href="mailto:electricco.cnc@gmail.com"
               className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -598,7 +598,7 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                     <span>Call Now: (704) 879-4057</span>
                   </a>
                   <a
-                    href="mailto:emily.cncconstruction@gmail.com"
+                    href="mailto:electricco.cnc@gmail.com"
                     className="flex items-center gap-3 text-gray-300 hover:text-yellow-400 transition-colors duration-300"
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

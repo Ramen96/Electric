@@ -3,7 +3,7 @@ import type { LoaderFunction } from "@react-router/dev";
 import ApplicationForm from "../ApplicationForm/applicationForm";
 import { useNavigate } from "react-router";
 import { Home } from "lucide-react";
-import logo from "public/images/cncelectricco-logo.png";
+import logo from "~/assets/cncelectricco-logo.png";
 
 // Loader
 export const loader: LoaderFunction = async () => {

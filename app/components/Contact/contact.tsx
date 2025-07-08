@@ -179,8 +179,8 @@ export default function Contact() {
         </svg>
       ),
       title: "Email Us",
-      content: "emily.cncconstruction@gmail.com",
-      action: "mailto:emily.cncconstruction@gmail.com",
+      content: "electricco.cnc@gmail.com",
+      action: "mailto:electricco.cnc@gmail.com",
     },
     {
       icon: (

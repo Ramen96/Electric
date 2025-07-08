@@ -107,12 +107,12 @@ export default function ConstructionBanner() {
                   <Phone className="h-4 w-4 group-hover:scale-110 transition-transform" />
                 </a>
                 <a
-                  href="mailto:emily.cncconstruction@gmail.com"
+                  href="mailto:electricco.cnc@gmail.com"
                   className="flex items-center justify-end gap-2 transition-colors group hover:opacity-80"
                   style={{ color: "white" }}
                 >
                   <span className="text-sm font-medium">
-                    emily.cncconstruction@gmail.com
+                    electricco.cnc@gmail.com
                   </span>
                   <Mail className="h-4 w-4 group-hover:scale-110 transition-transform" />
                 </a>
@@ -135,7 +135,7 @@ export default function ConstructionBanner() {
                 <Phone className="h-3 w-3" style={{ color: "white" }} />
               </a>
               <a
-                href="mailto:emily.cncconstruction@gmail.com"
+                href="mailto:electricco.cnc@gmail.com"
                 className="rounded-full p-1.5 transition-all duration-200 hover:scale-105"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 onMouseEnter={(e) =>
