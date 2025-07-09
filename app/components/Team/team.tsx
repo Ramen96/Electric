@@ -46,8 +46,8 @@ export default function Team() {
         "Skilled electricians and technicians delivering precision work on-site with safety as the priority.",
     },
     {
-      id: "sales",
-      name: "Sales & Support",
+      id: "estimators",
+      name: "Estimators",
       description:
         "Dedicated professionals helping clients find the perfect electrical solutions for their needs.",
     },
@@ -109,7 +109,7 @@ export default function Team() {
         ],
       },
     ],
-    sales: [
+    estimators: [
       {
         id: 10,
         name: "Lucas Shaffer",
@@ -126,7 +126,7 @@ export default function Team() {
       {
         id: 11,
         name: "Dan Huggins",
-        role: "Southern regional Director",
+        role: "Southern Regional Director",
         description:
           "As our Southern Regional Director, Dan connects directly with clients to understand their needs, by providing project estimates and guiding them through our services. Ensuring clear and aligned project expectations from the start.",
         image: pfp,
