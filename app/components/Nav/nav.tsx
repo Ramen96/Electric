@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
-import logo from "~/assets/cncelectricco-logo.png"
+import logo from "~/assets/cncelectricco-logo.png";
 import ConstructionBanner from "../ConstructionBanner/constructionBanner.tsx";
 
 export default function Nav({ scrollToSection, setSelectedService }) {
@@ -54,15 +54,15 @@ export default function Nav({ scrollToSection, setSelectedService }) {
   // Get all section IDs for scroll tracking
   const getAllSectionIds = () => {
     const sections = [];
-    leftSections.forEach(section => {
+    leftSections.forEach((section) => {
       if (section.hasDropdown) {
         sections.push(section.id);
-        sections.push(...section.dropdownItems.map(item => item.id));
+        sections.push(...section.dropdownItems.map((item) => item.id));
       } else {
         sections.push(section.id);
       }
     });
-    rightSections.forEach(section => {
+    rightSections.forEach((section) => {
       if (!section.isExternalRoute) {
         sections.push(section.id);
       }
@@ -91,13 +91,13 @@ export default function Nav({ scrollToSection, setSelectedService }) {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-      
+
       // Get all section IDs
       const sectionIds = getAllSectionIds();
-      
+
       // Find the current active section
       let currentSection = "hero"; // default
-      
+
       for (const sectionId of sectionIds) {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -108,11 +108,11 @@ export default function Nav({ scrollToSection, setSelectedService }) {
           }
         }
       }
-      
+
       if (window.scrollY < 100) {
         currentSection = "hero";
       }
-      
+
       setActiveSection(currentSection);
     };
 
@@ -136,13 +136,13 @@ export default function Nav({ scrollToSection, setSelectedService }) {
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [mobileMenuOpen]);
 
@@ -175,11 +175,17 @@ export default function Nav({ scrollToSection, setSelectedService }) {
 
     if (section.hasDropdown) {
       return (
-        <div key={section.id} className={isMobile ? "" : "relative"} ref={!isMobile ? servicesDropdownRef : null}>
+        <div
+          key={section.id}
+          className={isMobile ? "" : "relative"}
+          ref={!isMobile ? servicesDropdownRef : null}
+        >
           <button
             className={`${baseClasses} ${
               isServicesActive() ? activeClasses : ""
-            } ${isMobile ? "flex items-center justify-between" : "flex items-center gap-2"}`}
+            } ${
+              isMobile ? "flex items-center justify-between" : "flex items-center gap-2"
+            }`}
             onClick={() => {
               if (isMobile) {
                 setServicesDropdownOpen(!servicesDropdownOpen);
@@ -299,13 +305,17 @@ export default function Nav({ scrollToSection, setSelectedService }) {
       }`}
     >
       <ConstructionBanner />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-18 lg:h-20">
-          <nav className="hidden lg:flex items-center space-x-8 flex-1">
-            {leftSections.map((section) => renderNavButton(section))}
-          </nav>
+      {/* This div now spans full width and contains the main navigation elements */}
+      <div className="flex items-center justify-between h-16 sm:h-18 lg:h-20 px-4 sm:px-6 lg:px-8 relative w-full">
+          {/* Left section for desktop */}
+          <div className="hidden lg:flex items-center flex-1 justify-end">
+            <nav className="flex items-center space-x-8">
+              {leftSections.map((section) => renderNavButton(section))}
+            </nav>
+          </div>
 
-          <div className="flex lg:hidden items-center gap-3">
+          {/* Mobile logo (visible on lg:hidden) */}
+          <div className="flex lg:hidden items-center gap-3 pr-2 mr-4"> {/* Added mr-4 */}
             <motion.div
               className="flex items-center gap-2 cursor-pointer"
               onClick={() => scrollToSectionWithService("hero")}
@@ -321,14 +331,14 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                     boxShadow: "0 0 10px rgba(234, 179, 8, 0.3)",
                   }}
                   onError={(e) => {
-                    e.target.style.display = 'none';
+                    e.target.style.display = "none";
                   }}
                 />
-                <div 
+                <div
                   className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full border-2 border-yellow-500/50 text-black font-bold h-8 w-8 sm:h-10 sm:w-10 text-xs sm:text-sm"
                   style={{
                     boxShadow: "0 0 10px rgba(234, 179, 8, 0.3)",
-                    display: 'none'
+                    display: "none",
                   }}
                 >
                   C&C
@@ -345,8 +355,9 @@ export default function Nav({ scrollToSection, setSelectedService }) {
             </motion.div>
           </div>
 
+          {/* Desktop logo (visible on lg:flex) */}
           <motion.div
-            className="hidden lg:flex items-center gap-2 sm:gap-3 cursor-pointer flex-shrink-0"
+            className="hidden lg:flex items-center gap-2 sm:gap-3 cursor-pointer mx-4" /* Added mx-4 */
             onClick={() => scrollToSectionWithService("hero")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -356,31 +367,33 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                 src={logo}
                 alt="C&C Electrical"
                 className={`
-                  rounded-full border-2 border-yellow-500/50 object-cover transition-all duration-300
-                  ${scrolled 
-                    ? "h-12 w-12 lg:h-14 lg:w-14" 
-                    : "h-14 w-14 lg:h-16 lg:w-16"
-                  }
-                `}
+                    rounded-full border-2 border-yellow-500/50 object-cover transition-all duration-300
+                    ${
+                      scrolled
+                        ? "h-12 w-12 lg:h-14 lg:w-14"
+                        : "h-14 w-14 lg:h-16 lg:w-16"
+                    }
+                  `}
                 style={{
                   boxShadow: "0 0 15px rgba(234, 179, 8, 0.3)",
                 }}
                 onError={(e) => {
-                  e.target.style.display = 'none';
+                  e.target.style.display = "none";
                 }}
               />
-              <div 
+              <div
                 className={`
-                  absolute inset-0 flex items-center justify-center bg-gradient-to-br from-yellow-400 to-yellow-600 
-                  rounded-full border-2 border-yellow-500/50 text-black font-bold
-                  ${scrolled 
-                    ? "h-12 w-12 lg:h-14 lg:w-14 text-sm lg:text-base" 
-                    : "h-14 w-14 lg:h-16 lg:w-16 text-base lg:text-xl"
-                  }
-                `}
+                    absolute inset-0 flex items-center justify-center bg-gradient-to-br from-yellow-400 to-yellow-600
+                    rounded-full border-2 border-yellow-500/50 text-black font-bold
+                    ${
+                      scrolled
+                        ? "h-12 w-12 lg:h-14 lg:w-14 text-sm lg:text-base"
+                        : "h-14 w-14 lg:h-16 lg:w-16 text-base lg:text-xl"
+                    }
+                  `}
                 style={{
                   boxShadow: "0 0 15px rgba(234, 179, 8, 0.3)",
-                  display: 'none'
+                  display: "none",
                 }}
               >
                 C&C
@@ -388,48 +401,61 @@ export default function Nav({ scrollToSection, setSelectedService }) {
             </div>
           </motion.div>
 
-          <div className="hidden lg:flex items-center space-x-8 flex-1 justify-end">
+          {/* Right section for desktop */}
+          <div className="hidden lg:flex items-center flex-1 justify-start">
             <nav className="flex items-center space-x-8">
               {rightSections.map((section) => renderNavButton(section))}
             </nav>
-            
-            <div className="flex items-center gap-3">
-              <motion.a
-                href="tel:7048794057"
-                className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Call C&C Electrical"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                  />
-                </svg>
-              </motion.a>
-
-              <motion.a
-                href="mailto:electricco.cnc@gmail.com"
-                className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Email C&C Electrical"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-              </motion.a>
-            </div>
           </div>
 
+          {/* Desktop Contact Icons - ABSOLUTELY POSITIONED to the right */}
+          {/* Positioned relative to the full-width flex container above */}
+          <div className="hidden lg:flex items-center gap-3 absolute right-4 top-1/2 -translate-y-1/2">
+            <motion.a
+              href="tel:7048794057"
+              className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Call C&C Electrical"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                />
+              </svg>
+            </motion.a>
+            <motion.a
+              href="mailto:electricco.cnc@gmail.com"
+              className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Email C&C Electrical"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+            </motion.a>
+          </div>
+
+          {/* Mobile contact icons and menu button (visible on lg:hidden) */}
           <div className="flex lg:hidden items-center gap-2 sm:gap-3 flex-shrink-0">
             <motion.a
               href="tel:7048794057"
@@ -438,7 +464,12 @@ export default function Nav({ scrollToSection, setSelectedService }) {
               whileTap={{ scale: 0.9 }}
               aria-label="Call C&C Electrical"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -455,7 +486,12 @@ export default function Nav({ scrollToSection, setSelectedService }) {
               whileTap={{ scale: 0.9 }}
               aria-label="Email C&C Electrical"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -472,7 +508,12 @@ export default function Nav({ scrollToSection, setSelectedService }) {
               whileTap={{ scale: 0.9 }}
               aria-label="Toggle mobile menu"
             >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 {mobileMenuOpen ? (
                   <path
                     strokeLinecap="round"
@@ -491,7 +532,6 @@ export default function Nav({ scrollToSection, setSelectedService }) {
               </svg>
             </motion.button>
           </div>
-        </div>
       </div>
 
       <AnimatePresence>
@@ -502,12 +542,12 @@ export default function Nav({ scrollToSection, setSelectedService }) {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             className="lg:hidden fixed inset-x-0 top-16 bg-black border-t border-yellow-500/30 shadow-xl"
-            style={{ height: 'calc(100vh - 4rem)' }}
+            style={{ height: "calc(100vh - 4rem)" }}
           >
             <div className="flex flex-col h-full overflow-y-auto">
               <nav className="flex-1">
                 {allSections.map((section) => renderNavButton(section, true))}
-                
+
                 {rightSections
                   .filter((item) => item.isExternalRoute)
                   .map((section) => renderNavButton(section, true))}
@@ -515,7 +555,9 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                 <div>
                   <button
                     className={`block w-full text-left px-6 py-4 text-gray-200 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800 transition-all duration-300 flex items-center justify-between ${
-                      isServicesActive() ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/30" : ""
+                      isServicesActive()
+                        ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/30"
+                        : ""
                     }`}
                     onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
                   >
@@ -525,7 +567,8 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                         e.stopPropagation();
                         scrollToSectionWithService("services");
                       }}
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: "pointer" }
+                      }
                     >
                       Services
                     </span>
@@ -557,7 +600,9 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                       >
                         <button
                           className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800/50 transition-all duration-200 ${
-                            activeSection === "services" ? "text-yellow-400 bg-yellow-400/10" : ""
+                            activeSection === "services"
+                              ? "text-yellow-400 bg-yellow-400/10"
+                              : ""
                           }`}
                           onClick={() => scrollToSectionWithService("services")}
                         >
@@ -567,9 +612,13 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                           <button
                             key={item.id}
                             className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800/50 transition-all duration-200 ${
-                              activeSection === item.id ? "text-yellow-400 bg-yellow-400/10" : ""
+                              activeSection === item.id
+                                ? "text-yellow-400 bg-yellow-400/10"
+                                : ""
                             }`}
-                            onClick={() => scrollToSectionWithService("services", item.serviceIndex)}
+                            onClick={() =>
+                              scrollToSectionWithService("services", item.serviceIndex)
+                            }
                           >
                             {item.label}
                           </button>
@@ -587,7 +636,12 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                     href="tel:7048794057"
                     className="flex items-center gap-3 text-gray-300 hover:text-yellow-400 transition-colors duration-300"
                   >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -601,7 +655,12 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                     href="mailto:electricco.cnc@gmail.com"
                     className="flex items-center gap-3 text-gray-300 hover:text-yellow-400 transition-colors duration-300"
                   >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -620,3 +679,5 @@ export default function Nav({ scrollToSection, setSelectedService }) {
     </motion.header>
   );
 }
+
+
