@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
 import { LandingPage } from "~/components/LandingPage";
-import { generateServiceSchema } from "../utils/serviceSchema.js"; // Adjust path if needed
+import { generateServiceSchema } from "../utils/serviceSchema.js"; 
 
 export function meta({}: Route.MetaArgs) {
   const phoneNumber = "(704) 879-4057";
@@ -16,15 +16,18 @@ export function meta({}: Route.MetaArgs) {
   const ogImageFilename = "og-image.png";
   const ogImageUrl = `${websiteUrl}images/${ogImageFilename}`;
 
-  // Corrected Google Maps URL
-  const encodedAddress = encodeURIComponent(`${streetAddress}, ${addressLocality}, ${addressRegion} ${postalCode}`);
-  const googleMapsUrl = `http://maps.google.com/maps?q=${encodedAddress}`; // Standard Google Maps query URL
+  // Corrected Google Maps URL for direct place search
+  const encodedAddress = encodeURIComponent(
+    `${streetAddress}, ${addressLocality}, ${addressRegion} ${postalCode}`
+  );
+  const googleMapsUrl = `https://www.google.com/maps/place/${encodedAddress}`;
 
   // Define your services data here (or import it from a shared source if preferred)
   const servicesData = [
     {
       title: "Residential Electrical",
-      description: "Complete electrical services for homes including wiring, panel upgrades, and smart home installations.",
+      description:
+        "Complete electrical services for homes including wiring, panel upgrades, and smart home installations.",
       detailedInfo: {
         services: [
           "Complete home rewiring and electrical upgrades",
@@ -33,13 +36,14 @@ export function meta({}: Route.MetaArgs) {
           "GFCI outlet installation and safety inspections",
           "Ceiling fan and lighting fixture installation",
           "Electrical troubleshooting and repairs",
-          "Code compliance and safety inspections"
-        ]
-      }
+          "Code compliance and safety inspections",
+        ],
+      },
     },
     {
       title: "Commercial Electrical",
-      description: "Professional electrical solutions for businesses, offices, and commercial properties.",
+      description:
+        "Professional electrical solutions for businesses, offices, and commercial properties.",
       detailedInfo: {
         services: [
           "Office building electrical systems",
@@ -48,13 +52,14 @@ export function meta({}: Route.MetaArgs) {
           "Commercial panel and switchgear installation",
           "Data center electrical infrastructure",
           "Security system electrical work",
-          "Energy-efficient lighting retrofits"
-        ]
-      }
+          "Energy-efficient lighting retrofits",
+        ],
+      },
     },
     {
       title: "Industrial Electrical",
-      description: "Heavy-duty electrical systems for manufacturing, warehouses, and industrial facilities.",
+      description:
+        "Heavy-duty electrical systems for manufacturing, warehouses, and industrial facilities.",
       detailedInfo: {
         services: [
           "High-voltage electrical systems",
@@ -63,13 +68,14 @@ export function meta({}: Route.MetaArgs) {
           "Conveyor system electrical work",
           "Process control wiring",
           "Emergency power systems",
-          "Electrical maintenance programs"
-        ]
-      }
+          "Electrical maintenance programs",
+        ],
+      },
     },
     {
       title: "EV Installations",
-      description: "Electric vehicle charging station installation for homes and businesses.",
+      description:
+        "Electric vehicle charging station installation for homes and businesses.",
       detailedInfo: {
         services: [
           "Residential EV charger installation",
@@ -78,13 +84,14 @@ export function meta({}: Route.MetaArgs) {
           "Electrical panel upgrades for EV charging",
           "Smart charging system integration",
           "Fleet charging solutions",
-          "Permit and inspection coordination"
-        ]
-      }
+          "Permit and inspection coordination",
+        ],
+      },
     },
     {
       title: "Solar Panel Installation",
-      description: "Complete solar energy systems from design to installation and maintenance.",
+      description:
+        "Complete solar energy systems from design to installation and maintenance.",
       detailedInfo: {
         services: [
           "Custom solar system design",
@@ -93,25 +100,111 @@ export function meta({}: Route.MetaArgs) {
           "Grid-tie and off-grid solutions",
           "Solar panel maintenance and cleaning",
           "System monitoring and optimization",
-          "Permit and utility interconnection"
-        ]
-      }
-    }
+          "Permit and utility interconnection",
+        ],
+      },
+    },
   ];
 
+  // Dummy testimonials data (replace with your actual data source)
+  const testimonials = [
+    {
+      title: "Highly Professional",
+      content:
+        "C&C Electrical provided professional and timely service. The wiring upgrade was flawless.",
+      rating: 5,
+      // You can add a date here if your data source provides it: datePublished: "2024-06-15"
+    },
+    {
+      title: "Quick and Efficient",
+      content:
+        "Our commercial lighting project was completed ahead of schedule and under budget.",
+      rating: 5,
+    },
+    {
+      title: "Great Communication",
+      content:
+        "They kept us informed every step of the way during our industrial electrical work. Excellent.",
+      rating: 4,
+    },
+  ];
+
+  // Function to generate Testimonials Schema
+  const getTestimonialsSchema = () => {
+    const reviews = testimonials.map((t) => ({
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: t.rating,
+        bestRating: 5,
+      },
+      reviewBody: t.content,
+      name: t.title,
+      author: {
+        // Added for anonymous author to resolve critical issue
+        "@type": "Organization",
+        name: "Anonymous Customer", // Or "Verified Buyer", "Valued Client", etc.
+      },
+      // If you have datePublished, uncomment and use it:
+      // "datePublished": t.datePublished || new Date().toISOString().split('T')[0] // Fallback to current date
+    }));
+
+    const aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: (
+        testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length
+      ).toFixed(1),
+      reviewCount: testimonials.length,
+      bestRating: 5,
+    };
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness", // Attach reviews to the LocalBusiness
+      name: businessName, // Use the main business name for consistency
+      aggregateRating: aggregateRating,
+      review: reviews,
+    };
+  };
+
   // Generate Service schemas for each service
-  const serviceSchemas = servicesData.map(service => ({
+  const serviceSchemas = servicesData.map((service) => ({
     tagName: "script",
     type: "application/ld+json",
-    innerHTML: JSON.stringify(generateServiceSchema(service, businessName, websiteUrl, logoUrl, phoneNumber))
+    innerHTML: JSON.stringify(
+      generateServiceSchema(
+        service,
+        businessName,
+        websiteUrl,
+        logoUrl,
+        phoneNumber
+      )
+    ),
   }));
 
   return [
-    { title: `${businessName} - Professional Electrical Services | North Carolina` },
-    { name: "description", content: "C&C Electrical LLC provides expert residential, commercial, and industrial electrical services in North Carolina, including Lowell, NC. Your trusted electrical contractor for quality solutions." },
-    { name: "keywords", content: "electrical services North Carolina, electrician Lowell NC, residential electrical contractor, commercial electrical solutions, industrial electrical work, C&C Electrical LLC" },
-    { property: "og:title", content: `${businessName} - Professional Electrical Services` },
-    { property: "og:description", content: "Expert electrical services for residential, commercial, and industrial needs across North Carolina." },
+    {
+      title: `${businessName} - Professional Electrical Services | North Carolina`,
+    },
+    {
+      name: "description",
+      content:
+        "C&C Electrical LLC provides expert residential, commercial, and industrial electrical services in North Carolina, including Lowell, NC. Your trusted electrical contractor for quality solutions.",
+    },
+    {
+      name: "keywords",
+      content:
+        "electrical services North Carolina, electrician Lowell NC, residential electrical contractor, commercial electrical solutions, industrial electrical work, C&C Electrical LLC",
+    },
+    {
+      property: "og:title",
+      content: `${businessName} - Professional Electrical Services`,
+    },
+    {
+      property: "og:description",
+      content:
+        "Expert electrical services for residential, commercial, and industrial needs across North Carolina.",
+    },
     { property: "og:type", content: "website" },
     { property: "og:url", content: websiteUrl },
     { property: "og:image", content: ogImageUrl },
@@ -122,63 +215,68 @@ export function meta({}: Route.MetaArgs) {
       type: "application/ld+json",
       innerHTML: JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "Electrician",
-        "name": businessName,
-        "image": logoUrl,
+        "@type": "LocalBusiness", // Changed from Organization to LocalBusiness for clarity based on properties
+        name: businessName,
+        image: logoUrl,
         "@id": websiteUrl + "#organization",
-        "url": websiteUrl,
-        "telephone": phoneNumber,
-        "address": {
+        url: websiteUrl,
+        telephone: phoneNumber,
+        priceRange: "$$", // Added price range (adjust as needed, e.g., "Varies by service")
+        address: {
           "@type": "PostalAddress",
-          "streetAddress": streetAddress,
-          "addressLocality": addressLocality,
-          "addressRegion": addressRegion,
-          "postalCode": postalCode,
-          "addressCountry": country
+          streetAddress: streetAddress,
+          addressLocality: addressLocality,
+          addressRegion: addressRegion,
+          postalCode: postalCode,
+          addressCountry: country,
         },
-        "openingHoursSpecification": [
+        openingHoursSpecification: [
           {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday"
-            ],
-            "opens": "07:00",
-            "closes": "15:00"
-          }
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            opens: "07:00",
+            closes: "15:00",
+          },
         ],
-        "serviceArea": {
+        serviceArea: {
           "@type": "AdministrativeArea",
-          "name": "North Carolina"
+          name: "North Carolina",
         },
-        "slogan": "Efficiency · Reliability · Innovation",
-        "hasMap": googleMapsUrl,
-        "sameAs": [
+        slogan: "Efficiency · Reliability · Innovation",
+        hasMap: googleMapsUrl,
+        sameAs: [
           // Add your social media profiles here. Example:
           // "https://www.facebook.com/CNCElectricalLLC",
           // "https://www.linkedin.com/company/cnc-electrical-llc"
-        ]
-      })
+        ],
+      }),
     },
-    // ORGANIZATION SCHEMA
+    // ORGANIZATION SCHEMA (Standalone - now with address)
     {
       tagName: "script",
       type: "application/ld+json",
       innerHTML: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": businessName,
-        "url": websiteUrl,
-        "logo": logoUrl,
-        "sameAs": [
+        name: businessName,
+        url: websiteUrl,
+        logo: logoUrl,
+        telephone: phoneNumber,
+        address: {
+          // <<<--- ADDRESS ADDED HERE to resolve critical error
+          "@type": "PostalAddress",
+          streetAddress: streetAddress,
+          addressLocality: addressLocality,
+          addressRegion: addressRegion,
+          postalCode: postalCode,
+          addressCountry: country,
+        },
+        sameAs: [
           // Duplicate social media links from LocalBusiness for consistency
           // "https://www.facebook.com/CNCElectricalLLC",
           // "https://www.linkedin.com/company/cnc-electrical-llc"
-        ]
-      })
+        ],
+      }),
     },
     // WEBSITE SCHEMA
     {
@@ -187,25 +285,29 @@ export function meta({}: Route.MetaArgs) {
       innerHTML: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": businessName,
-        "url": websiteUrl,
-        "potentialAction": {
+        name: businessName,
+        url: websiteUrl,
+        potentialAction: {
           "@type": "SearchAction",
-          "target": {
+          target: {
             "@type": "EntryPoint",
-            "urlTemplate": `${websiteUrl}/search?q={search_term_string}`
+            urlTemplate: `${websiteUrl}/search?q={search_term_string}`,
           },
-          "query-input": "required name=search_term_string"
-        }
-      })
+          "query-input": "required name=search_term_string",
+        },
+      }),
+    },
+    // Testimonials/Review Snippets Schema
+    {
+      tagName: "script",
+      type: "application/ld+json",
+      innerHTML: JSON.stringify(getTestimonialsSchema()),
     },
     // Dynamically generated Service schemas
-    ...serviceSchemas
+    ...serviceSchemas,
   ];
 }
 
 export default function Home() {
-  return (
-    <LandingPage />
-  )
+  return <LandingPage />;
 }

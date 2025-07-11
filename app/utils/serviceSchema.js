@@ -1,4 +1,4 @@
-export function generateServiceSchema(service, businessName, websiteUrl, logoUrl, contactPhoneNumber) {
+export function generateServiceSchema(service, businessName, websiteUrl, logoUrl, phoneNumber) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -10,7 +10,7 @@ export function generateServiceSchema(service, businessName, websiteUrl, logoUrl
       "name": businessName,
       "url": websiteUrl,
       "logo": logoUrl,
-      "telephone": contactPhoneNumber,
+      "telephone": phoneNumber,
       "@id": websiteUrl + "#organization" 
     },
     "hasOfferCatalog": {
