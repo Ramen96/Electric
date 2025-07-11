@@ -45,35 +45,38 @@ export default function BlackGoldTestimonialsLayout() {
     };
   };
 
-  // Generate Schema.org JSON-LD
   const getTestimonialsSchema = () => {
-    const reviews = testimonials.map((t, index) => ({
-      "@type": "Review",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": t.rating,
-        "bestRating": 5 
-      },
-      "reviewBody": t.content,
-      "name": t.title,
-      // You might add a datePublished if you have it: "datePublished": "2024-01-15"
-    }));
+  const reviews = testimonials.map((t, index) => ({
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": t.rating,
+      "bestRating": 5,
+    },
+    "reviewBody": t.content,
+    "name": t.title,
+    "author": { // Added author property
+      "@type": "Organization",
+      "name": "Valued Client" // Or "Verified Buyer", "Valued Client", etc.
+    },
+    // You might add a datePublished if you have it: "datePublished": "2024-01-15"
+  }));
 
-    const aggregateRating = {
-      "@type": "AggregateRating",
-      "ratingValue": (testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length).toFixed(1),
-      "reviewCount": testimonials.length,
-      "bestRating": 5 
-    };
-
-    return {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness", 
-      "name": "C&C Construction and Electrical", 
-      "aggregateRating": aggregateRating,
-      "review": reviews
-    };
+  const aggregateRating = {
+    "@type": "AggregateRating",
+    "ratingValue": (testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length).toFixed(1),
+    "reviewCount": testimonials.length,
+    "bestRating": 5
   };
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness", // Assuming these testimonials are for the LocalBusiness itself
+    "name": "C&C Construction and Electrical", // Ensure this matches your actual business name
+    "aggregateRating": aggregateRating,
+    "review": reviews
+  };
+};
 
   return (
     <section
