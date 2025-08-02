@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
 import logo from "~/assets/cncelectricco-logo.png";
-import ConstructionBanner from "../ConstructionBanner/constructionBanner.tsx";
+// Uncomment the line below and the component a line 308 if you want to use the ConstructionBanner component
+// import ConstructionBanner from "../ConstructionBanner/constructionBanner.tsx";
 
 export default function Nav({ scrollToSection, setSelectedService }) {
   const [activeSection, setActiveSection] = useState("hero");
@@ -304,7 +305,7 @@ export default function Nav({ scrollToSection, setSelectedService }) {
           : "bg-transparent"
       }`}
     >
-      <ConstructionBanner />
+      {/* <ConstructionBanner /> uncomment this to put construction banner back */}
       {/* This div now spans full width and contains the main navigation elements */}
       <div className="flex items-center justify-between h-16 sm:h-18 xl:h-20 px-4 sm:px-6 xl:px-8 relative w-full">
         {/* Left section for desktop */}
