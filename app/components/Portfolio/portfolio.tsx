@@ -221,12 +221,12 @@ export default function Portfolio() {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="grid grid-cols-1 lg:grid-cols-2"
                 >
-                  {/* Image section */}
-                  <div className="relative h-72 lg:h-auto">
+                  {/* Image section - FIXED HEIGHT */}
+                  <div className="relative h-96 lg:h-[500px]">
                     <img
                       src={projects[currentIndex].image}
                       alt={projects[currentIndex].title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent lg:hidden">
                       <h3 className="text-xl font-bold text-white">
