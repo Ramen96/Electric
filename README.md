@@ -1,87 +1,44 @@
-# Welcome to React Router!
+# ⚡ Electrical Company Website (Frontend)
 
-A modern, production-ready template for building full-stack React applications using React Router.
+This is the frontend code for a business website built for a local electrical company. It is a statically generated React application using **React Router**, **TypeScript**, and **Tailwind CSS**, designed with smooth styling, responsive layout, and functional form handling.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+The site includes two routes: `/` (home page) and `/careers`. The home page is structured as a single scrolling page with hash-based section navigation (e.g., `/#services`, `/#contact`) and uses **lazy loading** for better performance. It also features **parallax scrolling effects** via React Parallax.
 
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
-
-```bash
-npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+Form submissions (contact and job applications) are sent to the company’s email using a separate **Node.js + Express** backend that integrates with the **Twilio SendGrid API**.  
+➡️ You can view the backend code here: [github.com/Ramen96/Electric-Server](https://github.com/Ramen96/Electric-Server)
 
 ---
 
-Built with ❤️ using React Router.
+## 🧰 Tech Stack
+
+- **TypeScript**
+- **React + React Router** – for routing (`/`, `/careers`)
+- **Tailwind CSS** – utility-first styling
+- **React Parallax** – visual scroll effects
+- **Lazy loading** – via `React.lazy` and `Suspense`
+- **SendGrid (Twilio)** – for email delivery (via external backend)
+- **Static Site Generation (SSG)**
+
+---
+
+## 🔧 Features
+
+- Two routes: `/` and `/careers`
+- Home page supports smooth scrolling via URL hashes (e.g., `/#section`)
+- Lazy-loaded homepage sections to improve performance
+- Responsive design across devices
+- Contact and job application forms
+- Forms submit data to external email backend using SendGrid API
+- HTTPS enabled via Certbot and Let's Encrypt
+
+---
+
+## 📦 Getting Started
+
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/Ramen96/Electric.git
+cd Electric
+npm install
+npm run dev
