@@ -10,7 +10,36 @@ export default function Nav({ scrollToSection, setSelectedService }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [phoneHovered, setPhoneHovered] = useState(false);
+  const [emailHovered, setEmailHovered] = useState(false);
+  const [copyFeedback, setCopyFeedback] = useState({
+    phone: false,
+    email: false,
+  });
   const servicesDropdownRef = useRef(null);
+
+  const copyToClipboard = async (text, type) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopyFeedback({ ...copyFeedback, [type]: true });
+      setTimeout(() => {
+        setCopyFeedback({ ...copyFeedback, [type]: false });
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setCopyFeedback({ ...copyFeedback, [type]: true });
+      setTimeout(() => {
+        setCopyFeedback({ ...copyFeedback, [type]: false });
+      }, 2000);
+    }
+  };
 
   // Left side menu items
   const leftSections = [
@@ -185,7 +214,9 @@ export default function Nav({ scrollToSection, setSelectedService }) {
             className={`${baseClasses} ${
               isServicesActive() ? activeClasses : ""
             } ${
-              isMobile ? "flex items-center justify-between" : "flex items-center gap-2"
+              isMobile
+                ? "flex items-center justify-between"
+                : "flex items-center gap-2"
             }`}
             onClick={() => {
               if (isMobile) {
@@ -246,9 +277,16 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                     <button
                       key={item.id}
                       className={`w-full text-left px-4 py-3 text-gray-300 hover:text-yellow-400 hover:bg-black/50 transition-all duration-200 ${
-                        activeSection === item.id ? "text-yellow-400 bg-black/50" : ""
+                        activeSection === item.id
+                          ? "text-yellow-400 bg-black/50"
+                          : ""
                       }`}
-                      onClick={() => scrollToSectionWithService("services", item.serviceIndex)}
+                      onClick={() =>
+                        scrollToSectionWithService(
+                          "services",
+                          item.serviceIndex
+                        )
+                      }
                     >
                       {item.label}
                     </button>
@@ -263,7 +301,11 @@ export default function Nav({ scrollToSection, setSelectedService }) {
 
     if (section.isExternalRoute) {
       return (
-        <Link to={section.path} key={section.id} className={isMobile ? "block" : ""}>
+        <Link
+          to={section.path}
+          key={section.id}
+          className={isMobile ? "block" : ""}
+        >
           <button
             className={`${baseClasses} ${
               activeSection === section.id ? activeClasses : ""
@@ -316,7 +358,9 @@ export default function Nav({ scrollToSection, setSelectedService }) {
         </div>
 
         {/* Mobile logo (visible on xl:hidden) */}
-        <div className="flex xl:hidden items-center gap-3 pr-2 mr-4"> {/* Added mr-4 */}
+        <div className="flex xl:hidden items-center gap-3 pr-2 mr-4">
+          {" "}
+          {/* Added mr-4 */}
           <motion.div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => scrollToSectionWithService("hero")}
@@ -411,49 +455,208 @@ export default function Nav({ scrollToSection, setSelectedService }) {
 
         {/* Desktop Contact Icons - ABSOLUTELY POSITIONED to the right */}
         {/* Positioned relative to the full-width flex container above */}
+
+        {/* Desktop Contact Icons - ABSOLUTELY POSITIONED to the right */}
         <div className="hidden xl:flex items-center gap-3 absolute right-4 top-1/2 -translate-y-1/2">
-          <motion.a
-            href="tel:7048794057"
-            className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Call C&C Electrical"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          {/* Phone Contact with Hover */}
+          <div className="relative">
+            <motion.a
+              href="tel:7048794057"
+              className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300 block"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Call C&C Electrical"
+              onMouseEnter={() => setPhoneHovered(true)}
+              onMouseLeave={() => setPhoneHovered(false)}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              />
-            </svg>
-          </motion.a>
-          <motion.a
-            href="mailto:electricco.cnc@gmail.com"
-            className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Email C&C Electrical"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                />
+              </svg>
+            </motion.a>
+
+            <AnimatePresence>
+              {phoneHovered && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full right-0 mt-2 bg-black/95 backdrop-blur-md rounded-xl border border-yellow-500/30 shadow-xl p-4 min-w-[200px] z-50"
+                  onMouseEnter={() => setPhoneHovered(true)}
+                  onMouseLeave={() => setPhoneHovered(false)}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-yellow-400 font-semibold text-sm mb-1">
+                        Call Now
+                      </p>
+                      <p className="text-white text-sm">(704) 879-4057</p>
+                    </div>
+                    <motion.button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        copyToClipboard("7048794057", "phone");
+                      }}
+                      className="p-2 text-gray-400 hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-colors duration-200"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      title="Copy phone number"
+                    >
+                      {copyFeedback.phone ? (
+                        <svg
+                          className="w-4 h-4 text-green-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                          />
+                        </svg>
+                      )}
+                    </motion.button>
+                  </div>
+                  {copyFeedback.phone && (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-green-400 text-xs mt-2"
+                    >
+                      Phone number copied!
+                    </motion.p>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Email Contact with Hover */}
+          <div className="relative">
+            <motion.a
+              href="mailto:electricco.cnc@gmail.com"
+              className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300 block"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Email C&C Electrical"
+              onMouseEnter={() => setEmailHovered(true)}
+              onMouseLeave={() => setEmailHovered(false)}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              />
-            </svg>
-          </motion.a>
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+            </motion.a>
+
+            <AnimatePresence>
+              {emailHovered && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full right-0 mt-2 bg-black/95 backdrop-blur-md rounded-xl border border-yellow-500/30 shadow-xl p-4 min-w-[280px] z-50"
+                  onMouseEnter={() => setEmailHovered(true)}
+                  onMouseLeave={() => setEmailHovered(false)}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex-1">
+                      <p className="text-yellow-400 font-semibold text-sm mb-1">
+                        Send Email
+                      </p>
+                      <p className="text-white text-sm break-all">
+                        electricco.cnc@gmail.com
+                      </p>
+                    </div>
+                    <motion.button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        copyToClipboard("electricco.cnc@gmail.com", "email");
+                      }}
+                      className="p-2 text-gray-400 hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition-colors duration-200 flex-shrink-0"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      title="Copy email address"
+                    >
+                      {copyFeedback.email ? (
+                        <svg
+                          className="w-4 h-4 text-green-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                          />
+                        </svg>
+                      )}
+                    </motion.button>
+                  </div>
+                  {copyFeedback.email && (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-green-400 text-xs mt-2"
+                    >
+                      Email address copied!
+                    </motion.p>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Mobile contact icons and menu button (visible on xl:hidden) */}
@@ -560,7 +763,9 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                         ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/30"
                         : ""
                     }`}
-                    onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                    onClick={() =>
+                      setServicesDropdownOpen(!servicesDropdownOpen)
+                    }
                   >
                     <span
                       className="text-base font-medium"
@@ -568,8 +773,7 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                         e.stopPropagation();
                         scrollToSectionWithService("services");
                       }}
-                      style={{ cursor: "pointer" }
-                      }
+                      style={{ cursor: "pointer" }}
                     >
                       Services
                     </span>
@@ -618,7 +822,10 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                                 : ""
                             }`}
                             onClick={() =>
-                              scrollToSectionWithService("services", item.serviceIndex)
+                              scrollToSectionWithService(
+                                "services",
+                                item.serviceIndex
+                              )
                             }
                           >
                             {item.label}
@@ -631,7 +838,9 @@ export default function Nav({ scrollToSection, setSelectedService }) {
               </nav>
 
               <div className="p-6 bg-gray-900/50 border-t border-yellow-500/30">
-                <h3 className="text-yellow-400 font-semibold mb-4">Get Quick Access</h3>
+                <h3 className="text-yellow-400 font-semibold mb-4">
+                  Get Quick Access
+                </h3>
                 <div className="space-y-3">
                   <a
                     href="tel:7048794057"
