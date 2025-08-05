@@ -12,6 +12,7 @@ export default function Nav({ scrollToSection, setSelectedService }) {
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const [phoneHovered, setPhoneHovered] = useState(false);
   const [emailHovered, setEmailHovered] = useState(false);
+  const [socialHovered, setSocialHovered] = useState(null);
   const [copyFeedback, setCopyFeedback] = useState({
     phone: false,
     email: false,
@@ -40,6 +41,51 @@ export default function Nav({ scrollToSection, setSelectedService }) {
       }, 2000);
     }
   };
+
+  // Social media data
+  const socialMediaLinks = [
+    {
+      id: "facebook",
+      name: "Facebook",
+      url: "https://facebook.com",
+      color: "blue-500",
+      borderColor: "blue-500/30",
+      textColor: "blue-400",
+      icon: (
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg>
+      ),
+    },
+    {
+      id: "instagram",
+      name: "Instagram",
+      url: "https://instagram.com",
+      color: "pink-500",
+      borderColor: "pink-500/30",
+      textColor: "pink-400",
+      icon: (
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.621 5.367 11.988 11.988 11.988s11.987-5.367 11.987-11.988C24.014 5.367 18.647.001 12.017.001zM8.449 20.312c-2.154 0-3.895-1.741-3.895-3.895V7.584c0-2.154 1.741-3.896 3.895-3.896h7.103c2.154 0 3.895 1.742 3.895 3.896v8.833c0 2.154-1.741 3.895-3.895 3.895H8.449z" />
+          <path d="M12.017 7.056c-2.732 0-4.944 2.211-4.944 4.944 0 2.732 2.212 4.944 4.944 4.944 2.732 0 4.944-2.212 4.944-4.944 0-2.732-2.212-4.944-4.944-4.944zm0 8.167c-1.779 0-3.223-1.444-3.223-3.223s1.444-3.223 3.223-3.223 3.223 1.444 3.223 3.223-1.444 3.223-3.223 3.223z" />
+          <circle cx="17.406" cy="6.594" r="1.188" />
+        </svg>
+      ),
+    },
+    {
+      id: "linkedin",
+      name: "LinkedIn",
+      url: "https://linkedin.com/company",
+      color: "blue-600",
+      borderColor: "blue-600/30",
+      textColor: "blue-400",
+      icon: (
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+      ),
+    },
+  ];
 
   // Left side menu items
   const leftSections = [
@@ -350,6 +396,47 @@ export default function Nav({ scrollToSection, setSelectedService }) {
       {/* <ConstructionBanner /> uncomment this to put construction banner back */}
       {/* This div now spans full width and contains the main navigation elements */}
       <div className="flex items-center justify-between h-16 sm:h-18 xl:h-20 px-4 sm:px-6 xl:px-8 relative w-full">
+        {/* Social Media Icons - ABSOLUTELY POSITIONED to the left */}
+        <div className="hidden xl:flex items-center gap-3 absolute left-4 top-1/2 -translate-y-1/2">
+          {socialMediaLinks.map((social) => (
+            <div key={social.id} className="relative">
+              <motion.a
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-2 text-gray-400 hover:text-${social.color} transition-colors duration-300 block`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label={`Visit our ${social.name} page`}
+                onMouseEnter={() => setSocialHovered(social.id)}
+                onMouseLeave={() => setSocialHovered(null)}
+              >
+                {social.icon}
+              </motion.a>
+
+              <AnimatePresence>
+                {socialHovered === social.id && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className={`absolute top-full left-0 mt-2 bg-black/95 backdrop-blur-md rounded-xl border border-${social.borderColor} shadow-xl p-3 min-w-[140px] z-50`}
+                    onMouseEnter={() => setSocialHovered(social.id)}
+                    onMouseLeave={() => setSocialHovered(null)}
+                  >
+                    <p
+                      className={`text-${social.textColor} font-semibold text-sm`}
+                    >
+                      {social.id === "linkedin" ? "Connect on" : "Follow us on"}
+                    </p>
+                    <p className="text-white text-sm">{social.name}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
         {/* Left section for desktop */}
         <div className="hidden xl:flex items-center flex-1 justify-end">
           <nav className="flex items-center space-x-8">
