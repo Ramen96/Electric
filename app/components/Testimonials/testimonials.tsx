@@ -37,14 +37,6 @@ export default function BlackGoldTestimonialsLayout() {
     },
   ];
 
-  const streetAddress = "510 West 1st Street"; // Already defined, just for reference
-  const addressLocality = "Lowell"; // Already defined
-  const addressRegion = "NC"; // Already defined
-  const postalCode = "28098"; // Already defined
-  const country = "US"; // Already defined
-  const phoneNumber = "(704) 879-4057"; // Already defined
-  const businessName = "C&C Electrical LLC";
-
   const getAccentClasses = () => {
     return {
       border: "border-yellow-500/40",
@@ -56,65 +48,12 @@ export default function BlackGoldTestimonialsLayout() {
     };
   };
 
-  const getTestimonialsSchema = () => {
-    const reviews = testimonials.map((t, index) => ({
-      "@type": "Review",
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: t.rating,
-        bestRating: 5,
-      },
-      reviewBody: t.content,
-      name: t.title,
-      author: {
-        // Added author property
-        "@type": "Organization",
-        name: "Valued Client",
-      },
-    }));
-
-    const aggregateRating = {
-      "@type": "AggregateRating",
-      ratingValue: (
-        testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length
-      ).toFixed(1),
-      reviewCount: testimonials.length,
-      bestRating: 5,
-    };
-
-    return {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      name: businessName, // Using the businessName constant
-      address: {
-        // <<<--- ADD THIS ADDRESS BLOCK
-        "@type": "PostalAddress",
-        streetAddress: streetAddress,
-        addressLocality: addressLocality,
-        addressRegion: addressRegion,
-        postalCode: postalCode,
-        addressCountry: country,
-      },
-      telephone: phoneNumber, // <<<--- ADD THIS TELEPHONE
-      aggregateRating: aggregateRating,
-      review: reviews,
-    };
-  };
-
   return (
     <section
       id="testimonials"
       ref={containerRef}
       className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-black py-24 overflow-hidden"
     >
-      {/* Inject Schema.org JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getTestimonialsSchema()),
-        }}
-      />
-
       {/* Animated Background and other JSX */}
       <div className="absolute inset-0">
         {/* Grid pattern */}

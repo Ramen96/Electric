@@ -10,7 +10,7 @@ import {
 import { generateServiceSchema } from "./utils/serviceSchema.js";
 import type { Route } from "./+types/root";
 import "./app.css";
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -268,6 +268,7 @@ export function meta({}: Route.MetaArgs) {
         slogan: "Efficiency · Reliability · Innovation",
         hasMap: googleMapsUrl,
         sameAs: [
+          "https://www.facebook.com/people/CnC/61578106953385/",
           // Add your social media profiles here. Example:
           // "https://www.facebook.com/CNCElectricalLLC",
           // "https://www.linkedin.com/company/cnc-electrical-llc"
@@ -320,18 +321,82 @@ export function meta({}: Route.MetaArgs) {
         },
       }),
     },
-    // Testimonials/Review Snippets Schema
+    // TESTIMONIALS SCHEMA (Updated with actual testimonials)
     {
       tagName: "script",
       type: "application/ld+json",
-      innerHTML: JSON.stringify(getTestimonialsSchema()),
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: businessName,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: streetAddress,
+          addressLocality: addressLocality,
+          addressRegion: addressRegion,
+          postalCode: postalCode,
+          addressCountry: country,
+        },
+        telephone: phoneNumber,
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5.0",
+          reviewCount: 3,
+          bestRating: 5,
+        },
+        review: [
+          {
+            "@type": "Review",
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: 5,
+              bestRating: 5,
+            },
+            reviewBody:
+              "C&C Construction and Electrical exceeded our expectations on a commercial renovation project. Their team was punctual and professional every step of the way. The electrical work was clean, up to code, and finished ahead of schedule. I highly recommend them for any business in need of dependable contractors.",
+            name: "Top-notch service from start to finish!",
+            author: {
+              "@type": "Organization",
+              name: "Valued Client",
+            },
+          },
+          {
+            "@type": "Review",
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: 5,
+              bestRating: 5,
+            },
+            reviewBody:
+              "We've worked with a lot of subcontractors over the years, and C&C stands out. They were transparent with their pricing, stuck to the agreed timeline, and took pride in their work. We'll definitely be partnering with them again.",
+            name: "Honest, reliable, and efficient.",
+            author: {
+              "@type": "Organization",
+              name: "Valued Client",
+            },
+          },
+          {
+            "@type": "Review",
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: 5,
+              bestRating: 5,
+            },
+            reviewBody:
+              "C&C has helped us on several residential and light commercial projects, and they always deliver. Their crew is professional and easy to work with, plus they keep the job site clean. Great communication and trustworthy leadership. You can tell they care about doing it right.",
+            name: "Our go-to for electrical work!",
+            author: {
+              "@type": "Organization",
+              name: "Valued Client",
+            },
+          },
+        ],
+      }),
     },
     // Dynamically generated Service schemas
     ...serviceSchemas,
   ];
 }
-
-
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
