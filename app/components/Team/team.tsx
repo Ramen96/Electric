@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   motion,
   useScroll,
@@ -6,7 +6,7 @@ import {
   useSpring,
   useInView,
 } from "framer-motion";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import pfp from "~/assets/pfp.png";
 
 export default function Team() {
