@@ -24,7 +24,7 @@ function useIntersectionObserver(options = {}) {
       ([entry]) => {
         const isIntersecting = entry.isIntersecting;
         setIsVisible(isIntersecting);
-        
+
         if (isIntersecting && !hasBeenVisible) {
           setHasBeenVisible(true);
         }
@@ -51,14 +51,14 @@ function useIntersectionObserver(options = {}) {
   return [elementRef, hasBeenVisible || shouldForceLoad, forceLoad];
 }
 
-function LazySection({ 
-  children, 
+function LazySection({
+  children,
   sectionId,
-  fallback = null, 
+  fallback = null,
   className = "",
   skeletonHeight = "200px",
   shouldLoad = false,
-  onMounted = () => {}
+  onMounted = () => { }
 }) {
   const [ref, intersectionShouldLoad, forceLoad] = useIntersectionObserver();
   const { registerSection, pendingScroll } = React.useContext(ScrollContext);
@@ -85,8 +85,8 @@ function LazySection({
   }, [shouldLoad, hasMounted, onMounted]);
 
   const defaultFallback = (
-    <div 
-      style={{ minHeight: skeletonHeight }} 
+    <div
+      style={{ minHeight: skeletonHeight }}
       className="flex items-center justify-center animate-pulse"
     >
       <div className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 w-full h-full rounded-lg bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]"></div>
@@ -121,22 +121,22 @@ function useNavigationScroll() {
 
   const scrollToSection = React.useCallback(async (sectionId) => {
     const element = document.getElementById(sectionId);
-    
+
     if (element) {
-      element.scrollIntoView({ 
+      element.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
     } else {
       setPendingScroll(sectionId);
-      
+
       if (sectionLoaders[sectionId]) {
         sectionLoaders[sectionId]();
-        
+
         setTimeout(() => {
           const loadedElement = document.getElementById(sectionId);
           if (loadedElement) {
-            loadedElement.scrollIntoView({ 
+            loadedElement.scrollIntoView({
               behavior: 'smooth',
               block: 'start'
             });
@@ -164,7 +164,8 @@ function useSequentialLoading() {
     contact: false
   });
 
-  const sectionOrder = ['services', 'projects', 'testimonials', 'team', 'about', 'contact'];
+  // add 'team' back to this array later when putting the teams page back
+  const sectionOrder = ['services', 'projects', 'testimonials', 'about', 'contact'];
 
   React.useEffect(() => {
     // Start loading the first section immediately
@@ -178,7 +179,7 @@ function useSequentialLoading() {
   const onSectionMounted = React.useCallback((sectionId) => {
     const currentIndex = sectionOrder.indexOf(sectionId);
     const nextSectionId = sectionOrder[currentIndex + 1];
-    
+
     if (nextSectionId) {
       // Load the next section after a small delay to ensure smooth loading
       setTimeout(() => {
@@ -204,61 +205,61 @@ export function LandingPage() {
       <div className="flex flex-col">
         <Nav scrollToSection={scrollToSection} setSelectedService={setSelectedService} />
         <Hero />
-        
-        <LazySection 
-          sectionId="services" 
+
+        <LazySection
+          sectionId="services"
           skeletonHeight="300px"
           shouldLoad={loadedSections.services}
           onMounted={() => onSectionMounted('services')}
         >
           <Services initialServiceIndex={selectedService} />
         </LazySection>
-        
-        <LazySection 
-          sectionId="projects" 
+
+        <LazySection
+          sectionId="projects"
           skeletonHeight="400px"
           shouldLoad={loadedSections.projects}
           onMounted={() => onSectionMounted('projects')}
         >
           <Portfolio />
         </LazySection>
-        
-        <LazySection 
-          sectionId="testimonials" 
+
+        <LazySection
+          sectionId="testimonials"
           skeletonHeight="350px"
           shouldLoad={loadedSections.testimonials}
           onMounted={() => onSectionMounted('testimonials')}
         >
           <Testimonials />
         </LazySection>
-        
-        <LazySection 
-          sectionId="team" 
-          skeletonHeight="300px"
-          shouldLoad={loadedSections.team}
-          onMounted={() => onSectionMounted('team')}
-        >
-          <Team />
-        </LazySection>
-        
-        <LazySection 
-          sectionId="about" 
+
+        {/* <LazySection  */}
+        {/*   sectionId="team"  */}
+        {/*   skeletonHeight="300px" */}
+        {/*   shouldLoad={loadedSections.team} */}
+        {/*   onMounted={() => onSectionMounted('team')} */}
+        {/* > */}
+        {/*   <Team /> */}
+        {/* </LazySection> */}
+
+        <LazySection
+          sectionId="about"
           skeletonHeight="250px"
           shouldLoad={loadedSections.about}
           onMounted={() => onSectionMounted('about')}
         >
           <About />
         </LazySection>
-        
-        <LazySection 
-          sectionId="contact" 
+
+        <LazySection
+          sectionId="contact"
           skeletonHeight="400px"
           shouldLoad={loadedSections.contact}
           onMounted={() => onSectionMounted('contact')}
         >
           <Contact />
         </LazySection>
-        
+
         <footer className="bg-black p-4 text-center text-yellow-500">
           © {new Date().getFullYear()} C&C Electrical LLC. All rights reserved.
         </footer>

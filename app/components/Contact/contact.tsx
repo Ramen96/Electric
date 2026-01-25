@@ -692,7 +692,6 @@ export default function Contact() {
                         <option value="Commercial">Commercial</option>
                         <option value="Industrial">Industrial</option>
                         <option value="Maintenance">Maintenance</option>
-                        <option value="Emergency">Emergency Service</option>
                         <option value="Other">Other</option>
                       </select>
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">

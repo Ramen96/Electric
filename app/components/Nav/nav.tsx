@@ -99,7 +99,7 @@ export default function Nav({ scrollToSection, setSelectedService }) {
 
   // Right side menu items
   const rightSections = [
-    { id: "team", label: "Team" },
+    // { id: "team", label: "Team" },
     { id: "about", label: "About" },
     { id: "contact", label: "Contact" },
     {
@@ -248,13 +248,11 @@ export default function Nav({ scrollToSection, setSelectedService }) {
           ref={!isMobile ? servicesDropdownRef : null}
         >
           <button
-            className={`${baseClasses} ${
-              isServicesActive() ? activeClasses : ""
-            } ${
-              isMobile
+            className={`${baseClasses} ${isServicesActive() ? activeClasses : ""
+              } ${isMobile
                 ? "flex items-center justify-between"
                 : "flex items-center gap-2"
-            }`}
+              }`}
             onClick={() => {
               if (isMobile) {
                 setServicesDropdownOpen(!servicesDropdownOpen);
@@ -278,9 +276,8 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                   Services
                 </span>
                 <svg
-                  className={`w-5 h-5 transition-transform duration-300 ${
-                    servicesDropdownOpen ? "rotate-180" : ""
-                  }`}
+                  className={`w-5 h-5 transition-transform duration-300 ${servicesDropdownOpen ? "rotate-180" : ""
+                    }`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -313,11 +310,10 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                   {section.dropdownItems.map((item) => (
                     <button
                       key={item.id}
-                      className={`w-full text-left px-4 py-3 text-gray-300 hover:text-yellow-400 hover:bg-black/50 transition-all duration-200 ${
-                        activeSection === item.id
+                      className={`w-full text-left px-4 py-3 text-gray-300 hover:text-yellow-400 hover:bg-black/50 transition-all duration-200 ${activeSection === item.id
                           ? "text-yellow-400 bg-black/50"
                           : ""
-                      }`}
+                        }`}
                       onClick={() =>
                         scrollToSectionWithService(
                           "services",
@@ -344,9 +340,8 @@ export default function Nav({ scrollToSection, setSelectedService }) {
           className={isMobile ? "block" : ""}
         >
           <button
-            className={`${baseClasses} ${
-              activeSection === section.id ? activeClasses : ""
-            } ${isMobile ? "font-medium" : ""}`}
+            className={`${baseClasses} ${activeSection === section.id ? activeClasses : ""
+              } ${isMobile ? "font-medium" : ""}`}
           >
             {section.label}
           </button>
@@ -357,9 +352,8 @@ export default function Nav({ scrollToSection, setSelectedService }) {
     return (
       <button
         key={section.id}
-        className={`${baseClasses} ${
-          activeSection === section.id ? activeClasses : ""
-        } ${isMobile ? "font-medium" : ""}`}
+        className={`${baseClasses} ${activeSection === section.id ? activeClasses : ""
+          } ${isMobile ? "font-medium" : ""}`}
         onClick={() => scrollToSectionWithService(section.id)}
       >
         {section.label}
@@ -378,11 +372,10 @@ export default function Nav({ scrollToSection, setSelectedService }) {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
           ? "bg-black/90 backdrop-blur-xl border-b border-yellow-500/30 shadow-2xl"
           : "bg-transparent"
-      }`}
+        }`}
     >
       {/* <ConstructionBanner /> uncomment this to put construction banner back */}
       {/* This div now spans full width and contains the main navigation elements */}
@@ -489,11 +482,10 @@ export default function Nav({ scrollToSection, setSelectedService }) {
               alt="C&C Electrical"
               className={`
                     rounded-full border-2 border-yellow-500/50 object-cover transition-all duration-300
-                    ${
-                      scrolled
-                        ? "h-12 w-12 xl:h-14 xl:w-14"
-                        : "h-14 w-14 xl:h-16 xl:w-16"
-                    }
+                    ${scrolled
+                  ? "h-12 w-12 xl:h-14 xl:w-14"
+                  : "h-14 w-14 xl:h-16 xl:w-16"
+                }
                   `}
               style={{
                 boxShadow: "0 0 15px rgba(234, 179, 8, 0.3)",
@@ -506,11 +498,10 @@ export default function Nav({ scrollToSection, setSelectedService }) {
               className={`
                     absolute inset-0 flex items-center justify-center bg-gradient-to-br from-yellow-400 to-yellow-600
                     rounded-full border-2 border-yellow-500/50 text-black font-bold
-                    ${
-                      scrolled
-                        ? "h-12 w-12 xl:h-14 xl:w-14 text-sm xl:text-base"
-                        : "h-14 w-14 xl:h-16 xl:w-16 text-base xl:text-xl"
-                    }
+                    ${scrolled
+                  ? "h-12 w-12 xl:h-14 xl:w-14 text-sm xl:text-base"
+                  : "h-14 w-14 xl:h-16 xl:w-16 text-base xl:text-xl"
+                }
                   `}
               style={{
                 boxShadow: "0 0 15px rgba(234, 179, 8, 0.3)",
@@ -834,11 +825,10 @@ export default function Nav({ scrollToSection, setSelectedService }) {
 
                 <div>
                   <button
-                    className={`block w-full text-left px-6 py-4 text-gray-200 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800 transition-all duration-300 flex items-center justify-between ${
-                      isServicesActive()
+                    className={`block w-full text-left px-6 py-4 text-gray-200 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800 transition-all duration-300 flex items-center justify-between ${isServicesActive()
                         ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/30"
                         : ""
-                    }`}
+                      }`}
                     onClick={() =>
                       setServicesDropdownOpen(!servicesDropdownOpen)
                     }
@@ -854,9 +844,8 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                       Services
                     </span>
                     <svg
-                      className={`w-5 h-5 transition-transform duration-300 ${
-                        servicesDropdownOpen ? "rotate-180" : ""
-                      }`}
+                      className={`w-5 h-5 transition-transform duration-300 ${servicesDropdownOpen ? "rotate-180" : ""
+                        }`}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -880,11 +869,10 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                         className="bg-gray-900/50"
                       >
                         <button
-                          className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800/50 transition-all duration-200 ${
-                            activeSection === "services"
+                          className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800/50 transition-all duration-200 ${activeSection === "services"
                               ? "text-yellow-400 bg-yellow-400/10"
                               : ""
-                          }`}
+                            }`}
                           onClick={() => scrollToSectionWithService("services")}
                         >
                           All Services
@@ -892,11 +880,10 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                         {allServicesItems.map((item) => (
                           <button
                             key={item.id}
-                            className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800/50 transition-all duration-200 ${
-                              activeSection === item.id
+                            className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800/50 transition-all duration-200 ${activeSection === item.id
                                 ? "text-yellow-400 bg-yellow-400/10"
                                 : ""
-                            }`}
+                              }`}
                             onClick={() =>
                               scrollToSectionWithService(
                                 "services",

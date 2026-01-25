@@ -7,13 +7,13 @@ export default function About() {
   const [counters, setCounters] = useState({ stat0: 0, stat1: 0, stat2: 0 });
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-100px" });
-  
+
   // Parallax effect
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   });
-  
+
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const smoothY = useSpring(y, { stiffness: 100, damping: 30 });
@@ -40,31 +40,31 @@ export default function About() {
   // Counter animation effect - moved outside render function
   useEffect(() => {
     if (!isInView) return;
-    
+
     const duration = 2000;
     const statValues = { stat0: 15, stat1: 200, stat2: 99.8 };
-    
+
     let startTime;
     let animationFrameId;
-    
+
     const startAnimation = (timestamp) => {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
       const percentage = Math.min(progress / duration, 1);
-      
+
       setCounters({
         stat0: Math.floor(percentage * statValues.stat0),
         stat1: Math.floor(percentage * statValues.stat1),
         stat2: Math.floor(percentage * statValues.stat2 * 10) / 10,
       });
-      
+
       if (percentage < 1) {
         animationFrameId = requestAnimationFrame(startAnimation);
       }
     };
-    
+
     animationFrameId = requestAnimationFrame(startAnimation);
-    
+
     return () => cancelAnimationFrame(animationFrameId);
   }, [isInView]);
 
@@ -172,30 +172,18 @@ export default function About() {
                 <p className="text-gray-400 leading-relaxed mb-8">
                   {" "}
                   <span className="font-semibold text-yellow-500">
-                    Here at C&C Construction and Electrical
+                    C&C Construction and Electrical
                   </span>{" "}
-                  we are a dedicated, detail-driven family who proudly serve the
-                  greater North Carolina region and surrounding areas. At C&C we
-                  pride ourselves on being more than just contractors, we are a
-                  dedicated team of professionals who believe in doing the right
-                  thing even when no one is watching. The foundation of our
-                  reputation was built by not only our craftsmanship but our
-                  character. We specialize in delivering high-quality
-                  construction and electrical services for residential,
-                  commercial, and industrial projects. Whether it’s a small
-                  wiring job or a large-scale new construction project, we bring
-                  the same level of care and communication. No fluff, no
-                  shortcuts — just honest work backed by real experience.
+                  provides high-quality residential, commercial, and industrial services across North Carolina. Built on a foundation of integrity and clear communication, we treat every project with the same level of care. Whether it’s a small repair or large-scale construction, we deliver results without compromises.
                 </p>
                 <p className="text-gray-400 leading-relaxed mb-8">
                   {" "}
                   <span className="font-semibold text-gray-300">
                     We look forward
                   </span>{" "}
-                  for the opportunity to work with you, build
+                  to the opportunity to work with you, build
                   lasting partnerships, and earning your trust as your go-to
-                  partner for quality construction and electrical work one
-                  successful project at a time.
+                  partner for quality construction and electrical work.
                 </p>
               </motion.div>
 
