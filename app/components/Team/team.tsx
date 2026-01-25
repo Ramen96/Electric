@@ -11,7 +11,7 @@ import pfp from "~/assets/pfp.png";
 
 export default function Team() {
   const [isClient, setIsClient] = useState(false);
-  const [activeDepartment, setActiveDepartment] = useState("management");
+  const [activeDepartment, setActiveDepartment] = useState("field");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-100px" });
 
@@ -28,22 +28,16 @@ export default function Team() {
   // Department data
   const departments = [
     {
-      id: "management",
-      name: "Management",
+      id: "field",
+      name: "Field Operations",
       description:
-        "Our leadership team brings decades of industry experience and a passion for electrical excellence.",
+        "Skilled electricians and technicians delivering precision work on-site with safety as the priority.",
     },
     {
       id: "hr",
       name: "Human Resources",
       description:
         "Committed professionals fostering a supportive workplace through talent acquisition, employee development, and culture-building initiatives.",
-    },
-    {
-      id: "field",
-      name: "Field Operations",
-      description:
-        "Skilled electricians and technicians delivering precision work on-site with safety as the priority.",
     },
     {
       id: "estimators",
@@ -55,34 +49,6 @@ export default function Team() {
 
   // Team members data organized by department
   const teamMembers = {
-    management: [
-      {
-        id: 1,
-        name: "Chad Hefner",
-        role: "Chief Executive Officer",
-        description:
-          "With over 20 years in electrical engineering, Chad has led our company to national recognition through his innovative vision and technical expertise.",
-        image: pfp,
-        specialties: [
-          "Strategic Planning",
-          "Business Development",
-          "Electrical Engineering",
-        ],
-      },
-      {
-        id: 2,
-        name: "Jon Ivester",
-        role: "Public Relations",
-        description:
-          "As our PR Director, Jon oversees all of the company’s public communications. He ensures our image remains consistent and aligned with our values, playing a key role in shaping how we are represented across all platforms and to the public.",
-        image: pfp,
-        specialties: [
-          "Operational Excellence",
-          "Risk Management",
-          "Process Optimization",
-        ],
-      },
-    ],
     hr: [
       {
         id: 3,
@@ -253,11 +219,10 @@ export default function Team() {
               <motion.button
                 key={dept.id}
                 onClick={() => handleDepartmentChange(dept.id)}
-                className={`px-6 py-3 rounded-full transition-all cursor-pointer duration-300 ${
-                  activeDepartment === dept.id
-                    ? "bg-yellow-500 text-black font-medium shadow-lg shadow-yellow-500/20"
-                    : "bg-black/40 border border-yellow-500/20 text-yellow-400 hover:bg-black/60"
-                }`}
+                className={`px-6 py-3 rounded-full transition-all cursor-pointer duration-300 ${activeDepartment === dept.id
+                  ? "bg-yellow-500 text-black font-medium shadow-lg shadow-yellow-500/20"
+                  : "bg-black/40 border border-yellow-500/20 text-yellow-400 hover:bg-black/60"
+                  }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -275,7 +240,7 @@ export default function Team() {
             className="text-center mb-12"
           >
             <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              {departments.find((d) => d.id === activeDepartment).description}
+              {departments.find((d) => d.id === activeDepartment)?.description}
             </p>
           </motion.div>
 
@@ -318,7 +283,7 @@ export default function Team() {
                     <p className="text-yellow-400 font-medium mb-4">
                       {member.role}
                     </p>
-                    <p className="text-gray-400 mb-4">{member.description}</p>
+                    <p className="text-gray-400 mb-4">{member?.description}</p>
 
                     {/* Specialties */}
                     <div className="flex flex-wrap gap-2 mt-4">
