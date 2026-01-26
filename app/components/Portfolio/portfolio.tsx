@@ -41,23 +41,23 @@ export default function Portfolio() {
     {
       title:
         "Restaurant Renovation",
-      description: 
+      description:
         "Restaurant renovation with main branch circuit wiring and electrical upgrade to support new equipment layouts, lighting, and code compliance. Work completed to meet franchise standards.",
       image: dunkinDonutsImg,
       tags: ["Electrical Upgrade", "Main Branch Circuit", "Interior Wiring"],
       duration: "5 weeks",
     },
     {
-      title:  "Retail Location",
-      description: 
+      title: "Retail Location",
+      description:
         "Full electrical up-fit for a Food Lion retail location, including service rework, lighting,and storefront systems as part of a complete interior renovation to meet corporate standards.",
       image: foodLionImg,
       tags: ["Lighting Installation", "Electrical Remodel", "Retail Construction"],
       duration: "3 months",
     },
     {
-      title:  "Retail Location",
-      description: 
+      title: "Retail Location",
+      description:
         "Full electrical up-fit for a Food Lion retail location, including service rework, lighting,and storefront systems as part of a complete interior renovation to meet corporate standards.",
       image: foodLionImg1,
       tags: ["Lighting Installation", "Electrical Remodel", "Retail Construction"],
@@ -65,7 +65,7 @@ export default function Portfolio() {
     },
     {
       title: "Grease Monkey Location",
-      description: 
+      description:
         "Completed underground electrical raceway and trenching. Scope included conduit layout for power and service equipment, working closely with utility crews to ensure clean, code-compliant installation before slab pour.",
       image: greaseMonkeyImg,
       tags: ["Utility Prep", "Electrical Trenching", "Ground Work"],
@@ -94,7 +94,7 @@ export default function Portfolio() {
 
     const interval = setInterval(() => {
       nextProject();
-    }, 5000);
+    }, 15000);
 
     return () => clearInterval(interval);
   }, [isHovered]);
@@ -128,10 +128,10 @@ export default function Portfolio() {
             isTransitioning
               ? {}
               : {
-                  y: [0, 40, 0],
-                  x: [0, 20, 0],
-                  opacity: [0.3, 0.6, 0.3],
-                }
+                y: [0, 40, 0],
+                x: [0, 20, 0],
+                opacity: [0.3, 0.6, 0.3],
+              }
           }
           transition={{
             duration: 15,
@@ -145,10 +145,10 @@ export default function Portfolio() {
             isTransitioning
               ? {}
               : {
-                  y: [0, -60, 0],
-                  x: [0, -30, 0],
-                  opacity: [0.2, 0.5, 0.2],
-                }
+                y: [0, -60, 0],
+                x: [0, -30, 0],
+                opacity: [0.2, 0.5, 0.2],
+              }
           }
           transition={{
             duration: 25,
@@ -333,11 +333,10 @@ export default function Portfolio() {
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      currentIndex === index
-                        ? "w-8 bg-yellow-500"
-                        : "bg-white/30 hover:bg-yellow-400/50"
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === index
+                      ? "w-8 bg-yellow-500"
+                      : "bg-white/30 hover:bg-yellow-400/50"
+                      }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}
