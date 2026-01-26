@@ -746,6 +746,7 @@ export default function Contact() {
                     <div className="flex items-start">
                       <div className="flex items-center h-5">
                         <input
+                          checked={true}
                           id="newsletter"
                           type="checkbox"
                           className="w-4 h-4 border border-gray-600 rounded bg-gray-700 focus:ring-3 focus:ring-yellow-500"
@@ -753,7 +754,7 @@ export default function Contact() {
                       </div>
                       <div className="ml-3 text-sm">
                         <label htmlFor="newsletter" className="text-gray-300">
-                          Subscribe to newsletter for industry updates
+                          Subscribe to news letter for industry updates.
                         </label>
                       </div>
                     </div>
