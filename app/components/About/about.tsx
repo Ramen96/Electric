@@ -22,7 +22,6 @@ export default function About() {
   const stats = [
     { value: 15, label: "Years Experience", icon: "🏆", key: "stat0" },
     { value: 200, label: "Projects Completed", icon: "⚡", key: "stat1" },
-    { value: 99.8, label: "Client Satisfaction", unit: "%", icon: "❤️", key: "stat2" },
   ];
 
   // Experience timeline items
@@ -149,9 +148,6 @@ export default function About() {
                 <span className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text">
                   Building Connections
                 </span>
-                <span className="block text-white mt-2">
-                  All over the Carolinas
-                </span>
               </motion.h2>
 
               {/* Description with enhanced styling */}
@@ -242,7 +238,7 @@ export default function About() {
               className="space-y-12"
             >
               {/* Stats cards */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 {stats.map((stat, index) => (
                   <motion.div
                     key={stat.label}
@@ -256,6 +252,7 @@ export default function About() {
                     <div className="text-3xl font-bold text-yellow-400">
                       {counters[stat.key]}
                       {stat.unit || ""}
+                      +
                     </div>
                     <div className="text-gray-400 text-sm mt-1">
                       {stat.label}
