@@ -25,6 +25,7 @@ export default function Contact() {
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [checkboxChecked, setChecboxChecked] = useState<boolean>(true);
 
   const formatPhoneNumber = (value) => {
     const phoneNumber = value.replace(/\D/g, "");
@@ -746,14 +747,18 @@ export default function Contact() {
                     <div className="flex items-start">
                       <div className="flex items-center h-5">
                         <input
-                          checked={true}
+                          checked={checkboxChecked}
                           id="newsletter"
                           type="checkbox"
-                          className="w-4 h-4 border border-gray-600 rounded bg-gray-700 focus:ring-3 focus:ring-yellow-500"
+                          className="w-4 h-4 border border-gray-600 rounded bg-gray-700 focus:ring-0"
+                          onClick={() => setChecboxChecked(!checkboxChecked)}
                         />
                       </div>
                       <div className="ml-3 text-sm">
-                        <label htmlFor="newsletter" className="text-gray-300">
+                        <label
+                          htmlFor="newsletter"
+                          className="text-gray-300"
+                        >
                           Subscribe to news letter for industry updates.
                         </label>
                       </div>
