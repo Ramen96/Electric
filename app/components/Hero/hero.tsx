@@ -196,12 +196,11 @@ export default function Hero() {
           <motion.div
             variants={textVariants}
             custom={3}
-            className="grid grid-cols-3 gap-4 sm:gap-8 mb-8 sm:mb-12 max-w-2xl mx-auto px-2"
+            className="grid grid-cols-2 gap-4 sm:gap-8 mb-8 sm:mb-12 max-w-2xl mx-auto px-2"
           >
             {[
               { value: "200+", label: "Projects Completed" },
               { value: "15+", label: "Years Experience" },
-              { value: "99.8%", label: "Client Satisfaction" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-400 mb-1 sm:mb-2">
