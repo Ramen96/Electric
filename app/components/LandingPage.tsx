@@ -212,7 +212,7 @@ export function LandingPage() {
           shouldLoad={loadedSections.services}
           onMounted={() => onSectionMounted('services')}
         >
-          <Services initialServiceIndex={selectedService} />
+          <Services scrollToSection={scrollToSection} />
         </LazySection>
 
         <LazySection

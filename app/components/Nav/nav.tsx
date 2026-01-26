@@ -311,8 +311,8 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                     <button
                       key={item.id}
                       className={`w-full text-left px-4 py-3 text-gray-300 hover:text-yellow-400 hover:bg-black/50 transition-all duration-200 ${activeSection === item.id
-                          ? "text-yellow-400 bg-black/50"
-                          : ""
+                        ? "text-yellow-400 bg-black/50"
+                        : ""
                         }`}
                       onClick={() =>
                         scrollToSectionWithService(
@@ -373,8 +373,8 @@ export default function Nav({ scrollToSection, setSelectedService }) {
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? "bg-black/90 backdrop-blur-xl border-b border-yellow-500/30 shadow-2xl"
-          : "bg-transparent"
+        ? "bg-black/90 backdrop-blur-xl border-b border-yellow-500/30 shadow-2xl"
+        : "bg-transparent"
         }`}
     >
       {/* <ConstructionBanner /> uncomment this to put construction banner back */}
@@ -436,7 +436,7 @@ export default function Nav({ scrollToSection, setSelectedService }) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div className="relative flex-shrink-0">
+            <div className="relative shrink-0">
               <img
                 src={logo}
                 alt="C&C Electrical"
@@ -826,8 +826,8 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                 <div>
                   <button
                     className={`block w-full text-left px-6 py-4 text-gray-200 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800 transition-all duration-300 flex items-center justify-between ${isServicesActive()
-                        ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/30"
-                        : ""
+                      ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/30"
+                      : ""
                       }`}
                     onClick={() =>
                       setServicesDropdownOpen(!servicesDropdownOpen)
@@ -870,8 +870,8 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                       >
                         <button
                           className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800/50 transition-all duration-200 ${activeSection === "services"
-                              ? "text-yellow-400 bg-yellow-400/10"
-                              : ""
+                            ? "text-yellow-400 bg-yellow-400/10"
+                            : ""
                             }`}
                           onClick={() => scrollToSectionWithService("services")}
                         >
@@ -881,8 +881,8 @@ export default function Nav({ scrollToSection, setSelectedService }) {
                           <button
                             key={item.id}
                             className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 border-b border-gray-800/50 transition-all duration-200 ${activeSection === item.id
-                                ? "text-yellow-400 bg-yellow-400/10"
-                                : ""
+                              ? "text-yellow-400 bg-yellow-400/10"
+                              : ""
                               }`}
                             onClick={() =>
                               scrollToSectionWithService(
