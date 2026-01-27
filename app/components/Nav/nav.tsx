@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
 import logo from "~/assets/cncelectricco-logo.png";
 
-export default function Nav({ scrollToSection, setSelectedService }) {
+export default function Nav({ scrollToSection }) {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -63,13 +63,6 @@ export default function Nav({ scrollToSection, setSelectedService }) {
       id: "services",
       label: "Services",
       hasDropdown: true,
-      dropdownItems: [
-        { id: "residential", label: "Residential", serviceIndex: 0 },
-        { id: "commercial", label: "Commercial", serviceIndex: 1 },
-        { id: "industrial", label: "Industrial", serviceIndex: 2 },
-        { id: "ev-installations", label: "EV Installations", serviceIndex: 3 },
-        { id: "solar", label: "Solar Panels", serviceIndex: 4 },
-      ],
     },
     { id: "projects", label: "Portfolio" },
     { id: "testimonials", label: "Testimonials" },
@@ -81,44 +74,44 @@ export default function Nav({ scrollToSection, setSelectedService }) {
 
   const allServicesItems = navSections.find((item) => item.id === "services")?.dropdownItems || [];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-      let currentSection = "hero";
-
-      const sectionIds = navSections.flatMap(s =>
-        s.hasDropdown ? [s.id, ...s.dropdownItems.map(d => d.id)] : [s.id]
-      );
-
-      for (const sectionId of sectionIds) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            currentSection = sectionId;
-            break;
-          }
-        }
-      }
-      if (window.scrollY < 100) currentSection = "hero";
-      setActiveSection(currentSection);
-    };
-
-    handleScroll();
-    let ticking = false;
-    const throttledHandleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", throttledHandleScroll);
-    return () => window.removeEventListener("scroll", throttledHandleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrolled(window.scrollY > 20);
+  //     let currentSection = "hero";
+  //
+  //     const sectionIds = navSections.flatMap(s =>
+  //       s.hasDropdown ? [s.id, ...s.dropdownItems.map(d => d.id)] : [s.id]
+  //     );
+  //
+  //     for (const sectionId of sectionIds) {
+  //       const element = document.getElementById(sectionId);
+  //       if (element) {
+  //         const rect = element.getBoundingClientRect();
+  //         if (rect.top <= 100 && rect.bottom >= 100) {
+  //           currentSection = sectionId;
+  //           break;
+  //         }
+  //       }
+  //     }
+  //     if (window.scrollY < 100) currentSection = "hero";
+  //     setActiveSection(currentSection);
+  //   };
+  //
+  //   handleScroll();
+  //   let ticking = false;
+  //   const throttledHandleScroll = () => {
+  //     if (!ticking) {
+  //       requestAnimationFrame(() => {
+  //         handleScroll();
+  //         ticking = false;
+  //       });
+  //       ticking = true;
+  //     }
+  //   };
+  //
+  //   window.addEventListener("scroll", throttledHandleScroll);
+  //   return () => window.removeEventListener("scroll", throttledHandleScroll);
+  // }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "unset";
@@ -126,7 +119,6 @@ export default function Nav({ scrollToSection, setSelectedService }) {
   }, [mobileMenuOpen]);
 
   const scrollToSectionWithService = (id, serviceIndex = null) => {
-    setSelectedService(serviceIndex);
     setMobileMenuOpen(false);
     setTimeout(() => scrollToSection(id), 100);
   };
@@ -397,34 +389,30 @@ export default function Nav({ scrollToSection, setSelectedService }) {
               <button
                 className={`block w-full text-left px-6 py-4 text-gray-200 hover:text-yellow-400 border-b border-gray-800 flex justify-between ${isServicesActive() ? "text-yellow-400 bg-yellow-400/10" : ""
                   }`}
-                onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
               >
                 Services
-                <svg className={`w-5 h-5 transition-transform ${servicesDropdownOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className={`w-5 h-5 transition-transform ${"rotate-180"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
 
               <AnimatePresence>
-                {servicesDropdownOpen && (
-                  <motion.div
-                    initial={{ height: 0 }}
-                    animate={{ height: "auto" }}
-                    exit={{ height: 0 }}
-                    className="bg-gray-900/50 overflow-hidden"
-                  >
-                    {allServicesItems.map((item) => (
-                      <button
-                        key={item.id}
-                        className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 border-b border-gray-800/50 ${activeSection === item.id ? "text-yellow-400 bg-yellow-400/10" : ""
-                          }`}
-                        onClick={() => scrollToSectionWithService("services", item.serviceIndex)}
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: "auto" }}
+                  exit={{ height: 0 }}
+                  className="bg-gray-900/50 overflow-hidden"
+                >
+                  {allServicesItems.map((item) => (
+                    <button
+                      key={item.id}
+                      className={`block w-full text-left px-8 py-3 text-gray-300 hover:text-yellow-400 border-b border-gray-800/50 ${activeSection === item.id ? "text-yellow-400 bg-yellow-400/10" : ""
+                        }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </motion.div>
               </AnimatePresence>
 
               <Link to="/careers">
