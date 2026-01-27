@@ -74,45 +74,6 @@ export default function Nav({ scrollToSection }) {
 
   const allServicesItems = navSections.find((item) => item.id === "services")?.dropdownItems || [];
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setScrolled(window.scrollY > 20);
-  //     let currentSection = "hero";
-  //
-  //     const sectionIds = navSections.flatMap(s =>
-  //       s.hasDropdown ? [s.id, ...s.dropdownItems.map(d => d.id)] : [s.id]
-  //     );
-  //
-  //     for (const sectionId of sectionIds) {
-  //       const element = document.getElementById(sectionId);
-  //       if (element) {
-  //         const rect = element.getBoundingClientRect();
-  //         if (rect.top <= 100 && rect.bottom >= 100) {
-  //           currentSection = sectionId;
-  //           break;
-  //         }
-  //       }
-  //     }
-  //     if (window.scrollY < 100) currentSection = "hero";
-  //     setActiveSection(currentSection);
-  //   };
-  //
-  //   handleScroll();
-  //   let ticking = false;
-  //   const throttledHandleScroll = () => {
-  //     if (!ticking) {
-  //       requestAnimationFrame(() => {
-  //         handleScroll();
-  //         ticking = false;
-  //       });
-  //       ticking = true;
-  //     }
-  //   };
-  //
-  //   window.addEventListener("scroll", throttledHandleScroll);
-  //   return () => window.removeEventListener("scroll", throttledHandleScroll);
-  // }, []);
-
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "unset";
     return () => { document.body.style.overflow = "unset"; };
@@ -391,9 +352,6 @@ export default function Nav({ scrollToSection }) {
                   }`}
               >
                 Services
-                <svg className={`w-5 h-5 transition-transform ${"rotate-180"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
               </button>
 
               <AnimatePresence>
