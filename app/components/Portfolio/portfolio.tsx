@@ -13,6 +13,7 @@ import foodLionImg from "~/assets/foodlionphoto.png";
 import foodLionImg1 from "~/assets/foodlionphoto1.png";
 import yugenSushi from "~/assets/Yugen_Sushi.png";
 import yugenSushi2 from "~/assets/YugenSushi2.png";
+import yugenSushi3 from "~/assets/Photo3.jpg";
 
 export default function Portfolio() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -91,8 +92,8 @@ export default function Portfolio() {
       title: "Yugen Sushi",
       description:
         "Coordinated with the local utility company and installed per municipality requirements to ensure efficient install of raceway system.",
-      image: yugenSushi2,
-      tags: ["Accent Lighting", "Modern Commercial Interior", "Commercial Wiring"],
+      image: yugenSushi3,
+      tags: ["Panel Installation", "Facility Upgrade", "Power Distribution"],
     },
   ];
 
