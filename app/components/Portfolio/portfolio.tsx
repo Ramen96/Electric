@@ -11,6 +11,8 @@ import dunkinDonutsImg from "~/assets/DunkinDonuts.png";
 import greaseMonkeyImg from "~/assets/GreaseMonkey.png";
 import foodLionImg from "~/assets/foodlionphoto.png";
 import foodLionImg1 from "~/assets/foodlionphoto1.png";
+import yugenSushi from "~/assets/Yugen_Sushi.png";
+import yugenSushi2 from "~/assets/YugenSushi2.png";
 
 export default function Portfolio() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -70,6 +72,20 @@ export default function Portfolio() {
       image: greaseMonkeyImg,
       tags: ["Utility Prep", "Electrical Trenching", "Ground Work"],
       duration: "3 months",
+    },
+    {
+      title: "Yugen Sushi",
+      description:
+        "Custom Installation of suspended LED ring fixtures including ceiling support and fixture alignment.",
+      image: yugenSushi,
+      tags: ["LED Installation", "Architectural Lighting", "New Construction", "Custom Designed Light Fixture "],
+    },
+    {
+      title: "Yugen Sushi",
+      description:
+        "Architectural ceiling design with integrated LED accent fixtures. Seamless integration was required to ensure balanced illumination.",
+      image: yugenSushi2,
+      tags: ["Accent Lighting", "Modern Commercial Interior", "Commercial Wiring"],
     },
   ];
 
@@ -257,14 +273,19 @@ export default function Portfolio() {
                     </p>
 
                     <div className="grid grid-cols-2 gap-4 mb-8">
-                      <div>
-                        <h4 className="text-yellow-400 font-medium mb-1">
-                          Duration
-                        </h4>
-                        <p className="text-white">
-                          {projects[currentIndex].duration}
-                        </p>
-                      </div>
+                      {
+                        projects[currentIndex].duration ? (
+                          <div>
+                            <h4 className="text-yellow-400 font-medium mb-1">
+                              Duration
+                            </h4>
+                            <p className="text-white">
+                              {projects[currentIndex].duration}
+                            </p>
+                          </div>
+                        ) : null
+                      }
+
                     </div>
 
                     <motion.button
