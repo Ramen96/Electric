@@ -87,6 +87,13 @@ export default function Portfolio() {
       image: yugenSushi2,
       tags: ["Accent Lighting", "Modern Commercial Interior", "Commercial Wiring"],
     },
+    {
+      title: "Yugen Sushi",
+      description:
+        "Coordinated with the local utility company and installed per municipality requirements to ensure efficient install of raceway system.",
+      image: yugenSushi2,
+      tags: ["Accent Lighting", "Modern Commercial Interior", "Commercial Wiring"],
+    },
   ];
 
   // Navigation controls for carousel
